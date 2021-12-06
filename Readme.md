@@ -1,12 +1,21 @@
+# SMARKET
+### System to go to the market and support online essential purchases in the context of the covid epidemic
+1. This project using for Information System Development subject 
+
+
 ## Views using NodeJS
 1. Configuration
-- ExpressJS
-- View engine: PUG
+- Framework: __ExpressJS__
+- View engine: __PUG__
 
 2. Launch
-- Install module: cd Views_NodeJS --> npm install
-- Start server with dev mode: npm run dev
-- Start server: npm start
+- Install module: 
+    `cd Views_NodeJS`
+    `npm install`
+- Start server with dev mode:
+    `npm run dev`
+- Start server: 
+    `npm start`
 
 ## API using .NET CORE FRAMEWORK
 1. Configuration
@@ -26,3 +35,4 @@
 2. Launch
 - Open eclipse set /API_JAVASpringBoot is workspace
 - Do: import project --> Maven --> Existing Maven Projects --> choose browser folder: API_JAVA --> Finish
+- Access this link to know obvious : ![Hướng dẫn import project to eclipse workspace](https://qaautomation.expert/2019/10/07/maven-how-to-import-maven-project-into-eclipse/) (&lt;a&gt;) 
