@@ -1,23 +1,23 @@
 {
-  "name": "views_nodejs",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js",
-    "dev": "nodemon --inspect index.js"
-  },
-  "author": "Smarket",
-  "license": "ISC",
-  "dependencies": {
-    "cookie-parser": "^1.4.6",
-    "dotenv": "^10.0.0",
-    "express": "^4.17.1",
-    "path": "^0.12.7",
-    "pug": "^3.0.2"
-  },
-  "devDependencies": {
-    "nodemon": "^2.0.15"
-  }
+	"name": "smarket",
+	"version": "1.0.0",
+	"description": "This project using for Information System Development subject",
+	"main": "index.js",
+	"repository": "https://github.com/pxbao-itus/Smarket",
+	"author": "18120287-18120606-18120609-18120631-18120634",
+	"scripts": {
+		"start": "node ./index.js",
+		"dev": "nodemon ./index.js"
+	},
+	"dependencies": {
+		"cookie-parser": "^1.4.6",
+		"dotenv": "^10.0.0",
+		"express": "^4.17.1",
+		"express-session": "^1.17.2",
+		"morgan": "^1.10.0",
+		"pug": "^3.0.2"
+	},
+	"devDependencies": {
+		"nodemon": "^2.0.15"
+	}
 }
