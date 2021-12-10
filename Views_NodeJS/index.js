@@ -30,7 +30,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(morgan('tiny'));
 
 /* ============== Routes =============== */
-app.use('/', (req, res) => res.send('Home'));
+app.use('/', (req, res) => res.render('./templates/management.template.pug'));
 
 // 404 Not found redirect
 app.use((req, res) => res.status(404).render('404.pug'));

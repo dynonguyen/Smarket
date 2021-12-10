@@ -1,0 +1,70 @@
+extends ./general.template.pug
+
+block append style
+  link(rel="stylesheet", href="/css/management/mgmt-template.css")
+  block addStyle
+
+block content
+  .layout-wrapper
+    //- navbar
+    .navbar-wrap.center-vertical
+      .logo-side.center-vertical
+        h1.logo #[a(href="/management") Smarket]
+        i.mgmt-icon#toggleSidebar.bi.bi-layout-sidebar-inset-reverse
+
+      .searchbar-wrap.position-relative
+          input#navbarSearch.field.w-100(type="text", placeholder="Tìm kiếm sản phẩm")
+          i#navbarSearchIcon.field-end-icon.bi.bi-search
+
+      .account-side.center-vertical
+        img.rounded-circle(src="https://picsum.photos/50/50")
+        .d-flex.flex-column.mx-4
+          .username Username
+          .role Manager
+        a(href="/") #[i.mgmt-icon.bi.bi-box-arrow-in-right]
+       
+    .d-flex
+      -
+        const menuList = [
+                        {
+                          menuTitle: 'Group 1',
+                          list: [
+                            { title: 'Menu Item 1', to: '/' },
+                            { title: 'Menu Item 1', to: '#' },
+                          ],
+                        },
+                        {
+                          menuTitle: 'Group 2',
+                          list: [
+                            { title: 'Menu Item 1', to: '#' },
+                            { title: 'Menu Item 1', to: '#' },
+                          ],
+                        },
+                        {
+                          menuTitle: 'Group 3',
+                          list: [
+                            { title: 'Menu Item 1', to: '#' },
+                            { title: 'Menu Item 1', to: '#' },
+                            { title: 'Menu Item 1', to: '#' },
+                            { title: 'Menu Item 1', to: '#' },
+                          ],
+                        },
+                      
+                      ];
+
+      //- sidebar
+      .sidebar-wrap#sidebar
+        .menu
+          each menu in menuList
+            h3.menu-title= menu.menuTitle
+            ul.menu-list
+              each menuItem in menu.list
+                li.menu-item(data-path=menuItem.to)
+                  a(href="/management" + menuItem.to)= menuItem.title
+
+      //- main content
+      block addContent
+
+block append script
+  script(src="/js/management/mgmt-template.js")
+  block addScript

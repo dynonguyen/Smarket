@@ -1,12 +1,31 @@
-extends ./templates/general.template.pug
+//- Reference: https://freefrontend.com/html-css-404-page-templates/
+//- Author: Manaswini
 
-block content
-  .page-wrap.d-flex.flex-row.align-items-center
-    .container
-      .row.justify-content-center
-        .col-md-12.text-center
-          span.display-1.d-block 404
-          .mb-4.lead The page you are looking for was not found.
-          a.btn.btn-link(href="/") Back to Home
+link(rel="stylesheet", href="/css/404.css")
 
-block script
+.container
+  h1.first-four 4
+  .cog-wheel1
+    .cog1
+      .top
+      .down
+      .left-top
+      .left-down
+      .right-top
+      .right-down
+      .left
+      .right
+  .cog-wheel2
+    .cog2
+      .top
+      .down
+      .left-top
+      .left-down
+      .right-top
+      .right-down
+      .left
+      .right
+  h1.second-four 4
+
+p.wrong-para Xin lỗi ! Trang không tìm thấy hoặc đang xảy ra xử cố. #[a(href="/") Về Trang chủ]
+
