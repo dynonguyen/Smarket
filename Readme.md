@@ -17,7 +17,7 @@
 - Start server: 
     `npm start`
 
-## API using .NET CORE FRAMEWORK
+## API using .NET Core Framwork
 1. Configuration
 - .NET Core Framework 2.1
 - Entity Framework Core 2.1.14 (Nuget Microsoft.EntiryFrameworkCore)
@@ -35,4 +35,4 @@
 2. Launch
 - Open eclipse set /API_JAVASpringBoot is workspace
 - Do: import project --> Maven --> Existing Maven Projects --> choose browser folder: API_JAVA --> Finish
-- Access this link to know obvious : ![Hướng dẫn import project to eclipse workspace](https://qaautomation.expert/2019/10/07/maven-how-to-import-maven-project-into-eclipse/) (&lt;a&gt;) 
+- Access this link to know obvious : [Hướng dẫn import project to eclipse workspace](https://qaautomation.expert/2019/10/07/maven-how-to-import-maven-project-into-eclipse/)
