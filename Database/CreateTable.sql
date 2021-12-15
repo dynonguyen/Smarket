@@ -1,26 +1,20 @@
 -- Script using for create database, primary key, foreign key, constraint, ...
 USE Smarket
-GO;
-
-DROP TABLE AdminAccount;
 GO
+
 DROP TABLE DatabaseAudit;
+GO
+DROP TABLE AdminAccount;
 GO
 DROP TABLE Refund;
 GO
 DROP TABLE StoreFeedback;
-GO
-DROP TABLE Ward;
 GO
 DROP TABLE OrderDetailFeedback;
 GO
 DROP TABLE Payment;
 GO
 DROP TABLE OrderDetail;
-GO
-DROP TABLE CartDetail;
-GO
-DROP TABLE Cart;
 GO
 DROP TABLE Product;
 GO
@@ -36,18 +30,19 @@ DROP TABLE Store;
 GO
 DROP TABLE AppUser;
 GO
+DROP TABLE Ward;
+GO
 DROP TABLE Account;
 GO
 DROP TABLE District;
 GO
 DROP TABLE Province;
 GO
-
 -- Table Account
 
 
 CREATE TABLE Account(
-	AccountId int,
+	AccountId int not null IDENTITY(1,1),
 	AccountType int,
 	Username varchar(20),
 	Password varchar(50),
@@ -64,9 +59,12 @@ go
 
 CREATE TABLE AppUser(
 	AccountId int,
-	UserId int,
+	UserId int not null IDENTITY(1,1),
 	Name varchar(20),
 	PeopleId varchar(12),
+	Phone varchar(11),
+	Address varchar(50),
+	Ward int,
 	
 	PRIMARY KEY(UserId)
 
@@ -75,10 +73,10 @@ GO
 ---TABLE Shipper
 
 CREATE TABLE Shipper(
-	ShipperId int,
+	ShipperId int not null,
 	Status int,
 	Area int,
-	Shipperlicense varchar(50),
+	ShipperLicense varchar(50),
 	ShipperRating float,
 	
 	PRIMARY KEY(ShipperId)
@@ -91,7 +89,7 @@ GO
 
 
 CREATE TABLE Store(
-	StoreId int,
+	StoreId int not null,
 	StoreType int,
 	Status int,
 	Area int,
@@ -107,7 +105,7 @@ GO
 
 
 CREATE TABLE Customer(
-	CustomerId int,
+	CustomerId int not null,
 	CustomerLevel int,
 	
 	PRIMARY KEY(CustomerId)
@@ -119,7 +117,7 @@ Go
 
 
 CREATE TABLE StoreFeedback(
-	FeedbackId int,
+	FeedbackId int not null IDENTITY(1,1),
 	StoreId int,
 	Content varchar(50),
 	FeedbackTime datetime,
@@ -134,9 +132,10 @@ GO
 
 
 CREATE TABLE ProductType(
-	ProductTypeId int,
+	ProductTypeId int not null IDENTITY(1,1),
 	ProductTypeName varchar(30),
 	ProductTypeDes varchar(50),
+	
 	
 	
 	PRIMARY KEY(ProductTypeId)
@@ -148,7 +147,7 @@ GO
 
 
 CREATE TABLE Product(
-	ProductId int,
+	ProductId int not null IDENTITY(1,1),
 	StoreId int,
 	ProductName varchar(30),
 	ProductTypeId int,
@@ -156,6 +155,7 @@ CREATE TABLE Product(
 	ProductRating float,
 	UnitPrice float,
 	Unit float,
+	QuantitativeUnit varchar(10),
 	Source varchar(50),
 	Certificate varchar(20),
 	
@@ -164,41 +164,16 @@ CREATE TABLE Product(
 );
 GO
 
---TABLE CarDetail
-
-
-
-CREATE TABLE CartDetail(
-	CartId int,
-	ProductId int,
-	AddTime datetime,
-	
-	PRIMARY KEY(CartId,ProductId)
-
-);
-GO
-
--- TABLE Cart
-
-
-CREATE TABLE Cart(
-	CartId int,
-	CustomerId int,
-	
-	PRIMARY KEY(CartId)
-);
-GO
-
 -- TABLE OrderDetail
 
 
 CREATE TABLE OrderDetail(
-	OrderDetailId int,
+	OrderDetailId int not null IDENTITY(1,1),
 	OrderId int,
 	ProductId int,
 	UnitPrice float,
 	Quantity float,
-	OrderDes varchar(50),
+	OrderDetailDes varchar(50),
 	
 	PRIMARY KEY(OrderDetailId)
 
@@ -232,7 +207,7 @@ CREATE TABLE Payment(
 	TotalMoney int,
 	PaymentTime datetime,
 	
-	PRIMARY KEY(BankAccountNumber)
+	PRIMARY KEY(OrderId)
 
 );
 GO
@@ -240,7 +215,7 @@ GO
 --TABLE Order
 
 CREATE TABLE CusOrder(
-	OrderId int,
+	OrderId int not null IDENTITY(1,1),
 	CustomerId int,
 	ShipperId int,
 	StoreId int,
@@ -277,7 +252,7 @@ GO
 
 
 CREATE TABLE AdminAccount(
-	AccountId int,
+	AccountId int not null IDENTITY(1,1),
 	Username varchar(30),
 	Password varchar(20),
 	Name varchar(20),
@@ -294,7 +269,7 @@ GO
 
 
 CREATE TABLE DatabaseAudit(
-	AuditId int,
+	AuditId int not null IDENTITY(1,1),
 	AdminId int,
 	CreateTime datetime,
 	Action varchar(10),
@@ -312,7 +287,7 @@ GO
 
 
 CREATE TABLE Province(
-	ProvinceId int,
+	ProvinceId int not null IDENTITY(1,1),
 	ProvinceName varchar(20),
 	
 	PRIMARY KEY(ProvinceId)
@@ -324,7 +299,7 @@ GO
 
 
 CREATE TABLE District(
-	DistrictId int,
+	DistrictId int not null IDENTITY(1,1),
 	DistrictName varchar(20),
 	Province int,
 	
@@ -337,7 +312,7 @@ GO
 
 
 CREATE TABLE Ward(
-	WardId int,
+	WardId int not null IDENTITY(1,1),
 	WardName varchar(20),
 	District int,
 	
