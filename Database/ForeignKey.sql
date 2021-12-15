@@ -41,19 +41,6 @@ REFERENCES District(DistrictId);
 GO
 
 --------------------------
---- Shipper ----> District
---------------------------
-ALTER TABLE Shipper
-DROP CONSTRAINT FK_Shipper_District;
-GO
-
-ALTER TABLE Shipper
-ADD CONSTRAINT FK_Shipper_District
-FOREIGN KEY (Area)
-REFERENCES District(DistrictId);
-GO
-
---------------------------
 --- AppUser ----> Account
 --------------------------
 ALTER TABLE AppUser
@@ -64,6 +51,19 @@ ALTER TABLE AppUser
 ADD CONSTRAINT FK_AppUser_Account
 FOREIGN KEY (AccountId)
 REFERENCES Account(AccountId);
+GO
+
+--------------------------
+--- AppUser ----> Ward
+--------------------------
+ALTER TABLE AppUser
+DROP CONSTRAINT FK_AppUser_Ward;
+GO
+
+ALTER TABLE AppUser
+ADD CONSTRAINT FK_AppUser_Ward
+FOREIGN KEY (Ward)
+REFERENCES Ward(WardId);
 GO
 
 --------------------------
@@ -130,46 +130,6 @@ ADD CONSTRAINT FK_StoreFeedback_Store
 FOREIGN KEY (StoreId)
 REFERENCES Store(StoreId);
 GO
-
---------------------------
---- Cart ----> Customer
---------------------------
-ALTER TABLE Cart
-DROP CONSTRAINT FK_Cart_Customer;
-GO
-
-ALTER TABLE Cart
-ADD CONSTRAINT FK_Cart_Customer
-FOREIGN KEY (CustomerId)
-REFERENCES Customer(CustomerId);
-GO
-
---------------------------
---- CartDetail ----> Cart
---------------------------
-ALTER TABLE CartDetail
-DROP CONSTRAINT FK_CartDetail_Cart;
-GO
-
-ALTER TABLE CartDetail
-ADD CONSTRAINT FK_CartDetail_Cart
-FOREIGN KEY (CartId)
-REFERENCES Cart(CartId);
-GO
-
---------------------------
---- CartDetail ----> Product
---------------------------
-ALTER TABLE CartDetail
-DROP CONSTRAINT FK_CartDetail_Product;
-GO
-	
-ALTER TABLE CartDetail
-ADD CONSTRAINT FK_CartDetail_Product
-FOREIGN KEY (ProductId)
-REFERENCES Product(ProductId);
-GO
-
 
 --------------------------
 --- Product ----> ProductType
