@@ -7,7 +7,6 @@ namespace API_.NET.Models
     {
         public Product()
         {
-            CartDetail = new HashSet<CartDetail>();
             OrderDetail = new HashSet<OrderDetail>();
         }
 
@@ -19,11 +18,11 @@ namespace API_.NET.Models
         public double? ProductRating { get; set; }
         public double? UnitPrice { get; set; }
         public double? Unit { get; set; }
+        public string QuantitativeUnit { get; set; }
         public string Source { get; set; }
         public string Certificate { get; set; }
 
         public ProductType ProductType { get; set; }
-        public ICollection<CartDetail> CartDetail { get; set; }
         public ICollection<OrderDetail> OrderDetail { get; set; }
     }
 }

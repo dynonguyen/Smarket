@@ -13,7 +13,7 @@ namespace API_.NET.Models
         public int ShipperId { get; set; }
         public int? Status { get; set; }
         public int? Area { get; set; }
-        public string Shipperlicense { get; set; }
+        public string ShipperLicense { get; set; }
         public double? ShipperRating { get; set; }
 
         public District AreaNavigation { get; set; }

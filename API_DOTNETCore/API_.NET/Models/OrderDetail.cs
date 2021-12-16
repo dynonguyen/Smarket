@@ -10,7 +10,7 @@ namespace API_.NET.Models
         public int? ProductId { get; set; }
         public double? UnitPrice { get; set; }
         public double? Quantity { get; set; }
-        public string OrderDes { get; set; }
+        public string OrderDetailDes { get; set; }
 
         public CusOrder Order { get; set; }
         public Product Product { get; set; }

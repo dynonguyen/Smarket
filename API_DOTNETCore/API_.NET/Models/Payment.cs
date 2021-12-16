@@ -7,7 +7,7 @@ namespace API_.NET.Models
     {
         public string BankAccountNumber { get; set; }
         public int? CustomerId { get; set; }
-        public int? OrderId { get; set; }
+        public int OrderId { get; set; }
         public int? PaymentMethod { get; set; }
         public int? ShippingMoney { get; set; }
         public int? TotalMoney { get; set; }

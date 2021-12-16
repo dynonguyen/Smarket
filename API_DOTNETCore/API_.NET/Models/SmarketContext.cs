@@ -18,8 +18,6 @@ namespace API_.NET.Models
         public virtual DbSet<Account> Account { get; set; }
         public virtual DbSet<AdminAccount> AdminAccount { get; set; }
         public virtual DbSet<AppUser> AppUser { get; set; }
-        public virtual DbSet<Cart> Cart { get; set; }
-        public virtual DbSet<CartDetail> CartDetail { get; set; }
         public virtual DbSet<CusOrder> CusOrder { get; set; }
         public virtual DbSet<Customer> Customer { get; set; }
         public virtual DbSet<DatabaseAudit> DatabaseAudit { get; set; }
@@ -40,7 +38,7 @@ namespace API_.NET.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
+                //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
                 optionsBuilder.UseSqlServer("Server =.\\sqlexpress;Database=Smarket;Trusted_Connection=True");
             }
         }
@@ -49,8 +47,6 @@ namespace API_.NET.Models
         {
             modelBuilder.Entity<Account>(entity =>
             {
-                entity.Property(e => e.AccountId).ValueGeneratedNever();
-
                 entity.Property(e => e.CreateTime).HasColumnType("datetime");
 
                 entity.Property(e => e.Email)
@@ -69,8 +65,6 @@ namespace API_.NET.Models
             modelBuilder.Entity<AdminAccount>(entity =>
             {
                 entity.HasKey(e => e.AccountId);
-
-                entity.Property(e => e.AccountId).ValueGeneratedNever();
 
                 entity.Property(e => e.Address)
                     .HasMaxLength(50)
@@ -101,7 +95,9 @@ namespace API_.NET.Models
             {
                 entity.HasKey(e => e.UserId);
 
-                entity.Property(e => e.UserId).ValueGeneratedNever();
+                entity.Property(e => e.Address)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
 
                 entity.Property(e => e.Name)
                     .HasMaxLength(20)
@@ -111,46 +107,24 @@ namespace API_.NET.Models
                     .HasMaxLength(12)
                     .IsUnicode(false);
 
+                entity.Property(e => e.Phone)
+                    .HasMaxLength(11)
+                    .IsUnicode(false);
+
                 entity.HasOne(d => d.Account)
                     .WithMany(p => p.AppUser)
                     .HasForeignKey(d => d.AccountId)
                     .HasConstraintName("FK_AppUser_Account");
-            });
 
-            modelBuilder.Entity<Cart>(entity =>
-            {
-                entity.Property(e => e.CartId).ValueGeneratedNever();
-
-                entity.HasOne(d => d.Customer)
-                    .WithMany(p => p.Cart)
-                    .HasForeignKey(d => d.CustomerId)
-                    .HasConstraintName("FK_Cart_Customer");
-            });
-
-            modelBuilder.Entity<CartDetail>(entity =>
-            {
-                entity.HasKey(e => new { e.CartId, e.ProductId });
-
-                entity.Property(e => e.AddTime).HasColumnType("datetime");
-
-                entity.HasOne(d => d.Cart)
-                    .WithMany(p => p.CartDetail)
-                    .HasForeignKey(d => d.CartId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_CartDetail_Cart");
-
-                entity.HasOne(d => d.Product)
-                    .WithMany(p => p.CartDetail)
-                    .HasForeignKey(d => d.ProductId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_CartDetail_Product");
+                entity.HasOne(d => d.WardNavigation)
+                    .WithMany(p => p.AppUser)
+                    .HasForeignKey(d => d.Ward)
+                    .HasConstraintName("FK_AppUser_Ward");
             });
 
             modelBuilder.Entity<CusOrder>(entity =>
             {
                 entity.HasKey(e => e.OrderId);
-
-                entity.Property(e => e.OrderId).ValueGeneratedNever();
 
                 entity.Property(e => e.CreateDate).HasColumnType("datetime");
 
@@ -203,8 +177,6 @@ namespace API_.NET.Models
             {
                 entity.HasKey(e => e.AuditId);
 
-                entity.Property(e => e.AuditId).ValueGeneratedNever();
-
                 entity.Property(e => e.Action)
                     .HasMaxLength(10)
                     .IsUnicode(false);
@@ -227,8 +199,6 @@ namespace API_.NET.Models
 
             modelBuilder.Entity<District>(entity =>
             {
-                entity.Property(e => e.DistrictId).ValueGeneratedNever();
-
                 entity.Property(e => e.DistrictName)
                     .HasMaxLength(20)
                     .IsUnicode(false);
@@ -241,9 +211,7 @@ namespace API_.NET.Models
 
             modelBuilder.Entity<OrderDetail>(entity =>
             {
-                entity.Property(e => e.OrderDetailId).ValueGeneratedNever();
-
-                entity.Property(e => e.OrderDes)
+                entity.Property(e => e.OrderDetailDes)
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
@@ -279,12 +247,13 @@ namespace API_.NET.Models
 
             modelBuilder.Entity<Payment>(entity =>
             {
-                entity.HasKey(e => e.BankAccountNumber);
+                entity.HasKey(e => e.OrderId);
+
+                entity.Property(e => e.OrderId).ValueGeneratedNever();
 
                 entity.Property(e => e.BankAccountNumber)
                     .HasMaxLength(16)
-                    .IsUnicode(false)
-                    .ValueGeneratedNever();
+                    .IsUnicode(false);
 
                 entity.Property(e => e.PaymentTime).HasColumnType("datetime");
 
@@ -294,15 +263,14 @@ namespace API_.NET.Models
                     .HasConstraintName("FK_Payment_Customer");
 
                 entity.HasOne(d => d.Order)
-                    .WithMany(p => p.Payment)
-                    .HasForeignKey(d => d.OrderId)
+                    .WithOne(p => p.Payment)
+                    .HasForeignKey<Payment>(d => d.OrderId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Payment_CusOrder");
             });
 
             modelBuilder.Entity<Product>(entity =>
             {
-                entity.Property(e => e.ProductId).ValueGeneratedNever();
-
                 entity.Property(e => e.Certificate)
                     .HasMaxLength(20)
                     .IsUnicode(false);
@@ -313,6 +281,10 @@ namespace API_.NET.Models
 
                 entity.Property(e => e.ProductName)
                     .HasMaxLength(30)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.QuantitativeUnit)
+                    .HasMaxLength(10)
                     .IsUnicode(false);
 
                 entity.Property(e => e.Source)
@@ -327,8 +299,6 @@ namespace API_.NET.Models
 
             modelBuilder.Entity<ProductType>(entity =>
             {
-                entity.Property(e => e.ProductTypeId).ValueGeneratedNever();
-
                 entity.Property(e => e.ProductTypeDes)
                     .HasMaxLength(50)
                     .IsUnicode(false);
@@ -340,8 +310,6 @@ namespace API_.NET.Models
 
             modelBuilder.Entity<Province>(entity =>
             {
-                entity.Property(e => e.ProvinceId).ValueGeneratedNever();
-
                 entity.Property(e => e.ProvinceName)
                     .HasMaxLength(20)
                     .IsUnicode(false);
@@ -370,7 +338,7 @@ namespace API_.NET.Models
             {
                 entity.Property(e => e.ShipperId).ValueGeneratedNever();
 
-                entity.Property(e => e.Shipperlicense)
+                entity.Property(e => e.ShipperLicense)
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
@@ -409,8 +377,6 @@ namespace API_.NET.Models
             {
                 entity.HasKey(e => e.FeedbackId);
 
-                entity.Property(e => e.FeedbackId).ValueGeneratedNever();
-
                 entity.Property(e => e.Content)
                     .HasMaxLength(50)
                     .IsUnicode(false);
@@ -425,8 +391,6 @@ namespace API_.NET.Models
 
             modelBuilder.Entity<Ward>(entity =>
             {
-                entity.Property(e => e.WardId).ValueGeneratedNever();
-
                 entity.Property(e => e.WardName)
                     .HasMaxLength(20)
                     .IsUnicode(false);

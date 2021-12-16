@@ -8,7 +8,6 @@ namespace API_.NET.Models
         public CusOrder()
         {
             OrderDetail = new HashSet<OrderDetail>();
-            Payment = new HashSet<Payment>();
         }
 
         public int OrderId { get; set; }
@@ -27,8 +26,8 @@ namespace API_.NET.Models
         public Customer Customer { get; set; }
         public Shipper Shipper { get; set; }
         public Store Store { get; set; }
+        public Payment Payment { get; set; }
         public Refund Refund { get; set; }
         public ICollection<OrderDetail> OrderDetail { get; set; }
-        public ICollection<Payment> Payment { get; set; }
     }
 }
