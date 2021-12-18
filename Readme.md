@@ -24,7 +24,12 @@
 - Entity Framwork Core with SQL Server 2.1.14 (Nuget Microsoft.EntityFrameworkCore.SqlServer)
 - Visual Studio 2017
 2. Launch
-
+- Using file .env:
+    `dotnet add package DotNetEnv`
+    ```
+    DotNetEnv.Env.Load();
+    var auth = Environment.GetEnvironmentVariable("AUTH");
+    ```
 
 ## API using Java Spring Boot
 1. Configuration

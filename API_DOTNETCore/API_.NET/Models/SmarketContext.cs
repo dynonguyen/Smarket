@@ -38,8 +38,10 @@ namespace API_.NET.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
+                DotNetEnv.Env.Load();
+                var auth = Environment.GetEnvironmentVariable("AUTH");
                 //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server =.\\sqlexpress;Database=Smarket;Trusted_Connection=True");
+                optionsBuilder.UseSqlServer($"Server =.\\'{auth}';Database=Smarket;Trusted_Connection=True");
             }
         }
 
