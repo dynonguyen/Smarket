@@ -1,4 +1,4 @@
-package api.java.models;
+package api.java.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,30 +14,27 @@ public class ProductType {
 	private int ProductTypeId;
 	private String ProductTypeName;
 	private String ProductTypeDes;
-	private String note;
-
-	public ProductType() {
-
-	}
 
 	public ProductType(String ProductTypeName, String ProductTypeDes, String note) {
 		this.ProductTypeName = ProductTypeName;
 		this.ProductTypeDes = ProductTypeDes;
-		this.note = note;
+	}
+
+	public ProductType() {
 	}
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "id", nullable = false)
-	public int getId() {
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "ProductTypeId", nullable = false)
+	public int getProductTypeId() {
 		return ProductTypeId;
 	}
 
-	public void setId(int ProductTypeId) {
+	public void setProductTypeId(int ProductTypeId) {
 		this.ProductTypeId = ProductTypeId;
 	}
 
-	@Column(name = "product_type_name", nullable = false)
+	@Column(name = "ProductTypeName", nullable = false)
 	public String getProductTypeName() {
 		return ProductTypeName;
 	}
@@ -46,28 +43,13 @@ public class ProductType {
 		this.ProductTypeName = ProductTypeName;
 	}
 
-	@Column(name = "product_type_des", nullable = false)
+	@Column(name = "ProductTypeDes", nullable = false)
 	public String getProductTypeDes() {
 		return ProductTypeDes;
 	}
 
 	public void setProductTypeDes(String ProductTypeDes) {
 		this.ProductTypeDes = ProductTypeDes;
-	}
-
-	@Column(name = "email_address", nullable = false)
-	public String getnote() {
-		return note;
-	}
-
-	public void setnote(String note) {
-		this.note = note;
-	}
-
-	@Override
-	public String toString() {
-		return "ProductType [id=" + ProductTypeId + ", ProductTypeName=" + ProductTypeName + ", ProductTypeDes="
-				+ ProductTypeDes + ", note=" + note + "]";
 	}
 
 }
