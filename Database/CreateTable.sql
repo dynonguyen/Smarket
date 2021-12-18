@@ -67,7 +67,7 @@ CREATE TABLE AppUser(
 	Name varchar(20) not null,
 	PeopleId varchar(12) not null,
 	Phone varchar(11) not null,
-	Address varchar(50) not null,
+	Address varchar(100) not null,
 	Ward int not null,
 	
 	PRIMARY KEY(UserId)
@@ -286,7 +286,7 @@ CREATE TABLE AdminAccount(
 	Username varchar(30) not null,
 	Password varchar(100) not null,
 	Name varchar(20) not null,
-	Address varchar(50) not null,
+	Address varchar(100) not null,
 	PermissionLevel int not null,
 	Phone varchar(11) not null,
 	Email varchar(20) not null,
