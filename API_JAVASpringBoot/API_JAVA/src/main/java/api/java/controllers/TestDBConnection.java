@@ -28,7 +28,7 @@ import api.java.repositories.StoreRepository;
 import api.java.repositories.WardRepository;
 
 @RestController
-@RequestMapping("/api/test")
+@RequestMapping("/api")
 public class TestDBConnection {
 	@Autowired
 	private AccountRepository accountRepository;
@@ -84,7 +84,7 @@ public class TestDBConnection {
 	@Autowired
 	private WardRepository wardRepository;
 
-	@GetMapping("/")
+	@GetMapping("/test")
 	public List<Ward> getDemo() {
 		return wardRepository.findAll();
 	}
