@@ -75,7 +75,7 @@ GO
 
 ALTER TABLE Shipper
 ADD CONSTRAINT FK_Shipper_AppUser
-FOREIGN KEY (ShipperId)
+FOREIGN KEY (UserId)
 REFERENCES AppUser(UserId);
 GO
 
@@ -88,7 +88,7 @@ GO
 
 ALTER TABLE Customer
 ADD CONSTRAINT FK_Customer_AppUser
-FOREIGN KEY (CustomerId)
+FOREIGN KEY (UserId)
 REFERENCES AppUser(UserId);
 GO
 
@@ -101,7 +101,7 @@ GO
 
 ALTER TABLE Store
 ADD CONSTRAINT FK_Store_AppUser
-FOREIGN KEY (StoreId)
+FOREIGN KEY (UserId)
 REFERENCES AppUser(UserId);
 GO
 
@@ -142,6 +142,32 @@ ALTER TABLE Product
 ADD CONSTRAINT FK_Product_ProductType
 FOREIGN KEY (ProductTypeId)
 REFERENCES ProductType(ProductTypeId);
+GO
+
+--------------------------
+--- ProductImage ----> Product
+--------------------------
+ALTER TABLE ProductImage
+DROP CONSTRAINT FK_ProductImage_Product;
+GO
+	
+ALTER TABLE ProductImage
+ADD CONSTRAINT FK_ProductImage_Product
+FOREIGN KEY (ProductId)
+REFERENCES Product(ProductId);
+GO
+
+--------------------------
+--- Cart ----> Product
+--------------------------
+ALTER TABLE Cart
+DROP CONSTRAINT FK_Cart_Product;
+GO
+	
+ALTER TABLE Cart
+ADD CONSTRAINT FK_Cart_Product
+FOREIGN KEY (ProductId)
+REFERENCES Product(ProductId);
 GO
 
 --------------------------
