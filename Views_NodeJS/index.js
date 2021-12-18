@@ -6,8 +6,9 @@ const path = require('path');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
 const morgan = require('morgan');
+const testApi = require('./apis/test.api');
 
-/* ============== Import ruote =============== */
+/* ============== Import route =============== */
 
 /* ============== Config =============== */
 app.use(express.static(path.join(__dirname, 'public')));
@@ -30,7 +31,11 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(morgan('tiny'));
 
 /* ============== Routes =============== */
-app.use('/', (req, res) => res.render('./templates/management.template.pug'));
+
+app.use('/', async (req, res) => {
+	const { data } = await testApi.getTestData();
+	return res.send(data);
+});
 
 // 404 Not found redirect
 app.use((req, res) => res.status(404).render('404.pug'));
