@@ -47,11 +47,11 @@ GO
 
 CREATE TABLE Account(
 	AccountId int not null IDENTITY(1,1),
-	AccountType int,
-	Username varchar(20),
-	Password varchar(100),
-	Email varchar(100),
-	CreateTime datetime,
+	AccountType int not null,
+	Username varchar(20) not null,
+	Password varchar(100) not null,
+	Email varchar(100) not null,
+	CreateTime datetime not null,
 	
 	PRIMARY KEY(AccountId)
 
