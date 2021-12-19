@@ -177,6 +177,8 @@ CREATE TABLE Cart(
 	ProductId int not null,
 	Quantity int not null,
 
+	PRIMARY KEY(CartId)
+
 );
 GO
 
