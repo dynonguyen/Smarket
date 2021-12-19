@@ -5,96 +5,110 @@ import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "Payment")
 public class Payment implements Serializable {
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    private int OrderId;
-    private String BankAccountNumber;
-    private int CustomerId;
-    private int PaymentMethod;
-    private int ShippingMoney;
-    private int TotalMoney;
-    private LocalDateTime PaymentTime;
+	private int PaymentId;
+	private int OrderId;
+	private String BankAccountNumber;
+	private int CustomerId;
+	private int PaymentMethod;
+	private int ShippingMoney;
+	private int TotalMoney;
+	private LocalDateTime PaymentTime;
 
-    public Payment() {
-    }
+	public Payment() {
+	}
 
-    public Payment(String BankAccountNumber, int CustomerId, int PaymentMethod, int ShippingMoney, int TotalMoney,
-            LocalDateTime PaymentTime) {
-        this.BankAccountNumber = BankAccountNumber;
-        this.CustomerId = CustomerId;
-        this.PaymentMethod = PaymentMethod;
-        this.ShippingMoney = ShippingMoney;
-        this.TotalMoney = TotalMoney;
-        this.PaymentTime = PaymentTime;
-    }
+	public Payment(int OrderId, String BankAccountNumber, int CustomerId, int PaymentMethod, int ShippingMoney,
+			int TotalMoney, LocalDateTime PaymentTime) {
+		this.OrderId = OrderId;
+		this.BankAccountNumber = BankAccountNumber;
+		this.CustomerId = CustomerId;
+		this.PaymentMethod = PaymentMethod;
+		this.ShippingMoney = ShippingMoney;
+		this.TotalMoney = TotalMoney;
+		this.PaymentTime = PaymentTime;
+	}
 
-    @Id
-    @Column(name = "OrderId")
-    public int getOrderId() {
-        return this.OrderId;
-    }
+	@Id
+	@Column(name = "PaymentId")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	public int getPaymentId() {
+		return this.PaymentId;
+	}
 
-    public void setOrderId(int OrderId) {
-        this.OrderId = OrderId;
-    }
+	public void setPaymentId(int PaymentId) {
+		this.PaymentId = PaymentId;
+	}
 
-    @Column(name = "BankAccountNumber", length = 16)
-    public String getBankAccountNumber() {
-        return this.BankAccountNumber;
-    }
+	@Column(name = "OrderId")
+	public int getOrderId() {
+		return this.OrderId;
+	}
 
-    public void setBankAccountNumber(String BankAccountNumber) {
-        this.BankAccountNumber = BankAccountNumber;
-    }
+	public void setOrderId(int OrderId) {
+		this.OrderId = OrderId;
+	}
 
-    @Column(name = "CustomerId")
-    public int getCustomerId() {
-        return this.CustomerId;
-    }
+	@Column(name = "BankAccountNumber", length = 16)
+	public String getBankAccountNumber() {
+		return this.BankAccountNumber;
+	}
 
-    public void setCustomerId(int CustomerId) {
-        this.CustomerId = CustomerId;
-    }
+	public void setBankAccountNumber(String BankAccountNumber) {
+		this.BankAccountNumber = BankAccountNumber;
+	}
 
-    @Column(name = "PaymentMethod")
-    public int getPaymentMethod() {
-        return this.PaymentMethod;
-    }
+	@Column(name = "CustomerId")
+	public int getCustomerId() {
+		return this.CustomerId;
+	}
 
-    public void setPaymentMethod(int PaymentMethod) {
-        this.PaymentMethod = PaymentMethod;
-    }
+	public void setCustomerId(int CustomerId) {
+		this.CustomerId = CustomerId;
+	}
 
-    @Column(name = "ShippingMoney")
-    public int getShippingMoney() {
-        return this.ShippingMoney;
-    }
+	@Column(name = "PaymentMethod")
+	public int getPaymentMethod() {
+		return this.PaymentMethod;
+	}
 
-    public void setShippingMoney(int ShippingMoney) {
-        this.ShippingMoney = ShippingMoney;
-    }
+	public void setPaymentMethod(int PaymentMethod) {
+		this.PaymentMethod = PaymentMethod;
+	}
 
-    @Column(name = "TotalMoney")
-    public int getTotalMoney() {
-        return this.TotalMoney;
-    }
+	@Column(name = "ShippingMoney")
+	public int getShippingMoney() {
+		return this.ShippingMoney;
+	}
 
-    public void setTotalMoney(int TotalMoney) {
-        this.TotalMoney = TotalMoney;
-    }
+	public void setShippingMoney(int ShippingMoney) {
+		this.ShippingMoney = ShippingMoney;
+	}
 
-    @Column(name = "PaymentTime")
-    public LocalDateTime getPaymentTime() {
-        return this.PaymentTime;
-    }
+	@Column(name = "TotalMoney")
+	public int getTotalMoney() {
+		return this.TotalMoney;
+	}
 
-    public void setPaymentTime(LocalDateTime PaymentTime) {
-        this.PaymentTime = PaymentTime;
-    }
+	public void setTotalMoney(int TotalMoney) {
+		this.TotalMoney = TotalMoney;
+	}
+
+	@Column(name = "PaymentTime")
+	public LocalDateTime getPaymentTime() {
+		return this.PaymentTime;
+	}
+
+	public void setPaymentTime(LocalDateTime PaymentTime) {
+		this.PaymentTime = PaymentTime;
+	}
 }

@@ -15,7 +15,7 @@ public class ProductType {
 	private String ProductTypeName;
 	private String ProductTypeDes;
 
-	public ProductType(String ProductTypeName, String ProductTypeDes, String note) {
+	public ProductType(String ProductTypeName, String ProductTypeDes) {
 		this.ProductTypeName = ProductTypeName;
 		this.ProductTypeDes = ProductTypeDes;
 	}
@@ -25,7 +25,7 @@ public class ProductType {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "ProductTypeId", nullable = false)
+	@Column(name = "ProductTypeId")
 	public int getProductTypeId() {
 		return ProductTypeId;
 	}
@@ -34,7 +34,7 @@ public class ProductType {
 		this.ProductTypeId = ProductTypeId;
 	}
 
-	@Column(name = "ProductTypeName", nullable = false)
+	@Column(name = "ProductTypeName", length = 30)
 	public String getProductTypeName() {
 		return ProductTypeName;
 	}
@@ -43,7 +43,7 @@ public class ProductType {
 		this.ProductTypeName = ProductTypeName;
 	}
 
-	@Column(name = "ProductTypeDes", nullable = false)
+	@Column(name = "ProductTypeDes", length = 50)
 	public String getProductTypeDes() {
 		return ProductTypeDes;
 	}

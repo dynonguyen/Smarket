@@ -12,28 +12,35 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "Province")
 public class Province implements Serializable {
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    private int ProvinceId;
-    private String ProvinceName;
+	private int ProvinceId;
+	private String ProvinceName;
 
-    @Id
-    @Column(name = "ProvinceId")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public int getProvinceId() {
-        return this.ProvinceId;
-    }
+	public Province() {
+	}
 
-    public void setProvinceId(int ProvinceId) {
-        this.ProvinceId = ProvinceId;
-    }
+	public Province(String ProvinceName) {
+		this.ProvinceName = ProvinceName;
+	}
 
-    @Column(name = "ProvinceName", length = 20)
-    public String getProvinceName() {
-        return this.ProvinceName;
-    }
+	@Id
+	@Column(name = "ProvinceId")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	public int getProvinceId() {
+		return this.ProvinceId;
+	}
 
-    public void setProvinceName(String ProvinceName) {
-        this.ProvinceName = ProvinceName;
-    }
+	public void setProvinceId(int ProvinceId) {
+		this.ProvinceId = ProvinceId;
+	}
+
+	@Column(name = "ProvinceName", length = 20)
+	public String getProvinceName() {
+		return this.ProvinceName;
+	}
+
+	public void setProvinceName(String ProvinceName) {
+		this.ProvinceName = ProvinceName;
+	}
 }

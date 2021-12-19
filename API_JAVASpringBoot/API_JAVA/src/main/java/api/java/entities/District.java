@@ -12,47 +12,58 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "District")
 public class District implements Serializable {
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    private int DistrictId;
-    private String DistrictName;
-    private int Province;
+	private int DistrictId;
+	private String DistrictName;
+	private String Prefix;
+	private int Province;
 
-    public District() {
-    }
+	public District() {
+	}
 
-    public District(String DistrictName, int Province) {
-        this.DistrictName = DistrictName;
-        this.Province = Province;
-    }
+	public District(String DistrictName, String Prefix, int Province) {
+		this.DistrictName = DistrictName;
+		this.Prefix = Prefix;
+		this.Province = Province;
+	}
 
-    @Id
-    @Column(name = "DistrictId")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public int getDistrictId() {
-        return this.DistrictId;
-    }
+	@Id
+	@Column(name = "DistrictId")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	public int getDistrictId() {
+		return this.DistrictId;
+	}
 
-    public void setDistrictId(int DistrictId) {
-        this.DistrictId = DistrictId;
-    }
+	public void setDistrictId(int DistrictId) {
+		this.DistrictId = DistrictId;
+	}
 
-    @Column(name = "DistrictName", length = 20)
-    public String getDistrictName() {
-        return this.DistrictName;
-    }
+	@Column(name = "DistrictName", length = 30)
+	public String getDistrictName() {
+		return this.DistrictName;
+	}
 
-    public void setDistrictName(String DistrictName) {
-        this.DistrictName = DistrictName;
-    }
+	public void setDistrictName(String DistrictName) {
+		this.DistrictName = DistrictName;
+	}
 
-    @Column(name = "Province")
-    public int getProvince() {
-        return this.Province;
-    }
+	@Column(name = "Prefix", length = 10)
+	public String getPrefix() {
+		return this.Prefix;
+	}
 
-    public void setProvince(int Province) {
-        this.Province = Province;
-    }
+	public void setPrefix(String Prefix) {
+		this.Prefix = Prefix;
+	}
+
+	@Column(name = "Province")
+	public int getProvince() {
+		return this.Province;
+	}
+
+	public void setProvince(int Province) {
+		this.Province = Province;
+	}
 
 }

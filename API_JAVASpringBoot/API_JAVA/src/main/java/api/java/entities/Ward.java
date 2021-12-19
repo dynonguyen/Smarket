@@ -12,46 +12,57 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "Ward")
 public class Ward implements Serializable {
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    private int WardId;
-    private String WardName;
-    private int District;
+	private int WardId;
+	private String WardName;
+	private String Prefix;
+	private int District;
 
-    public Ward() {
-    }
+	public Ward() {
+	}
 
-    public Ward(String WardName, int District) {
-        this.WardName = WardName;
-        this.District = District;
-    }
+	public Ward(String WardName, String Prefix, int District) {
+		this.WardName = WardName;
+		this.Prefix = Prefix;
+		this.District = District;
+	}
 
-    @Id
-    @Column(name = "WardId")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public int getWardId() {
-        return this.WardId;
-    }
+	@Id
+	@Column(name = "WardId")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	public int getWardId() {
+		return this.WardId;
+	}
 
-    public void setWardId(int WardId) {
-        this.WardId = WardId;
-    }
+	public void setWardId(int WardId) {
+		this.WardId = WardId;
+	}
 
-    @Column(name = "WardName", length = 20)
-    public String getWardName() {
-        return this.WardName;
-    }
+	@Column(name = "WardName", length = 20)
+	public String getWardName() {
+		return this.WardName;
+	}
 
-    public void setWardName(String WardName) {
-        this.WardName = WardName;
-    }
+	public void setWardName(String WardName) {
+		this.WardName = WardName;
+	}
 
-    @Column(name = "District")
-    public int getDistrict() {
-        return this.District;
-    }
+	@Column(name = "Prefix", length = 10)
+	public String getPrefix() {
+		return this.Prefix;
+	}
 
-    public void setDistrict(int District) {
-        this.District = District;
-    }
+	public void setPrefix(String Prefix) {
+		this.Prefix = Prefix;
+	}
+
+	@Column(name = "District")
+	public int getDistrict() {
+		return this.District;
+	}
+
+	public void setDistrict(int District) {
+		this.District = District;
+	}
 }

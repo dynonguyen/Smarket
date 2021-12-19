@@ -13,92 +13,92 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "DatabaseAudit")
 public class DatabaseAudit implements Serializable {
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    private int AuditId;
-    private int AdminId;
-    private LocalDateTime CreateTime;
-    private String Action;
-    private int DangerousLevel;
-    private String Object;
-    private String Detail;
+	private int AuditId;
+	private int AdminId;
+	private LocalDateTime CreateTime;
+	private String Action;
+	private int DangerousLevel;
+	private String Object;
+	private String Detail;
 
-    public DatabaseAudit() {
-    }
+	public DatabaseAudit() {
+	}
 
-    public DatabaseAudit(int AdminId, LocalDateTime CreateTime, String Action, int DangerousLevel, String Object,
-            String Detail) {
-        this.AdminId = AdminId;
-        this.CreateTime = CreateTime;
-        this.Action = Action;
-        this.DangerousLevel = DangerousLevel;
-        this.Object = Object;
-        this.Detail = Detail;
-    }
+	public DatabaseAudit(int AdminId, LocalDateTime CreateTime, String Action, int DangerousLevel, String Object,
+			String Detail) {
+		this.AdminId = AdminId;
+		this.CreateTime = CreateTime;
+		this.Action = Action;
+		this.DangerousLevel = DangerousLevel;
+		this.Object = Object;
+		this.Detail = Detail;
+	}
 
-    @Id
-    @Column(name = "AuditId")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public int getAuditId() {
-        return this.AuditId;
-    }
+	@Id
+	@Column(name = "AuditId")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	public int getAuditId() {
+		return this.AuditId;
+	}
 
-    public void setAuditId(int AuditId) {
-        this.AuditId = AuditId;
-    }
+	public void setAuditId(int AuditId) {
+		this.AuditId = AuditId;
+	}
 
-    @Column(name = "AdminId")
-    public int getAdminId() {
-        return this.AdminId;
-    }
+	@Column(name = "AdminId")
+	public int getAdminId() {
+		return this.AdminId;
+	}
 
-    public void setAdminId(int AdminId) {
-        this.AdminId = AdminId;
-    }
+	public void setAdminId(int AdminId) {
+		this.AdminId = AdminId;
+	}
 
-    @Column(name = "CreateTime")
-    public LocalDateTime getCreateTime() {
-        return this.CreateTime;
-    }
+	@Column(name = "CreateTime")
+	public LocalDateTime getCreateTime() {
+		return this.CreateTime;
+	}
 
-    public void setCreateTime(LocalDateTime CreateTime) {
-        this.CreateTime = CreateTime;
-    }
+	public void setCreateTime(LocalDateTime CreateTime) {
+		this.CreateTime = CreateTime;
+	}
 
-    @Column(name = "Action", length = 10)
-    public String getAction() {
-        return this.Action;
-    }
+	@Column(name = "Action", length = 50)
+	public String getAction() {
+		return this.Action;
+	}
 
-    public void setAction(String Action) {
-        this.Action = Action;
-    }
+	public void setAction(String Action) {
+		this.Action = Action;
+	}
 
-    @Column(name = "DangerousLevel")
-    public int getDangerousLevel() {
-        return this.DangerousLevel;
-    }
+	@Column(name = "DangerousLevel")
+	public int getDangerousLevel() {
+		return this.DangerousLevel;
+	}
 
-    public void setDangerousLevel(int DangerousLevel) {
-        this.DangerousLevel = DangerousLevel;
-    }
+	public void setDangerousLevel(int DangerousLevel) {
+		this.DangerousLevel = DangerousLevel;
+	}
 
-    @Column(name = "Object", length = 20)
-    public String getObject() {
-        return this.Object;
-    }
+	@Column(name = "Object", length = 20)
+	public String getObject() {
+		return this.Object;
+	}
 
-    public void setObject(String Object) {
-        this.Object = Object;
-    }
+	public void setObject(String Object) {
+		this.Object = Object;
+	}
 
-    @Column(name = "Detail", length = 30)
-    public String getDetail() {
-        return this.Detail;
-    }
+	@Column(name = "Detail", length = 30)
+	public String getDetail() {
+		return this.Detail;
+	}
 
-    public void setDetail(String Detail) {
-        this.Detail = Detail;
-    }
+	public void setDetail(String Detail) {
+		this.Detail = Detail;
+	}
 
 }

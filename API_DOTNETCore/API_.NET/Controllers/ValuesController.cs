@@ -13,11 +13,11 @@ namespace API_.NET.Controllers
     {
         //GET api/values
        [HttpGet]
-        public List<Province> Get()
+        public List<Ward> Get()
         {
             using (var context = new SmarketContext())
             {
-                return context.Province.ToList();
+                return context.Ward.ToList();
             }
         }
 
