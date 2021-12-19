@@ -12,9 +12,10 @@ namespace API_.NET.Models
         }
 
         public int CustomerId { get; set; }
-        public int? CustomerLevel { get; set; }
+        public int CustomerLevel { get; set; }
+        public int UserId { get; set; }
 
-        public AppUser CustomerNavigation { get; set; }
+        public AppUser User { get; set; }
         public ICollection<CusOrder> CusOrder { get; set; }
         public ICollection<Payment> Payment { get; set; }
     }

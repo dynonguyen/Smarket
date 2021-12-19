@@ -12,6 +12,7 @@ namespace API_.NET.Models
 
         public int ProvinceId { get; set; }
         public string ProvinceName { get; set; }
+        public string Prefix { get; set; }
 
         public ICollection<District> District { get; set; }
     }

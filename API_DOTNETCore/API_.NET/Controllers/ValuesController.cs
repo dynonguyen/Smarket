@@ -11,15 +11,16 @@ namespace API_.NET.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
-        // GET api/values
-        [HttpGet]
+        //GET api/values
+       [HttpGet]
         public List<Province> Get()
         {
-            using(var context = new SmarketContext()) {
+            using (var context = new SmarketContext())
+            {
                 return context.Province.ToList();
-        }
             }
-            
+        }
+
 
         // GET api/values/5
         [HttpGet("{id}")]

@@ -12,13 +12,14 @@ namespace API_.NET.Models
         }
 
         public int StoreId { get; set; }
-        public int? StoreType { get; set; }
-        public int? Status { get; set; }
-        public int? Area { get; set; }
+        public int StoreType { get; set; }
+        public int Status { get; set; }
+        public int Area { get; set; }
         public string Categories { get; set; }
         public string Certificate { get; set; }
+        public int UserId { get; set; }
 
-        public AppUser StoreNavigation { get; set; }
+        public AppUser User { get; set; }
         public ICollection<CusOrder> CusOrder { get; set; }
         public ICollection<StoreFeedback> StoreFeedback { get; set; }
     }
