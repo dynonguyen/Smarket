@@ -22,13 +22,16 @@
 - .NET Core Framework 2.1
 - Entity Framework Core 2.1.14 (Nuget Microsoft.EntiryFrameworkCore)
 - Entity Framwork Core with SQL Server 2.1.14 (Nuget Microsoft.EntityFrameworkCore.SqlServer)
+- Entity Framework Core Tool 2.1.14 (Nuget Microsoft.EntityFrameworkCore.Tools)
+- DotNetEnv Package
 - Visual Studio 2017
 2. Launch
 - Using file .env:
     `dotnet add package DotNetEnv`
     ```
     DotNetEnv.Env.Load();
-    var auth = Environment.GetEnvironmentVariable("AUTH");
+    var username = Environment.GetEnvironmentVariable("USERNAME");
+    var password = Environment.GetEnvironmentVariable("PASSWORD");
     ```
 
 ## API using Java Spring Boot
@@ -40,4 +43,14 @@
 2. Launch
 - Open eclipse set /API_JAVASpringBoot is workspace
 - Do: import project --> Maven --> Existing Maven Projects --> choose browser folder: API_JAVA --> Finish
-- Access this link to know obvious : [Hướng dẫn import project to eclipse workspace](https://qaautomation.expert/2019/10/07/maven-how-to-import-maven-project-into-eclipse/)
+- Access this link to know obvious : [ A way to import project to eclipse workspace](https://qaautomation.expert/2019/10/07/maven-how-to-import-maven-project-into-eclipse/)
+
+## Database
+1. Configuration
+- Using Microsoft SQL Server Developer
+- Using SQL Server Authentication for connection between backend and database
+
+2. Launch
+- Create database Smarket
+- Excute file CreateTable.sql & ForeignKey.sql
+- Editing file .env in folder DOTNET is suitable for each one include username, password
