@@ -42,8 +42,8 @@ DROP TABLE District;
 GO
 DROP TABLE Province;
 GO
--- Table Account
 
+-- Table Account
 
 CREATE TABLE Account(
 	AccountId int not null IDENTITY(1,1),
@@ -51,29 +51,27 @@ CREATE TABLE Account(
 	Username varchar(20) not null,
 	Password varchar(100) not null,
 	Email varchar(100) not null,
-	CreateTime datetime not null,
+	CreateTime datetime not null DEFAULT GETDATE(),
 	
 	PRIMARY KEY(AccountId)
-
 );
-go
+GO
 
 -- Table User
-
 
 CREATE TABLE AppUser(
 	UserId int not null IDENTITY(1,1),
 	AccountId int not null,
-	Name varchar(20) not null,
+	Name nvarchar(30) not null,
 	PeopleId varchar(12) not null,
 	Phone varchar(11) not null,
-	Address varchar(100) not null,
+	Address nvarchar(100) not null,
 	Ward int not null,
 	
 	PRIMARY KEY(UserId)
-
 );
 GO
+
 ---TABLE Shipper
 
 CREATE TABLE Shipper(
@@ -85,92 +83,78 @@ CREATE TABLE Shipper(
 	UserId int not null, 
 	
 	PRIMARY KEY(ShipperId)
-
 );
 GO
 
-
 ---TABLE Store
-
 
 CREATE TABLE Store(
 	StoreId int not null IDENTITY(1,1),
 	StoreType int not null,
 	Status int not null,
 	Area int not null,
-	Categories varchar(20) not null,
-	Certificate varchar(50) not null,
+	Categories nvarchar(50) not null,
+	Certificate varchar(255) not null,
 	UserId int not null,
 
 	PRIMARY KEY(StoreId)
-
 );
 GO
 
 ---TABLE Customer
-
 
 CREATE TABLE Customer(
 	CustomerId int not null IDENTITY(1,1),
 	CustomerLevel int not null,
 	UserId int not null,
 	PRIMARY KEY(CustomerId)
-
 );
 Go
 
 -- TABLE StoreFeedback
 
-
 CREATE TABLE StoreFeedback(
 	FeedbackId int not null IDENTITY(1,1),
 	StoreId int not null,
-	Content varchar(50) not null,
+	Content nvarchar(255) not null,
 	FeedbackTime datetime not null,
 	
 	PRIMARY KEY (FeedbackId)
-
-
 );
 GO
 
 -- TABLE ProductType
 
-
 CREATE TABLE ProductType(
 	ProductTypeId int not null IDENTITY(1,1),
-	ProductTypeName varchar(30) not null,
-	ProductTypeDes varchar(50) not null,
-	
-	
-	
+	ProductTypeName nvarchar(30) not null,
+	ProductTypeDes nvarchar(50) not null,
+
 	PRIMARY KEY(ProductTypeId)
 );
 GO
 
 --TABLE Product
 
-
-
 CREATE TABLE Product(
 	ProductId int not null IDENTITY(1,1),
 	StoreId int not null,
-	ProductName varchar(30) not null,
+	ProductName nvarchar(30) not null,
 	ProductTypeId int not null,
-	ProductDes varchar(50) not null,
+	ProductDes nvarchar(50) not null,
 	ProductRating float not null,
 	UnitPrice int not null,
 	Unit int not null,
-	QuantitativeUnit varchar(10) not null,
-	Source varchar(50) not null,
+	QuantitativeUnit nvarchar(10) not null,
+	Source nvarchar(50) not null,
 	Certificate varchar(255) not null,
 	
 	PRIMARY KEY(ProductId)
-
 );
 GO
 
 --- TABLE Cart
+
 CREATE TABLE Cart(
 	CartId int not null IDENTITY(1,1),
 	SessionId varchar(50),
@@ -178,23 +162,21 @@ CREATE TABLE Cart(
 	Quantity int not null,
 
 	PRIMARY KEY(CartId)
-
 );
 GO
 
 ---TABLE ProductImage
+
 CREATE TABLE ProductImage(
 	ProductImageId int not null IDENTITY(1,1),
 	ProductId int not null,
-	IsThumnail bit not null,
+	IsThumbnail bit not null,
 	Source varchar(255) not null,
 
 	PRIMARY KEY(ProductImageId)
-
 )
 
 -- TABLE OrderDetail
-
 
 CREATE TABLE OrderDetail(
 	OrderDetailId int not null IDENTITY(1,1),
@@ -202,31 +184,26 @@ CREATE TABLE OrderDetail(
 	ProductId int not null,
 	UnitPrice int not null,
 	Quantity int not null,
-	OrderDetailDes varchar(50) not null,
+	OrderDetailDes nvarchar(50),
 	
 	PRIMARY KEY(OrderDetailId)
-
 );
 GO
 
 --TABLE OrderDetailFeedback
 
-
 CREATE TABLE OrderDetailFeedback(
 	OrderDetailFeedbackId int not null IDENTITY(1,1),
 	DetailId int not null,
-	Content varchar(50) not null,
+	Content nvarchar(50) not null,
 	Rating float not null,
 	FeedbackTime datetime not null,
 	
 	PRIMARY KEY(OrderDetailFeedbackId)
-
 );
 GO
 
-
 --TABLE Payment
-
 
 CREATE TABLE Payment(
 	PaymentId int not null IDENTITY(1,1),
@@ -236,10 +213,9 @@ CREATE TABLE Payment(
 	PaymentMethod int not null,
 	ShippingMoney int not null,
 	TotalMoney int not null,
-	PaymentTime datetime not null,
+	PaymentTime datetime not NULL DEFAULT GETDATE(),
 	
 	PRIMARY KEY(PaymentId)
-
 );
 GO
 
@@ -253,45 +229,39 @@ CREATE TABLE CusOrder(
 	OrderCode varchar(30) not null,
 	OrderStatus int not null,
 	OrderTotal int not null,
-	DeliveryAddress varchar(100) not null,
+	DeliveryAddress nvarchar(100) not null,
 	DeliveryDate datetime not null,
-	ReceiverName varchar(30) not null,
+	ReceiverName nvarchar(30) not null,
 	ReceiverPhone varchar(11) not null,
 	CreateDate datetime not null,
 	
 	PRIMARY KEY(OrderId)
-
 );
 GO
 
 -- TABLE Refund
 
-
-
 CREATE TABLE Refund(
 	RefundId int not null IDENTITY(1,1),
 	OrderId int not null,
 	Reasons varchar(100) not null,
-	RefundTime datetime not null,
+	RefundTime datetime not null DEFAULT GETDATE(),
 	
 	PRIMARY KEY(RefundId)
-
 );
 GO
 
 --TABLE AdminAccount
 
-
-
 CREATE TABLE AdminAccount(
 	AccountId int not null IDENTITY(1,1),
 	Username varchar(30) not null,
 	Password varchar(100) not null,
-	Name varchar(20) not null,
-	Address varchar(100) not null,
+	Name nvarchar(30) not null,
+	Address nvarchar(100) not null,
 	PermissionLevel int not null,
 	Phone varchar(11) not null,
-	Email varchar(20) not null,
+	Email varchar(100) not null,
 	
 	PRIMARY KEY(AccountId)
 );
@@ -299,41 +269,34 @@ GO
 
 -- TABLE DatabaseAudit
 
-
 CREATE TABLE DatabaseAudit(
 	AuditId int not null IDENTITY(1,1),
 	AdminId int not null,
 	CreateTime datetime not null,
-	Action varchar(10) not null,
+	Action varchar(50) not null,
 	DangerousLevel int not null,
 	Object varchar(20) not null,
-	Detail varchar(30) not null,
+	Detail nvarchar(30) not null,
 	
 	PRIMARY KEY(AuditId)
-	
 );
 GO
 
 --TABLE Province
 
-
-
 CREATE TABLE Province(
 	ProvinceId int not null IDENTITY(1,1),
-	ProvinceName varchar(20) not null,
-	Prefix varchar(10) not null,
+	ProvinceName nvarchar(20) not null,
 	PRIMARY KEY(ProvinceId)
 );
 GO
 
 --TABLE District
 
-
-
 CREATE TABLE District(
 	DistrictId int not null IDENTITY(1,1),
-	DistrictName varchar(30) not null,
-	Prefix varchar(10) not null,
+	DistrictName nvarchar(30) not null,
+	Prefix nvarchar(10) not null,
 	Province int not null,
 	
 	PRIMARY KEY(DistrictId)
@@ -342,21 +305,12 @@ GO
 
 --TABLE District
 
-
-
 CREATE TABLE Ward(
 	WardId int not null IDENTITY(1,1),
-	WardName varchar(30) not null,
-	Prefix varchar(10) not null,
+	WardName nvarchar(30) not null,
+	Prefix nvarchar(10) not null,
 	District int not null,
 	
 	PRIMARY KEY(WardId)
 );
 GO
-
-
-
-
-
-
- 

@@ -292,7 +292,6 @@ FOREIGN KEY (StoreId)
 REFERENCES Store(StoreId);
 GO 
 
-
 --------------------------
 --- DatabaseAudit ----> AdminAccount
 --------------------------
@@ -305,8 +304,3 @@ ADD CONSTRAINT FK_DatabaseAudit_AdminAccount
 FOREIGN KEY (AdminId)
 REFERENCES AdminAccount(AccountId);
 GO 
-
-
-
-
-
