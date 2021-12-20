@@ -452,6 +452,10 @@ namespace API_.NET.Models
                     .IsRequired()
                     .HasMaxLength(30);
 
+                entity.Property(e => e.Level)
+                    .IsRequired()
+                    .HasMaxLength(10);
+                    
                 entity.HasOne(d => d.DistrictNavigation)
                     .WithMany(p => p.Ward)
                     .HasForeignKey(d => d.District)

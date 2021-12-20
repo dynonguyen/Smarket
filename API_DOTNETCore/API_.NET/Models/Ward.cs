@@ -14,7 +14,7 @@ namespace API_.NET.Models
         public string WardName { get; set; }
         public string Prefix { get; set; }
         public int District { get; set; }
-
+        public int Level {get; set;}
         public District DistrictNavigation { get; set; }
         public ICollection<AppUser> AppUser { get; set; }
     }
