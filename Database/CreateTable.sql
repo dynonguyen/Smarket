@@ -309,6 +309,7 @@ CREATE TABLE Ward(
 	WardId int not null IDENTITY(1,1),
 	WardName nvarchar(30) not null,
 	Prefix nvarchar(10) not null,
+	Level int not null default 1,
 	District int not null,
 	
 	PRIMARY KEY(WardId)

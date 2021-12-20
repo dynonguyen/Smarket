@@ -17,14 +17,16 @@ public class Ward implements Serializable {
 	private int WardId;
 	private String WardName;
 	private String Prefix;
+	private int Level;
 	private int District;
 
 	public Ward() {
 	}
 
-	public Ward(String WardName, String Prefix, int District) {
+	public Ward(String WardName, String Prefix, int Level, int District) {
 		this.WardName = WardName;
 		this.Prefix = Prefix;
+		this.Level = Level;
 		this.District = District;
 	}
 
@@ -55,6 +57,15 @@ public class Ward implements Serializable {
 
 	public void setPrefix(String Prefix) {
 		this.Prefix = Prefix;
+	}
+
+	@Column(name = "Level")
+	public int getLevel() {
+		return this.Level;
+	}
+
+	public void setLevel(int Level) {
+		this.Level = Level;
 	}
 
 	@Column(name = "District")

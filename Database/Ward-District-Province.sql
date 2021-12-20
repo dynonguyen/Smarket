@@ -12095,3 +12095,12 @@ INSERT INTO Ward (WardId, WardName, Prefix, District) VALUES (11283, N'Trung Ph√
 
 SET IDENTITY_INSERT dbo.Ward OFF
 GO
+
+UPDATE dbo.Ward SET Level = 1 WHERE dbo.Ward.WardId % 4 = 0;
+GO
+UPDATE dbo.Ward SET Level = 2 WHERE dbo.Ward.WardId % 4 = 1;
+GO
+UPDATE dbo.Ward SET Level = 3 WHERE dbo.Ward.WardId % 4 = 2;
+GO
+UPDATE dbo.Ward SET Level = 4 WHERE dbo.Ward.WardId % 4 = 3;
+GO
