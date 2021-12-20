@@ -1,0 +1,5 @@
+//- Get values passed from server
+mixin getServerVarScript
+  script(type='text/javascript').
+    let constantStr = "#{constant}";
+    const constant = JSON.parse(constantStr?.replace(/&quot;/g,'"')) || {};
