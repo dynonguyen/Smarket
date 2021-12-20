@@ -5,6 +5,7 @@ block append style
   block addStyle
 
 block content
+  block addParam
   .layout-wrapper
     //- navbar
     .navbar-wrap.center-vertical
@@ -24,47 +25,22 @@ block content
         a(href="/") #[i.mgmt-icon.bi.bi-box-arrow-in-right]
        
     .d-flex
-      -
-        const menuList = [
-                        {
-                          menuTitle: 'Group 1',
-                          list: [
-                            { title: 'Menu Item 1', to: '/' },
-                            { title: 'Menu Item 1', to: '#' },
-                          ],
-                        },
-                        {
-                          menuTitle: 'Group 2',
-                          list: [
-                            { title: 'Menu Item 1', to: '#' },
-                            { title: 'Menu Item 1', to: '#' },
-                          ],
-                        },
-                        {
-                          menuTitle: 'Group 3',
-                          list: [
-                            { title: 'Menu Item 1', to: '#' },
-                            { title: 'Menu Item 1', to: '#' },
-                            { title: 'Menu Item 1', to: '#' },
-                            { title: 'Menu Item 1', to: '#' },
-                          ],
-                        },
-                      
-                      ];
-
       //- sidebar
-      .sidebar-wrap#sidebar
-        .menu
-          each menu in menuList
-            h3.menu-title= menu.menuTitle
-            ul.menu-list
-              each menuItem in menu.list
-                li.menu-item(data-path=menuItem.to)
-                  a(href="/management" + menuItem.to)= menuItem.title
+      if menuList
+        .sidebar-wrap#sidebar
+          .menu
+            each menu in menuList
+              h3.menu-title #[i.mr-2(class=menu.icon)] #{menu.menuTitle}
+              ul.menu-list
+                each menuItem in menu.list
+                  li.menu-item(data-path=menuItem.to)
+                    a(href=`${rootPath}${menuItem.to}`)= menuItem.title
 
       //- main content
       block addContent
 
 block append script
+  script.
+    const ROOT_PATH = "#{rootPath}";
   script(src="/js/management/mgmt-template.js")
   block addScript
