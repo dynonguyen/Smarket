@@ -31,6 +31,6 @@ $(document).ready(function () {
 	});
 
 	// auto active menu item
-	const pathname = window.location.pathname.replace('/management', '');
+	const pathname = window.location.pathname.replace(ROOT_PATH, '');
 	$(`.menu-item[data-path="${pathname}"]`).addClass('active');
 });

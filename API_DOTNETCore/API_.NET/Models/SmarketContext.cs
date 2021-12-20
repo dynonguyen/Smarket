@@ -44,7 +44,7 @@ namespace API_.NET.Models
                 var username = Environment.GetEnvironmentVariable("USERNAME");
                 var password = Environment.GetEnvironmentVariable("PASSWORD");
                 //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer($"Data Source=.;Initial Catalog=Smarket;Persist Security Info=True;User ID='{username}';Password='{password}'");
+                optionsBuilder.UseSqlServer($"Server=.;Database=Smarket;Trusted_Connection=true;User ID='{username}';Password='{password}'; ");
             }
         }
 
@@ -52,7 +52,9 @@ namespace API_.NET.Models
         {
             modelBuilder.Entity<Account>(entity =>
             {
-                entity.Property(e => e.CreateTime).HasColumnType("datetime");
+                entity.Property(e => e.CreateTime)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("(getdate())");
 
                 entity.Property(e => e.Email)
                     .IsRequired()
@@ -76,18 +78,16 @@ namespace API_.NET.Models
 
                 entity.Property(e => e.Address)
                     .IsRequired()
-                    .HasMaxLength(100)
-                    .IsUnicode(false);
+                    .HasMaxLength(100);
 
                 entity.Property(e => e.Email)
                     .IsRequired()
-                    .HasMaxLength(20)
+                    .HasMaxLength(100)
                     .IsUnicode(false);
 
                 entity.Property(e => e.Name)
                     .IsRequired()
-                    .HasMaxLength(20)
-                    .IsUnicode(false);
+                    .HasMaxLength(30);
 
                 entity.Property(e => e.Password)
                     .IsRequired()
@@ -111,13 +111,11 @@ namespace API_.NET.Models
 
                 entity.Property(e => e.Address)
                     .IsRequired()
-                    .HasMaxLength(100)
-                    .IsUnicode(false);
+                    .HasMaxLength(100);
 
                 entity.Property(e => e.Name)
                     .IsRequired()
-                    .HasMaxLength(20)
-                    .IsUnicode(false);
+                    .HasMaxLength(30);
 
                 entity.Property(e => e.PeopleId)
                     .IsRequired()
@@ -163,8 +161,7 @@ namespace API_.NET.Models
 
                 entity.Property(e => e.DeliveryAddress)
                     .IsRequired()
-                    .HasMaxLength(100)
-                    .IsUnicode(false);
+                    .HasMaxLength(100);
 
                 entity.Property(e => e.DeliveryDate).HasColumnType("datetime");
 
@@ -175,8 +172,7 @@ namespace API_.NET.Models
 
                 entity.Property(e => e.ReceiverName)
                     .IsRequired()
-                    .HasMaxLength(30)
-                    .IsUnicode(false);
+                    .HasMaxLength(30);
 
                 entity.Property(e => e.ReceiverPhone)
                     .IsRequired()
@@ -217,15 +213,14 @@ namespace API_.NET.Models
 
                 entity.Property(e => e.Action)
                     .IsRequired()
-                    .HasMaxLength(10)
+                    .HasMaxLength(50)
                     .IsUnicode(false);
 
                 entity.Property(e => e.CreateTime).HasColumnType("datetime");
 
                 entity.Property(e => e.Detail)
                     .IsRequired()
-                    .HasMaxLength(30)
-                    .IsUnicode(false);
+                    .HasMaxLength(30);
 
                 entity.Property(e => e.Object)
                     .IsRequired()
@@ -243,13 +238,11 @@ namespace API_.NET.Models
             {
                 entity.Property(e => e.DistrictName)
                     .IsRequired()
-                    .HasMaxLength(30)
-                    .IsUnicode(false);
+                    .HasMaxLength(30);
 
                 entity.Property(e => e.Prefix)
                     .IsRequired()
-                    .HasMaxLength(10)
-                    .IsUnicode(false);
+                    .HasMaxLength(10);
 
                 entity.HasOne(d => d.ProvinceNavigation)
                     .WithMany(p => p.District)
@@ -260,10 +253,7 @@ namespace API_.NET.Models
 
             modelBuilder.Entity<OrderDetail>(entity =>
             {
-                entity.Property(e => e.OrderDetailDes)
-                    .IsRequired()
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
+                entity.Property(e => e.OrderDetailDes).HasMaxLength(50);
 
                 entity.HasOne(d => d.Order)
                     .WithMany(p => p.OrderDetail)
@@ -282,8 +272,7 @@ namespace API_.NET.Models
             {
                 entity.Property(e => e.Content)
                     .IsRequired()
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
+                    .HasMaxLength(50);
 
                 entity.Property(e => e.FeedbackTime).HasColumnType("datetime");
 
@@ -301,7 +290,9 @@ namespace API_.NET.Models
                     .HasMaxLength(16)
                     .IsUnicode(false);
 
-                entity.Property(e => e.PaymentTime).HasColumnType("datetime");
+                entity.Property(e => e.PaymentTime)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("(getdate())");
 
                 entity.HasOne(d => d.Customer)
                     .WithMany(p => p.Payment)
@@ -325,23 +316,19 @@ namespace API_.NET.Models
 
                 entity.Property(e => e.ProductDes)
                     .IsRequired()
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
+                    .HasMaxLength(50);
 
                 entity.Property(e => e.ProductName)
                     .IsRequired()
-                    .HasMaxLength(30)
-                    .IsUnicode(false);
+                    .HasMaxLength(30);
 
                 entity.Property(e => e.QuantitativeUnit)
                     .IsRequired()
-                    .HasMaxLength(10)
-                    .IsUnicode(false);
+                    .HasMaxLength(10);
 
                 entity.Property(e => e.Source)
                     .IsRequired()
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
+                    .HasMaxLength(50);
 
                 entity.HasOne(d => d.ProductType)
                     .WithMany(p => p.Product)
@@ -368,26 +355,18 @@ namespace API_.NET.Models
             {
                 entity.Property(e => e.ProductTypeDes)
                     .IsRequired()
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
+                    .HasMaxLength(50);
 
                 entity.Property(e => e.ProductTypeName)
                     .IsRequired()
-                    .HasMaxLength(30)
-                    .IsUnicode(false);
+                    .HasMaxLength(30);
             });
 
             modelBuilder.Entity<Province>(entity =>
             {
-                entity.Property(e => e.Prefix)
-                    .IsRequired()
-                    .HasMaxLength(10)
-                    .IsUnicode(false);
-
                 entity.Property(e => e.ProvinceName)
                     .IsRequired()
-                    .HasMaxLength(20)
-                    .IsUnicode(false);
+                    .HasMaxLength(20);
             });
 
             modelBuilder.Entity<Refund>(entity =>
@@ -397,7 +376,9 @@ namespace API_.NET.Models
                     .HasMaxLength(100)
                     .IsUnicode(false);
 
-                entity.Property(e => e.RefundTime).HasColumnType("datetime");
+                entity.Property(e => e.RefundTime)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("(getdate())");
 
                 entity.HasOne(d => d.Order)
                     .WithMany(p => p.Refund)
@@ -430,12 +411,11 @@ namespace API_.NET.Models
             {
                 entity.Property(e => e.Categories)
                     .IsRequired()
-                    .HasMaxLength(20)
-                    .IsUnicode(false);
+                    .HasMaxLength(50);
 
                 entity.Property(e => e.Certificate)
                     .IsRequired()
-                    .HasMaxLength(50)
+                    .HasMaxLength(255)
                     .IsUnicode(false);
 
                 entity.HasOne(d => d.User)
@@ -451,8 +431,7 @@ namespace API_.NET.Models
 
                 entity.Property(e => e.Content)
                     .IsRequired()
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
+                    .HasMaxLength(255);
 
                 entity.Property(e => e.FeedbackTime).HasColumnType("datetime");
 
@@ -467,13 +446,11 @@ namespace API_.NET.Models
             {
                 entity.Property(e => e.Prefix)
                     .IsRequired()
-                    .HasMaxLength(10)
-                    .IsUnicode(false);
+                    .HasMaxLength(10);
 
                 entity.Property(e => e.WardName)
                     .IsRequired()
-                    .HasMaxLength(30)
-                    .IsUnicode(false);
+                    .HasMaxLength(30);
 
                 entity.HasOne(d => d.DistrictNavigation)
                     .WithMany(p => p.Ward)

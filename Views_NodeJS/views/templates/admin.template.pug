@@ -1,0 +1,28 @@
+extends ./management.template.pug
+
+block addParam
+  - const rootPath = '/admin'
+  -
+    const menuList = [
+                    {
+                      menuTitle: 'Quản lý',
+                      icon: 'bi bi-gear-fill',
+                      list: [
+                        { title: 'Tài khoản', to: '/' },
+                        { title: 'Đối tác', to: '/' },
+                        { title: 'Đơn hàng', to: '/' },
+                        { title: 'Xét duyệt ĐK bán hàng', to: '/' },
+                        { title: 'Hồ sơ cửa hàng', to: '/' },
+                      ],
+                    },
+                    {
+                      menuTitle: 'Thống kê',
+                      icon: 'bi bi-bar-chart-fill',
+                      list: [
+                        { title: 'Số liệu theo vùng', to: '/statistic/region' },
+                        { title: 'Mặt hàng thiết yếu', to: '/statistic/' },
+                        { title: 'Nhu cầu thực phẩm', to: '/statistic/' },
+                        { title: 'Thu nhập', to: '/statistic/' },
+                      ],
+                    },
+                  ];
