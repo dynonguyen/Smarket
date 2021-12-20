@@ -12,7 +12,7 @@ namespace API_.NET.Controllers
     public class ValuesController : ControllerBase
     {
         //GET api/values
-       [HttpGet]
+        [HttpGet]
         public List<Ward> Get()
         {
             using (var context = new SmarketContext())
