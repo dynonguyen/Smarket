@@ -17,6 +17,7 @@ const chartOptions = (data = [], title) => ({
 					'rgb(247, 92, 30)',
 					'rgb(233, 51, 51)',
 				],
+				borderColor: 'transparent',
 				hoverOffset: 4,
 				spacing: 0,
 			},
@@ -39,15 +40,15 @@ const chartOptions = (data = [], title) => ({
 
 function loadInitChart() {
 	userChart = new Chart(
-		document.getElementById('userChart'),
+		document.getElementById('userChart').getContext('2d'),
 		chartOptions(defaultChartData, 'Khách hàng'),
 	);
 	shipperChart = new Chart(
-		document.getElementById('shipperChart'),
+		document.getElementById('shipperChart').getContext('2d'),
 		chartOptions(defaultChartData, 'Shipper'),
 	);
 	storeChart = new Chart(
-		document.getElementById('storeChart'),
+		document.getElementById('storeChart').getContext('2d'),
 		chartOptions(defaultChartData, 'Cửa hàng'),
 	);
 }
@@ -57,7 +58,7 @@ function renderChart(chartId, data, title) {
 		case 'userChart':
 			userChart && userChart.destroy();
 			userChart = new Chart(
-				document.getElementById(chartId),
+				document.getElementById(chartId).getContext('2d'),
 				chartOptions(data, title),
 			);
 			break;
@@ -83,10 +84,16 @@ function statisticData(charId, title, chartBoxId, userType, provinceId) {
 	).then(async (response) => {
 		let userChartData = await response.json();
 		if (!userChartData || userChartData.every((i) => i === 0)) {
-			userChartData = [1, 0, 0, 0];
-		}
+			const chart = Chart.getChart(charId);
+			chart?.destroy();
 
-		renderChart(charId, userChartData, title);
+			const canvas = document.getElementById(charId);
+			const ctx = canvas.getContext('2d');
+			ctx.textAlign = 'center';
+			ctx.fillText('Không có dữ liệu', canvas.width / 2, canvas.height / 2);
+		} else {
+			renderChart(charId, userChartData, title);
+		}
 		$(`#${chartBoxId}.chart-box`).removeClass('loading');
 	});
 }

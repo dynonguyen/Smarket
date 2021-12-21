@@ -8,29 +8,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import api.java.entities.Province;
-import api.java.repositories.ProvinceRepository;
+import api.java.services.CommonService;
 
 @RestController
 @RequestMapping("/api/common")
 public class CommonApi {
-    // Repository Used
     @Autowired
-    private ProvinceRepository provinceRepository;
+    private CommonService commonService;
 
-    // Get all province
     @GetMapping("/province-all")
     public List<Province> getAllProvince() {
-        try {
-            List<Province> provinces = provinceRepository.findAll();
-            if (provinces.isEmpty()) {
-                return List.of();
-            }
-            return provinces;
-        } catch (Exception e) {
-            System.out.println("GET ALL PROVINCE ERROR");
-            e.printStackTrace();
-        }
-
-        return List.of();
+        return commonService.getAllProvinces();
     }
 }
