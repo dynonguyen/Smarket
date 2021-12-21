@@ -64,6 +64,17 @@ a {
 	box-shadow: var(--sm-box-shadow);
 }
 
+.sm-border-radius {
+	border-radius: 8px;
+}
+
+.title {
+	font-size: 1.5rem;
+	font-weight: 600;
+	color: var(--dark);
+	text-transform: capitalize;
+}
+
 /* ----------- button ------------- */
 .btn {
 	transition: all 0.35s;
@@ -124,6 +135,19 @@ a {
 	font-size: 1.25rem;
 	color: var(--gray);
 	cursor: pointer;
+}
+
+.selectize-input {
+	outline: none !important;
+	border: none !important;
+	box-shadow: var(--sm-box-shadow) !important;
+	padding: 0.5rem 1.25rem !important;
+	border-radius: 8px !important;
+	font-size: 1rem !important;
+	font-weight: 500 !important;
+
+	background-color: #fff !important;
+	color: var(--dark) !important;
 }
 
 /* ----------- toasts ------------- */

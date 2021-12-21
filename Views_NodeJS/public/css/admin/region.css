@@ -1,0 +1,73 @@
+canvas.chart {
+	max-height: 65vh;
+	max-width: 100%;
+	position: relative;
+}
+
+.chart-box {
+	position: relative;
+	overflow: hidden;
+}
+
+.chart-box.loading::before {
+	position: absolute;
+	content: 'Đang thống kê ...';
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.45);
+
+	color: #fff;
+	font-weight: 600;
+	z-index: 999;
+}
+
+.sm-border-radius {
+	border-radius: 16px;
+}
+
+h5 {
+	font-size: 0.85rem;
+}
+
+.rate-list {
+	padding: 0;
+	display: none;
+}
+
+.rate-item {
+	display: flex;
+	align-items: center;
+	list-style: none;
+	margin-bottom: 0.5rem;
+}
+
+.rate-item .name {
+	font-size: 0.85rem;
+	text-align: left;
+	margin-right: 0.5rem;
+	color: var(--gray);
+	font-weight: 500;
+
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-line-clamp: 1;
+	line-clamp: 1;
+	-webkit-box-orient: vertical;
+	width: 30%;
+	flex-shrink: 0;
+}
+
+.rate-item .rate {
+	font-size: 0.65rem;
+	color: var(--gray-dark);
+	text-align: right;
+	background-color: var(--teal);
+	padding: 1px 4px;
+}

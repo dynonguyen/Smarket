@@ -7,6 +7,11 @@ const session = require('express-session');
 const cookieParser = require('cookie-parser');
 const morgan = require('morgan');
 
+/* ============== Import Middleware =============== */
+const {
+	passVariableToClientMiddleware,
+} = require('./middlewares/pass-variable.middleware');
+
 /* ============== Import route =============== */
 const adminRoute = require('./routes/admin');
 
@@ -31,6 +36,8 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(morgan('tiny'));
 
 /* ============== Routes =============== */
+app.use(passVariableToClientMiddleware);
+
 app.use('/admin', adminRoute);
 
 // 404 Not found redirect
