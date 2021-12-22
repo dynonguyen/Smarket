@@ -11,12 +11,12 @@ import api.java.entities.Province;
 import api.java.services.CommonService;
 
 @RestController
-@RequestMapping("/api/common")
+@RequestMapping(path = "/api/common")
 public class CommonApi {
     @Autowired
     private CommonService commonService;
 
-    @GetMapping("/province-all")
+    @GetMapping(path = "/province-all")
     public List<Province> getAllProvince() {
         return commonService.getAllProvinces();
     }
