@@ -15,7 +15,7 @@ import api.java.dto.GreenRegionRatioDto;
 import api.java.services.StatisticService;
 
 @RestController
-@RequestMapping(path = "/api/statistic")
+@RequestMapping(path = "/api/admin/statistic")
 public class StatisticApi {
 	@Autowired
 	private StatisticService statisticService;

@@ -90,7 +90,7 @@ function statisticData(charId, title, chartBoxId, userType, provinceId) {
 	}
 
 	fetch(
-		`${constant.JAVA_API_BASE_URL}/statistic/region?userType=${userType}&provinceId=${provinceId}`,
+		`${constant.JAVA_API_BASE_URL}/admin/statistic/region?userType=${userType}&provinceId=${provinceId}`,
 	)
 		.then(async (response) => {
 			let userChartData = await response.json();
@@ -133,7 +133,7 @@ async function statisticGreenRegionRatio(provinceId) {
 	try {
 		const greenRatioList = await (
 			await fetch(
-				`${constant.JAVA_API_BASE_URL}/statistic/region/green-ratio/${provinceId}`,
+				`${constant.JAVA_API_BASE_URL}/admin/statistic/region/green-ratio/${provinceId}`,
 			)
 		)?.json();
 
