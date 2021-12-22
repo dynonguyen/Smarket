@@ -79,23 +79,75 @@ function renderChart(chartId, data, title) {
 }
 
 function statisticData(charId, title, chartBoxId, userType, provinceId) {
+	function handlerError() {
+		const chart = Chart.getChart(charId);
+		chart?.destroy();
+
+		const canvas = document.getElementById(charId);
+		const ctx = canvas.getContext('2d');
+		ctx.textAlign = 'center';
+		ctx.fillText('Không có dữ liệu', canvas.width / 2, canvas.height / 2);
+	}
+
 	fetch(
 		`${constant.JAVA_API_BASE_URL}/statistic/region?userType=${userType}&provinceId=${provinceId}`,
-	).then(async (response) => {
-		let userChartData = await response.json();
-		if (!userChartData || userChartData.every((i) => i === 0)) {
-			const chart = Chart.getChart(charId);
-			chart?.destroy();
+	)
+		.then(async (response) => {
+			let userChartData = await response.json();
+			if (!userChartData || userChartData.every((i) => i === 0)) {
+				handlerError();
+			} else {
+				renderChart(charId, userChartData, title);
+			}
+		})
+		.catch((e) => {
+			handlerError();
+		})
+		.finally(() => {
+			$(`#${chartBoxId}.chart-box`).removeClass('loading');
+		});
+}
 
-			const canvas = document.getElementById(charId);
-			const ctx = canvas.getContext('2d');
-			ctx.textAlign = 'center';
-			ctx.fillText('Không có dữ liệu', canvas.width / 2, canvas.height / 2);
-		} else {
-			renderChart(charId, userChartData, title);
-		}
-		$(`#${chartBoxId}.chart-box`).removeClass('loading');
+function renderGreenRatioBox(greenRatioList) {
+	let rateListHtml = '';
+
+	greenRatioList.forEach((item) => {
+		const { districtName, quantity, total } = item;
+		const ratio = ((quantity / total) * 100).toFixed(0);
+		rateListHtml += `<li class="rate-item">
+					<div class="name">${districtName}</div>
+					<div class="rate" style="width: ${ratio}%"> (${ratio}%) ${quantity} / ${total}</div>
+				</li>`;
 	});
+
+	$('#greenRegionBox ul').html(rateListHtml);
+}
+
+async function statisticGreenRegionRatio(provinceId) {
+	if (!provinceId || isNaN(Number(provinceId))) return;
+	const msg = $('#msg');
+	const box = $('#greenRegionBox.chart-box');
+
+	msg.html('');
+
+	try {
+		const greenRatioList = await (
+			await fetch(
+				`${constant.JAVA_API_BASE_URL}/statistic/region/green-ratio/${provinceId}`,
+			)
+		)?.json();
+
+		if (!greenRatioList || greenRatioList.length === 0) {
+			msg.html('Thống kê dữ liệu thất bại, thử lại !');
+			box.removeClass('loading');
+		} else {
+			box.removeClass('loading');
+			renderGreenRatioBox(greenRatioList);
+		}
+	} catch (error) {
+		msg.html('Thống kê dữ liệu thất bại, thử lại !');
+		box.removeClass('loading');
+	}
 }
 
 function onProvinceChange() {
@@ -126,6 +178,8 @@ function onProvinceChange() {
 			constant?.USER_TYPES?.STORE || 3,
 			provinceId,
 		);
+
+		statisticGreenRegionRatio(provinceId);
 	});
 }
 

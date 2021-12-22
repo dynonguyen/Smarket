@@ -1,7 +1,7 @@
 /* ----------- Reset ------------- */
 :root {
 	--primary: #008640;
-	--light-gray: #f2f2f2;
+	--light-gray: #efefef;
 	--gray: #888;
 	--dark: #2e2e2e;
 	--transition: all ease-in-out 0.35s;

@@ -6,46 +6,33 @@ block addStyle
   link(rel="stylesheet", href="/css/admin/region.css")
 
 block addContent 
-  .p-4.flex-grow-1
+  .p-4.flex-grow-1(style="max-width: 1200px;margin: 0 auto;") 
     h2.title.text-center Thống kê khách hàng, shipper, cửa hàng theo vùng dịch
-    div(style="max-width:350px").my-4
+    div(style="max-width:350px").mt-5.mb-3
       select#province(name="region")
         option(value="", hidden, disabled, selected) Chọn vùng thống kê
         if provinces 
           each p in provinces 
             option(value=p.provinceId)= p.provinceName
 
-    .row 
-      .col.col-12.col-lg-6.col-xl-4.mb-5
+    .row
+      .col.col-12.col-md-6.col-xl-4.mb-5
         #userBox.p-3.sm-box-shadow.bg-white.border-rad.sm-border-radius.chart-box
           canvas.chart#userChart
-          ul.rate-list 
-            h5.mt-4.mb-3.text-center.text-gray Tỉ lệ vùng xanh theo khu vực
-            //- li.rate-item 
-            //-   .name Lorem ipsum 
-            //-   .rate(style="width:50%") 70% (8/11)
-            //- li.rate-item 
-            //-   .name Quận 7
-            //-   .rate(style="width:70%") 70% (8/11)
-            //- li.rate-item 
-            //-   .name Quận 7
-            //-   .rate(style="width:70%") 70% (8/11)
-            //- li.rate-item 
-            //-   .name Quận 7
-            //-   .rate(style="width:70%") 70% (8/11)
 
-      .col.col-12.col-lg-6.col-xl-4.mb-5
+      .col.col-12.col-md-6.col-xl-4.mb-5
         #shipperBox.p-3.sm-box-shadow.bg-white.border-rad.sm-border-radius.chart-box
           canvas.chart#shipperChart
-          ul.rate-list
-            h5.mt-4.mb-3.text-center.text-gray Tỉ lệ vùng xanh theo khu vực
 
-      .col.col-12.col-lg-6.col-xl-4
+      .col.col-12.col-md-6.col-xl-4.mb-5
         #storeBox.p-3.sm-box-shadow.bg-white.border-rad.sm-border-radius.chart-box
           canvas.chart#storeChart
-          ul.rate-list
-            h5.mt-4.mb-3.text-center.text-gray Tỉ lệ vùng xanh theo khu vực
 
+      .col.col-12.col-md-6.col-xl-12
+        #greenRegionBox.p-3.sm-box-shadow.bg-white.border-rad.sm-border-radius.chart-box
+          h4.mb-3.text-center Tỉ lệ vùng xanh theo khu vực
+          #msg.text-center.text-gray Chọn tỉnh thành để thống kê dữ liệu
+          ul.p-2.m-0
 block addScript
   script(src="https://cdn.jsdelivr.net/npm/chart.js@3.6.2/dist/chart.min.js") 
   script(src="/vendors/selectize/selectize.min.js")
