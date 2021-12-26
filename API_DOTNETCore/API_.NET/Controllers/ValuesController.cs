@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using API_.NET.Models;
-
+using API_.NET.DAO;
 namespace API_.NET.Controllers
 {
     [Route("api/[controller]")]
@@ -13,11 +13,11 @@ namespace API_.NET.Controllers
     {
         //GET api/values
         [HttpGet]
-        public List<Ward> Get()
+        public List<Product> Get()
         {
             using (var context = new SmarketContext())
             {
-                return context.Ward.ToList();
+                return DAO_Product.GetSearchProduct("a");
             }
         }
 
