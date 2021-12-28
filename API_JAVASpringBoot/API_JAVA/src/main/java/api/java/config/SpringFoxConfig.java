@@ -13,24 +13,16 @@ import springfox.documentation.spring.web.plugins.Docket;
 
 @Configuration
 public class SpringFoxConfig {
-    @Bean
-    public Docket api() {
-        return new Docket(DocumentationType.SWAGGER_2)
-                .host("{root-url}/api")
-                .select()
-                .apis(RequestHandlerSelectors.any())
-                .paths(PathSelectors.any())
-                .build()
-                .apiInfo(metaApiInfo());
-    }
+	@Bean
+	public Docket api() {
+		return new Docket(DocumentationType.SWAGGER_2).select().apis(RequestHandlerSelectors.any())
+				.paths(PathSelectors.any()).build().apiInfo(metaApiInfo());
+	}
 
-    private ApiInfo metaApiInfo() {
-        return new ApiInfoBuilder().title("Smarket - Swagger Java API")
-                .description("Description of the Smarket Java API.")
-                .version("1.0")
-                .license("Apache 2.0")
-                .contact(new Contact("Smarket Team", "https://smarket.com", "info@smarket.com"))
-                .licenseUrl("http://www.apache.org/licenses/LICENSE-2.0")
-                .build();
-    }
+	private ApiInfo metaApiInfo() {
+		return new ApiInfoBuilder().title("Smarket - Swagger Java API")
+				.description("Description of the Smarket Java API.").version("1.0").license("Apache 2.0")
+				.contact(new Contact("Smarket Team", "https://smarket.com", "info@smarket.com"))
+				.licenseUrl("http://www.apache.org/licenses/LICENSE-2.0").build();
+	}
 }

@@ -1,4 +1,4 @@
-package api.java.services;
+package api.java.services.admin;
 
 import java.util.List;
 

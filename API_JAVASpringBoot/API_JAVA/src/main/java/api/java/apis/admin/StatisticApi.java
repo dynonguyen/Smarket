@@ -1,4 +1,4 @@
-package api.java.apis;
+package api.java.apis.admin;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import api.java.constants.AppConstants;
 import api.java.dto.GreenRegionRatioDto;
-import api.java.services.StatisticService;
+import api.java.services.admin.StatisticService;
 
 @RestController
 @RequestMapping(path = "/api/admin/statistic")
