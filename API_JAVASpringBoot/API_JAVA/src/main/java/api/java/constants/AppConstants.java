@@ -29,4 +29,5 @@ public class AppConstants {
         }
     }
 
+    public static int PAGE_SIZE = 8;
 }

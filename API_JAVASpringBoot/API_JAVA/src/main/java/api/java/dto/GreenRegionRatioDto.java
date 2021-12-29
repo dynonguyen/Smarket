@@ -2,7 +2,7 @@ package api.java.dto;
 
 import api.java.utils.MappingObjectDto;
 
-public class GreenRegionRatioDto implements MappingObjectDto {
+public class GreenRegionRatioDto implements MappingObjectDto<GreenRegionRatioDto> {
     private String districtName;
     private int quantity;
     private int total;
@@ -41,13 +41,15 @@ public class GreenRegionRatioDto implements MappingObjectDto {
     }
 
     @Override
-    public void mapValueFromObject(Object[] obj) {
+    public GreenRegionRatioDto mapValueFromObject(Object[] obj) {
         if (obj.length < 3) {
-            return;
+            return this;
         }
 
         this.districtName = (String) obj[0];
         this.quantity = ((Long) obj[1]).intValue();
         this.total = ((Long) obj[2]).intValue();
+
+        return this;
     }
 }
