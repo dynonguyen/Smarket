@@ -1,0 +1,24 @@
+@CSharpUrl = http://localhost:3000/api
+@JavaUrl = http://localhost:8080/api
+
+@AdminUrl = {{JavaUrl}}/admin
+
+@ShipperUrl = {{JavaUrl}}/shipper
+
+######## Admin
+GET {{AdminUrl}}/statistic/region
+    ?userType=1
+    &provinceId=1
+###
+GET {{AdminUrl}}/statistic/region/green-ratio/2
+
+######### Shipper
+###
+
+GET {{ShipperUrl}}/order-info/1
+
+###
+
+GET {{ShipperUrl}}/order-history
+    ?p=2
+    &sId=2

@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import api.java.dto.OrderDetailInfoDto;
 import api.java.dto.OrderHistoryDto;
-import api.java.entities.OrderDetail;
 import api.java.services.shipper.ShipperService;
 
 @RestController
@@ -20,7 +20,7 @@ public class ShipperApi {
     private ShipperService shipperService;
 
     @GetMapping(path = "/order-info/{orderId}")
-    public List<OrderDetail> getOrderInfo(@PathVariable int orderId) {
+    public List<OrderDetailInfoDto> getOrderInfo(@PathVariable int orderId) {
         return shipperService.getOrderInfo(orderId);
     }
 

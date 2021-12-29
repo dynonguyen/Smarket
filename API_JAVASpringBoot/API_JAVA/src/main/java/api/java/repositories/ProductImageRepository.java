@@ -3,8 +3,8 @@ package api.java.repositories;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import api.java.entities.OrderDetail;
+import api.java.entities.ProductImage;
 
 @Repository
-public interface OrderDetailRepository extends JpaRepository<OrderDetail, Integer> {
+public interface ProductImageRepository extends JpaRepository<ProductImage, Integer> {
 }

@@ -28,4 +28,16 @@ public class QueryUtil {
 				+ String.format(" WHERE o.shipperId = %d AND c.customerId = o.customerId AND c.userId = u.userId",
 						shipperId);
 	}
+
+	public static String getOrderInfoWithOrderId(int orderId) {
+		return "SELECT p.productName, p.quantitativeUnit, p.unitPrice AS unitPrice, p.source AS productSource,"
+				+ "o.unitPrice AS orderDetailUnitPrice, o.quantity, o.orderDetailDes,"
+				+ "pt.productTypeName, u.name AS storeName, u.address AS storeAddress,"
+				+ "s.status AS storeStatus, pimg.source AS imageSource"
+				+ " FROM OrderDetail o, Product p, ProductType pt, Store s, AppUser u, ProductImage pimg"
+				+ String.format(" WHERE o.orderId = %d AND o.productId = p.productId", orderId)
+				+ " AND p.storeId = s.storeId AND s.userId = u.userId"
+				+ " AND p.productTypeId = pt.productTypeId"
+				+ " AND p.productId = pimg.productId AND pimg.isThumbnail = CONVERT(BIT, 1)";
+	}
 }
