@@ -10,7 +10,7 @@ public class QueryUtil {
 	}
 
 	public static String statisticRatioInDistrict(int level, int provinceId) {
-		return "SELECT d.prefix + ' ' + d.districtName AS ditrictName,"
+		return "SELECT d.prefix + ' ' + d.districtName AS districtName,"
 				+ " COUNT(*) AS quantity,"
 				+ " (SELECT COUNT(*) FROM Ward w2 WHERE w2.district = d.districtId ) AS total"
 				+ " FROM Ward w, District d"
@@ -26,7 +26,8 @@ public class QueryUtil {
 		return "SELECT o.orderId, o.orderCode, o.orderTotal, o.orderStatus, u.name as cusName, o.createDate, o.deliveryAddress"
 				+ " FROM CusOrder o, Customer c, AppUser u"
 				+ String.format(" WHERE o.shipperId = %d AND c.customerId = o.customerId AND c.userId = u.userId",
-						shipperId);
+						shipperId)
+				+ " ORDER BY o.createDate";
 	}
 
 	public static String getOrderInfoWithOrderId(int orderId) {

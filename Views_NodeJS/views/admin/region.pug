@@ -1,6 +1,9 @@
 extends ../templates/admin.template.pug
 include ../mixins/get-server-variables.pug
 
+block title 
+  title Smarket | Thống kê theo vùng
+
 block addStyle
   link(rel="stylesheet", href="/vendors/selectize/selectize.min.css")
   link(rel="stylesheet", href="/css/admin/region.css")

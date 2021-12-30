@@ -7,4 +7,5 @@ import api.java.entities.CusOrder;
 
 @Repository
 public interface CusOrderRepository extends JpaRepository<CusOrder, Integer> {
+    int countByShipperId(int shipperId);
 }

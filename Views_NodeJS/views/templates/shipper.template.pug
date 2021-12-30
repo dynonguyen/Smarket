@@ -1,0 +1,26 @@
+extends ./management.template.pug
+
+block append style 
+  style.
+    :root{
+      --primary: #fd7e14 !important; 
+    }
+
+block addParam
+  - const rootPath = '/shipper'
+  -
+    const menuList = [
+                    {
+                      menuTitle: 'Vận chuyển',
+                      icon: 'bi bi-bag-fill',
+                      list: [
+                        { title: 'Yêu cầu vận chuyển', to: '/' },
+                        { title: 'Lịch sử giao hàng', to: '/order-history' },
+                        { title: 'Thông tin cá nhân', to: '/' },
+                        { title: 'Thông báo', to: '/' },
+                      ],
+                    },
+                  ];
+
+block prepend searchInNavbar
+  - const searchPlaceholder = 'Tìm kiếm đơn hàng theo Mã ĐH';

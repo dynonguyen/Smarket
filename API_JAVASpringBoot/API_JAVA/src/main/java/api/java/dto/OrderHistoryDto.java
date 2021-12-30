@@ -7,7 +7,7 @@ import api.java.utils.MappingObjectDto;
 public class OrderHistoryDto implements MappingObjectDto<OrderHistoryDto> {
     private int orderId;
     private String orderCode;
-    private float orderTotal;
+    private int orderTotal;
     private int orderStatus;
     private String cusName;
     private LocalDateTime createDate;
@@ -16,7 +16,7 @@ public class OrderHistoryDto implements MappingObjectDto<OrderHistoryDto> {
     public OrderHistoryDto() {
     }
 
-    public OrderHistoryDto(int orderId, String orderCode, float orderTotal, int orderStatus, String cusName,
+    public OrderHistoryDto(int orderId, String orderCode, int orderTotal, int orderStatus, String cusName,
             LocalDateTime createDate, String deliveryAddress) {
         this.orderId = orderId;
         this.orderCode = orderCode;
@@ -43,11 +43,11 @@ public class OrderHistoryDto implements MappingObjectDto<OrderHistoryDto> {
         this.orderCode = orderCode;
     }
 
-    public float getOrderTotal() {
+    public int getOrderTotal() {
         return this.orderTotal;
     }
 
-    public void setOrderTotal(float orderTotal) {
+    public void setOrderTotal(int orderTotal) {
         this.orderTotal = orderTotal;
     }
 
@@ -91,7 +91,7 @@ public class OrderHistoryDto implements MappingObjectDto<OrderHistoryDto> {
 
         this.orderId = (int) obj[0];
         this.orderCode = (String) obj[1];
-        this.orderTotal = (float) obj[2];
+        this.orderTotal = ((Float) obj[2]).intValue();
         this.orderStatus = (int) obj[3];
         this.cusName = (String) obj[4];
         this.createDate = (LocalDateTime) obj[5];

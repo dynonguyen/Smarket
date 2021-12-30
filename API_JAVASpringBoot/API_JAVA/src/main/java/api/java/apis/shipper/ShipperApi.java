@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import api.java.dto.OrderDetailInfoDto;
 import api.java.dto.OrderHistoryDto;
+import api.java.dto.PaginationDto;
+import api.java.repositories.CusOrderRepository;
 import api.java.services.shipper.ShipperService;
 
 @RestController
@@ -19,17 +21,30 @@ public class ShipperApi {
     @Autowired
     private ShipperService shipperService;
 
+    @Autowired
+    private CusOrderRepository cOrderRepository;
+
     @GetMapping(path = "/order-info/{orderId}")
     public List<OrderDetailInfoDto> getOrderInfo(@PathVariable int orderId) {
         return shipperService.getOrderInfo(orderId);
     }
 
     @GetMapping(path = "/order-history")
-    public List<OrderHistoryDto> getOrderHistory(@RequestParam(name = "sId", defaultValue = "0") int shipperId,
+    public PaginationDto<OrderHistoryDto> getOrderHistory(@RequestParam(name = "sId", defaultValue = "0") int shipperId,
             @RequestParam(name = "p", defaultValue = "1") int page) {
         if (page <= 0) {
             page = 1;
         }
-        return shipperService.getOrderHistory(shipperId, page);
+
+        PaginationDto<OrderHistoryDto> result = new PaginationDto<>();
+
+        List<OrderHistoryDto> data = shipperService.getOrderHistory(shipperId, page);
+        int total = cOrderRepository.countByShipperId(shipperId);
+
+        result.setData(data);
+        result.setPage(page);
+        result.setTotal(total);
+
+        return result;
     }
 }

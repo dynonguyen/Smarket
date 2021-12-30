@@ -140,18 +140,14 @@ public class OrderDetailInfoDto implements MappingObjectDto<OrderDetailInfoDto> 
 
         this.productName = (String) obj[0];
         this.quantitativeUnit = (String) obj[1];
-        // this.unitPrice = (int) obj[2];
-        this.unitPrice = 2;
+        this.unitPrice = ((Float) obj[2]).intValue();
         this.source = (String) obj[3];
-        // this.orderDetailUnitPrice = (int) obj[4];
-        this.orderDetailUnitPrice = 4;
-        // this.quantity = (int) obj[5];
-        this.quantity = 5;
+        this.orderDetailUnitPrice = ((Float) obj[4]).intValue();
+        this.quantity = ((Float) obj[5]).intValue();
         this.orderDetailDes = (String) obj[6];
         this.productTypeName = (String) obj[7];
         this.storeName = (String) obj[8];
         this.storeAddress = (String) obj[9];
-        // this.storeStatus = (int) obj[10];
         this.storeStatus = 10;
         this.imageSource = (String) obj[11];
 

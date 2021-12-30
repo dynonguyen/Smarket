@@ -13,9 +13,10 @@ block content
         h1.logo #[a(href="/management") Smarket]
         i.mgmt-icon#toggleSidebar.bi.bi-layout-sidebar-inset-reverse
 
-      .searchbar-wrap.position-relative
-          input#navbarSearch.field.w-100(type="text", placeholder="Tìm kiếm sản phẩm")
-          i#navbarSearchIcon.field-end-icon.bi.bi-search
+      block searchInNavbar
+        .searchbar-wrap.position-relative
+            input#navbarSearch.field.w-100(type="text", placeholder=searchPlaceholder ? searchPlaceholder : "Tìm kiếm ...")
+            i#navbarSearchIcon.field-end-icon.bi.bi-search
 
       .account-side.center-vertical
         img.rounded-circle(src="https://picsum.photos/50/50")

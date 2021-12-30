@@ -10,10 +10,11 @@ const morgan = require('morgan');
 /* ============== Import Middleware =============== */
 const {
 	passVariableToClientMiddleware,
-} = require('./middlewares/pass-variable.middleware');
+} = require('./middleware/pass-variable.middleware');
 
 /* ============== Import route =============== */
 const adminRoute = require('./routes/admin');
+const shipperRoute = require('./routes/shipper.route');
 
 /* ============== Config =============== */
 app.use(express.static(path.join(__dirname, 'public')));
@@ -39,6 +40,7 @@ app.use(morgan('tiny'));
 app.use(passVariableToClientMiddleware);
 
 app.use('/admin', adminRoute);
+app.use('/shipper', shipperRoute);
 
 // 404 Not found redirect
 app.use((req, res) => res.status(404).render('404.pug'));
