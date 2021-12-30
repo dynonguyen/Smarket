@@ -1,15 +1,22 @@
-const SIDEBAR_STATUS = 'showSidebar';
+const SIDEBAR_STATUS_LS_KEY = 'hide-sidebar';
 
-// set cookie, value: string
-function setCookie(cname, cvalue, exdays) {
-	const d = new Date();
-	d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);
-	let expires = 'expires=' + d.toUTCString();
-	document.cookie = cname + '=' + cvalue + ';' + expires + ';path=/';
+function loadSidebar() {
+	const hideSidebar =
+		parseInt(localStorage.getItem(SIDEBAR_STATUS_LS_KEY)) === 1 ? true : false;
+
+	if (hideSidebar) {
+		$('#sidebar').css('display', 'none');
+		$('#toggleSidebar')
+			.removeClass('bi-layout-sidebar-inset-reverse')
+			.addClass('bi-layout-sidebar-inset');
+	}
 }
 
 $(document).ready(function () {
 	const sidebar = $('#sidebar');
+
+	// load side bar from show sidebar status LS
+	loadSidebar();
 
 	// toggle sidebar
 	$('#toggleSidebar').click(function () {
@@ -20,13 +27,13 @@ $(document).ready(function () {
 				.removeClass('bi-layout-sidebar-inset')
 				.addClass('bi-layout-sidebar-inset-reverse');
 
-			setCookie(SIDEBAR_STATUS, '1', 7);
+			localStorage.setItem(SIDEBAR_STATUS_LS_KEY, 0);
 		} else {
 			$(this)
 				.removeClass('bi-layout-sidebar-inset-reverse')
 				.addClass('bi-layout-sidebar-inset');
 
-			setCookie(SIDEBAR_STATUS, '0', 7);
+			localStorage.setItem(SIDEBAR_STATUS_LS_KEY, 1);
 		}
 	});
 

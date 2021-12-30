@@ -8,9 +8,8 @@ const cookieParser = require('cookie-parser');
 const morgan = require('morgan');
 
 /* ============== Import Middleware =============== */
-const {
-	passVariableToClientMiddleware,
-} = require('./middleware/pass-variable.middleware');
+const passVariableToClientMiddleware = require('./middleware/pass-variable.middleware');
+const unlessRouteMiddleware = require('./middleware/unless-route.middleware');
 
 /* ============== Import route =============== */
 const adminRoute = require('./routes/admin');
@@ -36,9 +35,10 @@ app.set('views', path.join(__dirname, 'views'));
 // set logging
 app.use(morgan('tiny'));
 
-/* ============== Routes =============== */
-app.use(passVariableToClientMiddleware);
+/* ============== Global Middleware =============== */
+app.use(unlessRouteMiddleware([], passVariableToClientMiddleware));
 
+/* ============== Routes =============== */
 app.use('/admin', adminRoute);
 app.use('/shipper', shipperRoute);
 
