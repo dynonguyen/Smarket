@@ -3,7 +3,19 @@ module.exports = {
 		CUSTOMER: 1,
 		SHIPPER: 2,
 		STORE: 3,
+		ADMIN: 4,
 	},
+
+	ROLES: {
+		CUSTOMER: 'ROLE_CUSTOMER',
+		SHIPPER: 'ROLE_SHIPPER',
+		STORE: 'ROLE_STORE',
+		ADMIN: 'ROLE_ADMIN',
+		GUEST: 'ROLE_GUEST',
+	},
+
+	JWT_HEADER: 'Authorization',
+	JWT_STORE_KEY: 'jwt',
 
 	PAGE_SIZE: 8,
 

@@ -6,10 +6,16 @@ const path = require('path');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
 const morgan = require('morgan');
+const { ROLES } = require('./constants/index.constant');
 
 /* ============== Import Middleware =============== */
 const passVariableToClientMiddleware = require('./middleware/pass-variable.middleware');
 const unlessRouteMiddleware = require('./middleware/unless-route.middleware');
+const {
+	authenticationMiddleware,
+	authorizationMiddleware,
+} = require('./middleware/authentication.middleware');
+const redirectorMiddleware = require('./middleware/redirector.middleware');
 
 /* ============== Import route =============== */
 const adminRoute = require('./routes/admin');
@@ -37,12 +43,14 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(morgan('tiny'));
 
 /* ============== Global Middleware =============== */
+app.use(unlessRouteMiddleware(['/auth'], authenticationMiddleware));
 app.use(unlessRouteMiddleware([], passVariableToClientMiddleware));
 
 /* ============== Routes =============== */
-app.use('/admin', adminRoute);
-app.use('/shipper', shipperRoute);
+app.use('/admin', authorizationMiddleware(ROLES.ADMIN), adminRoute);
+app.use('/shipper', authorizationMiddleware(ROLES.SHIPPER), shipperRoute);
 app.use('/auth', authRoute);
+app.get('/', redirectorMiddleware);
 
 // 404 Not found redirect
 app.use((req, res) => res.status(404).render('404.pug'));

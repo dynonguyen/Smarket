@@ -1,5 +1,7 @@
 const axios = require('axios').default;
 const queryString = require('query-string');
+const store = require('store');
+const { JWT_HEADER, JWT_STORE_KEY } = require('../constants/index.constant');
 
 // Axios For Java API
 const axiosJava = axios.create({
@@ -13,6 +15,10 @@ const axiosJava = axios.create({
 
 axiosJava.interceptors.request.use(
 	(config) => {
+		const jwt = store.get(JWT_STORE_KEY);
+		if (jwt) {
+			config.headers[JWT_HEADER] = store.get('jwt');
+		}
 		return config;
 	},
 	(error) => {
@@ -41,6 +47,10 @@ const axiosCSharp = axios.create({
 
 axiosCSharp.interceptors.request.use(
 	(config) => {
+		const jwt = store.get(JWT_STORE_KEY);
+		if (jwt) {
+			config.headers[JWT_HEADER] = store.get('jwt');
+		}
 		return config;
 	},
 	(error) => {
