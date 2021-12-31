@@ -89,7 +89,7 @@ function statisticData(charId, title, chartBoxId, userType, provinceId) {
 		ctx.fillText('Không có dữ liệu', canvas.width / 2, canvas.height / 2);
 	}
 
-	fetch(
+	myFetch(
 		`${constant.JAVA_API_BASE_URL}/admin/statistic/region?userType=${userType}&provinceId=${provinceId}`,
 	)
 		.then(async (response) => {
@@ -132,7 +132,7 @@ async function statisticGreenRegionRatio(provinceId) {
 
 	try {
 		const greenRatioList = await (
-			await fetch(
+			await myFetch(
 				`${constant.JAVA_API_BASE_URL}/admin/statistic/region/green-ratio/${provinceId}`,
 			)
 		)?.json();

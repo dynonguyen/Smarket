@@ -38,6 +38,10 @@ $(document).ready(function () {
 	});
 
 	// auto active menu item
-	const pathname = window.location.pathname.replace(ROOT_PATH, '');
+	const pathnameSplit = window.location.pathname
+		.replace(ROOT_PATH, '')
+		.split('/');
+	const pathname = '/' + pathnameSplit[1];
+
 	$(`.menu-item[data-path="${pathname}"]`).addClass('active');
 });
