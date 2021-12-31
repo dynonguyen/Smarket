@@ -17,37 +17,6 @@ function showToastMsg(toast, message = 'Message', type = '', timeout = 3000) {
 	}
 }
 
-// generate pagination
-// options - documentation: https://pagination.js.org/index.html
-function pagination(
-	selector,
-	totalItems = 0,
-	pageSize = DEFAULT.PAGE_SIZE,
-	currentPage = 1,
-	onPageItemClick = (pageNum) => {},
-	options = {},
-) {
-	const totalPage = Math.ceil(total / pageSize);
-
-	if (selector && currentPage <= totalPage) {
-		$(selector).pagination({
-			dataSource: new Array(totalItems).fill(true),
-			pageSize,
-			pageNumber: currentPage,
-			pageRange: 1,
-			autoHidePrevious: true,
-			autoHideNext: true,
-			...options,
-			callback: function () {
-				$('.paginationjs-page').click(function () {
-					const pageNum = $(this).attr('data-num');
-					onPageItemClick(pageNum);
-				});
-			},
-		});
-	}
-}
-
 // auto register when DOM loaded
 $(document).ready(function () {
 	// Hide toast message
@@ -58,14 +27,14 @@ $(document).ready(function () {
 	// show & hide view password input
 	$('.view-password-icon').click(function () {
 		const that = $(this);
-		const field = that.siblings('input.field');
+		const passwordField = $('input[name="password"]');
 
 		if (that.hasClass('bi-eye-fill')) {
 			that.removeClass('bi-eye-fill').addClass('bi-eye-slash-fill');
-			field.attr('type', 'password');
+			passwordField.attr('type', 'password');
 		} else {
 			that.removeClass('bi-eye-slash-fill').addClass('bi-eye-fill');
-			field.attr('type', 'text');
+			passwordField.attr('type', 'text');
 		}
 	});
 });

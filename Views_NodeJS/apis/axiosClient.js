@@ -3,9 +3,9 @@ const queryString = require('query-string');
 
 // Axios For Java API
 const axiosJava = axios.create({
-	baseURL: process.env.JAVA_API_BASE_URL || 'http://localhost:8080/api',
+	baseURL: process.env.JAVA_API_BASE_URL,
 	headers: {
-		'content-type': 'application/json',
+		'Content-Type': 'application/json',
 	},
 	withCredentials: true,
 	paramsSerializer: (params) => queryString.stringify(params),
@@ -31,9 +31,9 @@ axiosJava.interceptors.response.use(
 
 // Axios For CSharp
 const axiosCSharp = axios.create({
-	baseURL: process.env.CSHARP_API_BASE_URL || 'http://localhost:8080/api',
+	baseURL: process.env.CSHARP_API_BASE_URL,
 	headers: {
-		'content-type': 'application/json',
+		'Content-Type': 'application/json',
 	},
 	withCredentials: true,
 	paramsSerializer: (params) => queryString.stringify(params),

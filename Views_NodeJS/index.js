@@ -14,6 +14,7 @@ const unlessRouteMiddleware = require('./middleware/unless-route.middleware');
 /* ============== Import route =============== */
 const adminRoute = require('./routes/admin');
 const shipperRoute = require('./routes/shipper.route');
+const authRoute = require('./routes/auth.route');
 
 /* ============== Config =============== */
 app.use(express.static(path.join(__dirname, 'public')));
@@ -41,6 +42,7 @@ app.use(unlessRouteMiddleware([], passVariableToClientMiddleware));
 /* ============== Routes =============== */
 app.use('/admin', adminRoute);
 app.use('/shipper', shipperRoute);
+app.use('/auth', authRoute);
 
 // 404 Not found redirect
 app.use((req, res) => res.status(404).render('404.pug'));
