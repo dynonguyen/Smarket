@@ -293,14 +293,14 @@ REFERENCES Store(StoreId);
 GO 
 
 --------------------------
---- DatabaseAudit ----> AdminAccount
+--- DatabaseAudit ----> Account
 --------------------------
 ALTER TABLE DatabaseAudit
-DROP CONSTRAINT FK_DatabaseAudit_AdminAccount;
+DROP CONSTRAINT FK_DatabaseAudit_Account;
 GO
 	
 ALTER TABLE DatabaseAudit
-ADD CONSTRAINT FK_DatabaseAudit_AdminAccount
-FOREIGN KEY (AdminId)
-REFERENCES AdminAccount(AccountId);
+ADD CONSTRAINT FK_DatabaseAudit_Account
+FOREIGN KEY (AccountId)
+REFERENCES Account(AccountId);
 GO 

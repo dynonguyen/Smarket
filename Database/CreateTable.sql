@@ -1,10 +1,17 @@
+USE master
+GO
+
+DROP DATABASE IF EXIST Smarket
+GO
+
+CREATE DATABASE Smarket
+GO
+
 -- Script using for create database, primary key, foreign key, constraint, ...
 USE Smarket
 GO
 
 DROP TABLE DatabaseAudit;
-GO
-DROP TABLE AdminAccount;
 GO
 DROP TABLE Refund;
 GO
@@ -251,27 +258,11 @@ CREATE TABLE Refund(
 );
 GO
 
---TABLE AdminAccount
-
-CREATE TABLE AdminAccount(
-	AccountId int not null IDENTITY(1,1),
-	Username varchar(30) not null,
-	Password varchar(100) not null,
-	Name nvarchar(30) not null,
-	Address nvarchar(100) not null,
-	PermissionLevel int not null,
-	Phone varchar(11) not null,
-	Email varchar(100) not null,
-	
-	PRIMARY KEY(AccountId)
-);
-GO
-
 -- TABLE DatabaseAudit
 
 CREATE TABLE DatabaseAudit(
 	AuditId int not null IDENTITY(1,1),
-	AdminId int not null,
+	AccountId int not null,
 	CreateTime datetime not null,
 	Action varchar(50) not null,
 	DangerousLevel int not null,
