@@ -20,7 +20,7 @@ block addContent
             - const { orderId, orderCode, orderTotal, orderStatus, cusName, createDate, deliveryAddress } = order;
             tr
               td 
-                a(href=`/order-info/${orderId}`) #[b= orderCode]
+                a(href=`/shipper/order-info/${orderId}`) #[b= orderCode]
               td= helpers.formatCurrency(orderTotal)
               td= helpers.convertOrderStatus(orderStatus)
               td= cusName

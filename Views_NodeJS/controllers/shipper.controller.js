@@ -1,32 +1,48 @@
-const shipperApi = require('../apis/shipper.api');
-const { PAGE_SIZE } = require('../constants/index.constant');
+const shipperApi = require("../apis/shipper.api");
+const { PAGE_SIZE } = require("../constants/index.constant");
 const {
-	formatCurrency,
-	convertOrderStatus,
-	formatDate,
-} = require('../helpers/index.helper');
+  formatCurrency,
+  convertOrderStatus,
+  formatDate,
+} = require("../helpers/index.helper");
 
 exports.getOrderHistory = async (req, res) => {
-	const { page = 1 } = req.query;
-	const shipperId = 1;
+  const { page = 1 } = req.query;
+  const shipperId = 1;
 
-	try {
-		const apiRes = (await shipperApi.getOrderHistory(shipperId, page))?.data;
-		const { total, pageSize = PAGE_SIZE, data = [] } = apiRes;
+  try {
+    const apiRes = (await shipperApi.getOrderHistory(shipperId, page))?.data;
+    const { total, pageSize = PAGE_SIZE, data = [] } = apiRes;
 
-		return res.render('./shipper/order-history.pug', {
-			total,
-			page,
-			pageSize,
-			orderList: data,
-			helpers: {
-				formatCurrency,
-				convertOrderStatus,
-				formatDate,
-			},
-		});
-	} catch (error) {
-		console.error('Function getOrderHistory Error: ', error);
-		return res.render('404');
-	}
+    return res.render("./shipper/order-history.pug", {
+      total,
+      page,
+      pageSize,
+      orderList: data,
+      helpers: {
+        formatCurrency,
+        convertOrderStatus,
+        formatDate,
+      },
+    });
+  } catch (error) {
+    console.error("Function getOrderHistory Error: ", error);
+    return res.render("404");
+  }
+};
+
+exports.getOrderInfo = async (req, res) => {
+  const { orderId } = req.params;
+
+  try {
+    const apiRes = (await shipperApi.getOrderInfo(orderId))?.data;
+
+    console.log("data order info: ", apiRes);
+    return res.render("./shipper/order-info.pug", {
+      orderInfoData: apiRes,
+    });
+  } catch (error) {
+    console.log("Function getOrderInfo Error", error);
+    return res.render("404");
+  }
 };
