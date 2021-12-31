@@ -6,6 +6,13 @@ exports.getLogin = (req, res) => {
 	return res.render('login.pug');
 };
 
+exports.getLogout = (req, res) => {
+	store.remove(JWT_STORE_KEY);
+	res.clearCookie(JWT_HEADER);
+	req.session.user = {};
+	return res.redirect('/auth/login');
+};
+
 exports.postLogin = async (req, res) => {
 	const { username, password } = req.body;
 	if (!username || !password) return res.render('login.pug');
