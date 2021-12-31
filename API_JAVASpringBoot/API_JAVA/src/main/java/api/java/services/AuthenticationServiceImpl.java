@@ -1,5 +1,7 @@
 package api.java.services;
 
+import java.util.Date;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import api.java.constants.AppConstants;
 import api.java.dto.AuthResponseDto;
+import api.java.entities.Account;
 import api.java.repositories.AccountRepository;
 import api.java.utils.JwtUtil;
 
@@ -50,6 +53,38 @@ public class AuthenticationServiceImpl implements AuthenticationService {
             role = auth.getAuthority();
         }
 
-        return new ResponseEntity<>(new AuthResponseDto(jwtToken, username, role, "Successfully"), HttpStatus.OK);
+        long expired = System.currentTimeMillis() + AppConstants.JWT_EXP;
+        return new ResponseEntity<>(new AuthResponseDto(jwtToken, username, role, expired, "Successfully"),
+                HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<AuthResponseDto> authorizationWithJwt(String jwt) {
+        boolean isExpired = jwtUtil.isTokenExpired(jwt);
+        if (isExpired) {
+            return new ResponseEntity<>(new AuthResponseDto("Jwt is expired"), HttpStatus.UNAUTHORIZED);
+        }
+
+        String username = jwtUtil.extractUsername(jwt);
+        if (username == null) {
+            return new ResponseEntity<>(new AuthResponseDto("Failed"), HttpStatus.UNAUTHORIZED);
+        }
+
+        try {
+            Account account = accountRepository.findByUsername(username);
+            if (account == null) {
+                return new ResponseEntity<>(new AuthResponseDto("Failed"), HttpStatus.UNAUTHORIZED);
+            }
+
+            String role = AppConstants.USER_TYPES.getRole(account.getAccountType());
+            Date expiration = jwtUtil.extractExpiration(jwt);
+            long expired = expiration.getTime();
+
+            return new ResponseEntity<>(new AuthResponseDto(jwt, username, role, expired, ""), HttpStatus.OK);
+
+        } catch (Exception e) {
+            System.out.println("AUTHORIZATION ERROR: " + e.toString());
+            return new ResponseEntity<>(new AuthResponseDto("Failed"), HttpStatus.UNAUTHORIZED);
+        }
     }
 }

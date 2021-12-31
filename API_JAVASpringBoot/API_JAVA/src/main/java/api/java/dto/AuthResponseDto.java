@@ -5,15 +5,17 @@ public class AuthResponseDto {
     private String username;
     private String role;
     private String msg;
+    private long expired;
 
     public AuthResponseDto(String msg) {
         this.msg = msg;
     }
 
-    public AuthResponseDto(String jwt, String username, String role, String msg) {
+    public AuthResponseDto(String jwt, String username, String role, long expired, String msg) {
         this.jwt = jwt;
         this.username = username;
         this.role = role;
+        this.expired = expired;
         this.msg = msg;
     }
 
@@ -49,4 +51,11 @@ public class AuthResponseDto {
         this.msg = msg;
     }
 
+    public long getExpired() {
+        return this.expired;
+    }
+
+    public void setExpired(long expired) {
+        this.expired = expired;
+    }
 }

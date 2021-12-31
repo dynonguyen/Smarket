@@ -48,7 +48,7 @@ public class AppConstants {
 
     public static int PW_SALT = 10;
 
-    public static int JWT_EXP = 3 * 86400 * 1000; // 3 days
+    public static long JWT_EXP = 3 * 86400 * 1000; // 3 days
 
     public static String JWT_HEADER = "Authorization";
 
