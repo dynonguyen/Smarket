@@ -1,10 +1,8 @@
-﻿using System;
+﻿using API_.NET.Models;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using API_.NET.Models;
-using Microsoft.EntityFrameworkCore;
-
+using API_.NET.Utils;
 namespace API_.NET.DAO
 {
     public class DAO_Product
@@ -23,7 +21,7 @@ namespace API_.NET.DAO
         {
             using (var context = new SmarketContext())
             {
-                return context.Product.FromSql(DAO_Queries.ListSearchProduct(textsearch)).ToList();
+                return context.Product.FromSql(Utils_Queries.ListSearchProduct(textsearch)).ToList();
             }
         }
     }

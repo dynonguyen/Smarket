@@ -15,7 +15,7 @@ namespace API_.NET.DAO
         {
             using (var context = new SmarketContext())
             {
-                return context.ProductOfStore.FromSql(DAO_Queries.CountProductOfStore(storeId)).FirstOrDefault();
+                return context.ProductOfStore.FromSql(Utils_Queries.CountProductOfStore(storeId)).FirstOrDefault();
             }
         }
     }

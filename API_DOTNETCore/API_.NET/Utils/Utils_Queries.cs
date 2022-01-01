@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace API_.NET.DAO
+namespace API_.NET.Utils
 {
-    public class DAO_Queries
+    public class Utils_Queries
     {
         // List product for search
         public static string ListSearchProduct(string str)
