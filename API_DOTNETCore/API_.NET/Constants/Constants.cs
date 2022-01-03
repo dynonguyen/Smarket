@@ -6,7 +6,7 @@ namespace API_.NET.Constants
     {
         public enum USER_TYPES
         {
-            DEFAULT, CUSTOMER, SHIPPER, STORE, ADMIN
+            DEFAULT, CUSTOMER, SHIPPER, STORE, ADMIN, GUEST
         }
 
         public static string getRole(int userType)
@@ -34,11 +34,5 @@ namespace API_.NET.Constants
         public static int PAGE_SIZE = 8;
 
         public static int PW_SALT = 10;
-
-        public static long JWT_EXP = 3 * 86400 * 1000; // 3 days
-
-        public static String JWT_HEADER = "Authorization";
-
-        public static String JWT_STARTS_WITH = "Bearer ";
     }
 }
