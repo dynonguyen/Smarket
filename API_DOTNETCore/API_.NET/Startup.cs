@@ -7,6 +7,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Swashbuckle.AspNetCore.Swagger;
 using System.Text;
+using API_.NET.Constants;
+using API_.NET.Models;
+using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
+using System.Collections.Generic;
 
 namespace API_.NET
 {
@@ -37,17 +42,26 @@ namespace API_.NET
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
 
                     };
-                    //options.Events = new JwtBearerEvents
-                    //{
-                    //    OnAuthenticationFailed = context =>
-                    //    {
-                    //        if (context.Exception.GetType() == typeof(SecurityTokenExpiredException))
-                    //        {
-                    //            context.Response.Headers.Add("Token-Expired", "true");
-                    //        }
-                    //        return Task.CompletedTask;
-                    //    }
-                    //};
+                    options.Events = new JwtBearerEvents
+                    {
+                        OnTokenValidated = async context =>
+                        {
+                            string username = context.Principal.FindFirstValue("username");
+                            var dbContext = new SmarketContext();
+                            var account = await dbContext.Account.FirstOrDefaultAsync(s => s.Username == username);
+                            if (account != null)
+                            {
+                                var role = Constants.Constants.GetRole(account.AccountType);
+                                var claims = new List<Claim>
+                                {
+                                    new Claim(ClaimTypes.Role, role)
+                                };
+
+                                var appIdentity = new ClaimsIdentity(claims);
+                                context.Principal.AddIdentity(appIdentity);
+                            }
+                        }
+                    };
                 });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
@@ -76,6 +90,7 @@ namespace API_.NET
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My Test1 Api v1");
             });
+            
         }
     }
 }

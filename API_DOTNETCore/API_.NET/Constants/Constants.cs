@@ -9,7 +9,7 @@ namespace API_.NET.Constants
             DEFAULT, CUSTOMER, SHIPPER, STORE, ADMIN, GUEST
         }
 
-        public static string getRole(int userType)
+        public static string GetRole(int userType)
         {
             switch (userType)
             {

@@ -20,5 +20,12 @@ namespace API_.NET.Utils
             string query = $"SELECT s.StoreId, u.Name, count(p.ProductId) as Amount FROM Store s, AppUser u, Product p WHERE p.StoreId = s.StoreId AND s.UserId = u.UserId AND s.StoreId = { storeId.ToString()} GROUP BY s.StoreId, u.Name";
             return query;
         }
+
+        // List product type for search
+        public static string GetSearchProductType(string name)
+        {
+            string query = $"SELECT * FROM ProductType WHERE LOWER(ProductTypeName) LIKE '%{name.ToLower()}%'";
+            return query;
+        }
     }
 }
