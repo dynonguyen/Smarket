@@ -33,7 +33,12 @@
     var username = Environment.GetEnvironmentVariable("USERNAME");
     var password = Environment.GetEnvironmentVariable("PASSWORD");
     ```
-
+- Using Bcrypt
+    `dotnet add package BCrypt.Net-Next`
+    ```
+    string PasswordHashed = BCrypt.Net.BCrypt.HashPassword("Pa$$w0rd", SaltRounds);
+    bool verified = BCrypt.Net.BCrypt.Verify("Pa$$w0rd", PasswordHashed);
+    ```
 ## API using Java Spring Boot
 1. Configuration
 - JAVA 17
