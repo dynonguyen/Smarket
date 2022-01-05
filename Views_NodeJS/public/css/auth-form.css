@@ -73,6 +73,10 @@ input[type='password'] {
 	color: var(--primary);
 }
 
+.viewfor-signup {
+	margin-top: -10px;
+}
+
 .form-group {
 	margin-bottom: 40px;
 	outline: 0px;
@@ -85,6 +89,19 @@ input[type='password'] {
 	outline: 0;
 	background-color: #1a2226;
 	color: var(--light-gray);
+}
+
+.form-select {
+	outline: 0px;
+	background-color: #1a2226;
+	border: none;
+	border-bottom: 2px solid var(--primary);	
+	color: var(--light-gray);
+}
+
+select option {
+	color: var(--light-gray);
+	text-shadow: 0 1px 0 rgba(0, 0, 0, 0.4);
 }
 
 input:focus {

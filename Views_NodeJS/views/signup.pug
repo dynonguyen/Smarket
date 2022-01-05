@@ -1,0 +1,51 @@
+extends ./templates/general.template.pug
+
+block title 
+  title Đăng ký | Smarket
+
+block append style 
+  link(rel="stylesheet", href="/css/auth-form.css")
+
+block content
+  .row.flex-center.vh-100
+    .col-lg-3.col-md-2
+    .col-lg-6.col-md-8.form-box(style="max-width: 800px")     
+      .col-lg-12.form-title ĐĂNG KÝ
+      .col-lg-12.form-form
+        form(action="/auth/signup", method="POST")
+         .row
+            .col
+                .form-group
+                    label.form-control-label(for="username") TÊN ĐĂNG NHẬP
+                    input.form-control#username(type="text", name="username", value=username ? username : "" autofocus, maxLength="20")
+                .form-group
+                    label.form-control-label(for="password") MẬT KHẨU                
+                    input.form-control#password(type="password", name="password", maxLength="50")
+                    i.bi.bi-eye-slash-fill.view-password-icon.viewfor-signup
+                .form-group
+                    label.form-control-label(for="confirm-password") XÁC NHẬN MẬT KHẨU               
+                    input.form-control#confirm-password(type="password", maxLength="50")               
+            .col
+                .form-group
+                    label.form-control-label(for="email") EMAIL
+                    input.form-control#email(type="text", name="email", value=email ? email : "", maxLength="50")
+                .form-group 
+                    label.form-control-label(for="email") ĐĂNG KÝ VỚI VAI TRÒ
+                    select.custom-select.form-select(id="type" name="type")
+                        option(value='1') Khách hàng
+                        option(value='2') Vận chuyển hàng
+                        option(value='3') Đối tác bán hàng                   
+                .text-center
+                    a#contract(href="#") Nội dung cam kết
+                .form-check.constract.mt-3
+                    input#check.form-check-input.mt-2(type='checkbox')
+                    label.form-check-label.form-control-label(for='exampleCheck1') Đồng ý với cam kết trên 
+         .row
+                .col.col-lg-12.p-0.mb-4.d-flex.justify-content-between.align-items-center
+                    .form-text.text-danger#formMsg.ml-5= msg ? msg : ""
+                    .form-button
+                    button.btn.btn-outline-primary(type="submit") Đăng Ký
+    .col-lg-3.col-md-2
+
+block append script 
+  script(src="/js/signup.js") 

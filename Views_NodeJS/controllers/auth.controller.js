@@ -53,3 +53,39 @@ exports.postLogin = async (req, res) => {
 		});
 	}
 };
+
+exports.getSignUP = (req, res) => {
+	return res.render('signup');
+}
+
+exports.postSignUp = async (req, res) => {
+	const account = req.body;
+	if(!account.username || !account.password || !account.type || !account.email) {
+		return res.render('/signup', {
+			msg: "Đăng ký thất bại, vui lòng thử lại!"
+		})
+	}
+	try {
+		const entity = {
+			Username: account.username,
+			Password: account.password,
+			Email: account.email,
+			AccountType: account.type,
+			CreateTime: new Date()
+		}
+		const apiRes = await authApi.signup(entity);
+		if(apiRes.data === 'Success') {
+			return res.redirect('/auth/login');
+		} else {
+			return res.render('signup', {
+				msg: 'Đăng ký thất bại, vui lòng kiểm tra lại các thông tin'
+			});
+		}
+		
+	} catch (error) {
+		console.log(error);
+		return res.render('signup', {
+			msg: 'Đăng ký thất bại, vui lòng thử lại!.'
+		});
+	}	
+}

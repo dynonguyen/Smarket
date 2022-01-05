@@ -1,4 +1,4 @@
-const { axiosJava } = require('../apis/axiosClient');
+const { axiosJava, axiosCSharp } = require('../apis/axiosClient');
 const { JWT_HEADER } = require('../constants/index.constant');
 
 const BASE_URL = '/auth';
@@ -18,6 +18,9 @@ const authApi = {
 			},
 		});
 	},
+	signup: (account) => {
+		return axiosCSharp.post(`${BASE_URL}/signup`, account);
+	}
 };
 
 module.exports = authApi;
