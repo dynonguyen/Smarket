@@ -24,5 +24,20 @@ namespace API_.NET.DAO.Customer
                 return context.Product.FromSql(Utils_Queries.ListSearchProduct(textsearch)).ToList();
             }
         }
+
+        // Get products of a store
+        public static List<Product> GetAllProductOfStore(int storeId)
+        {
+            try
+            {
+                using(var context  = new SmarketContext())
+                {
+                    return context.Product.FromSql(Utils_Queries.GetAllProductOfStore(storeId)).ToList();
+                }
+            } catch
+            {
+                return null;
+            }
+        }
     }
 }

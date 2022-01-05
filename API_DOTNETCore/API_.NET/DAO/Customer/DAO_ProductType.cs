@@ -1,10 +1,8 @@
-﻿using System;
+﻿using API_.NET.Models;
+using API_.NET.Utils;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using API_.NET.Models;
-using Microsoft.EntityFrameworkCore;
-using API_.NET.Utils;
 namespace API_.NET.DAO.Customer
 {
     public class DAO_ProductType

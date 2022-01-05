@@ -32,11 +32,11 @@ namespace API_.NET.Models
         public virtual DbSet<Province> Province { get; set; }
         public virtual DbSet<Refund> Refund { get; set; }
         public virtual DbSet<Shipper> Shipper { get; set; }
-        public virtual DbSet<Store> Stores { get; set; }
+        public virtual DbSet<Store> Store { get; set; }
         public virtual DbSet<StoreFeedback> StoreFeedback { get; set; }
         public virtual DbSet<Ward> Ward { get; set; }
         public DbSet<ProductOfStore> ProductOfStore { get; set; }
-
+        public DbSet<DTO.Stores> Stores { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

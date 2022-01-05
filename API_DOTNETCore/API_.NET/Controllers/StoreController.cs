@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using API_.NET.Models;
-using API_.NET.DAO;
+﻿using API_.NET.DAO;
 using API_.NET.DTO;
+using Microsoft.AspNetCore.Mvc;
 namespace API_.NET.Controllers
 {
     [Route("api/[controller]")]
