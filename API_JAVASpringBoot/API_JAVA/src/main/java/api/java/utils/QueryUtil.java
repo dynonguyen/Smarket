@@ -1,6 +1,12 @@
 package api.java.utils;
 
 public class QueryUtil {
+
+	// ----------- Admin Order ---------------//
+	public static String getOrderInfor(String tableName) {
+		return "select orderId,shipperId,customerId,storeId"
+				+ String.format(" from %s", tableName);
+	}
 	// ----------- Admin Statistic ----------- //
 	public static String countCusBelongToRegionByLevel(String userTableName, int level, int provinceId) {
 		return "select count(distinct a.peopleId)"

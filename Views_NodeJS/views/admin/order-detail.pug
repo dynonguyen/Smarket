@@ -1,0 +1,103 @@
+extends ../templates/admin.template.pug
+include ../mixins/get-server-variables.pug
+
+block title 
+  title Smarket | Thông tin đơn hàng
+
+block addStyle
+  link(rel="stylesheet", href="/vendors/selectize/selectize.min.css")
+  link(rel="stylesheet", href="/css/admin/order-detail.css")
+
+block addContent 
+ .container
+  article.card
+    header.card-header
+     h2.font-weight-bold Chi tiết đơn hàng
+    .card-body
+      h6 Mẫ đơn hàng: #{orderCode}
+      article.card
+        .card-body.row
+          .col
+            strong Ngày lập
+            br
+            | #{helpers.formatDate(createDate)} 
+          .col
+            strong Thông tin nhận hàng
+            br
+            |  #{receiverName}, | 
+            i.bi.bi-telephone-fill
+            |  #{receiverPhone}
+          .col
+            strong Thông tin giao hàng:
+            br
+            |  #{shipperName} | 
+            i.bi.bi-telephone-fill
+            |  #{shipperPhone}
+          .col
+            strong Trạng thái:
+            br
+            |  #{helpers.convertOrderStatus(status)}
+      .track
+
+        .step(class={active: status>=1})
+          span.icon
+            i.bi.bi-check
+          span.text Đã nhận
+        .step(class={active: status>=2})
+          span.icon
+            i.bi.bi-person-fill
+          span.text  Đang mua hàng
+        .step(class={active: status>=3})
+          span.icon
+            i.bi.bi-truck 
+          span.text  Đang giao hàng
+        .step(class={active: status>=4})
+          span.icon
+            i.bi.bi-archive-fill
+          span.text Đã giao hàng
+        .step(class={active: status>=5})
+          span.icon
+            i.bi.bi-credit-card-fill
+          span.text Đã thanh toán
+      hr
+      .col-lg-12.col-xl-12
+        .card(style='border-radius: 10px;')
+          .card-body.p-4
+          if data && data.length > 0
+          each orderDetail in data 
+            - const { productName, storeName,storeAddress,unitPrice, quantity  } = orderDetail;
+            .card.shadow-0.border.mb-4
+              .card-body
+                .row
+                  .col-md-2
+                    img.img-fluid(src='https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Products/13.webp' alt='Phone')
+                  .col-md-2.text-center.d-flex.justify-content-center.align-items-center
+                    p.text-muted.mb-0 #{productName}
+                  .col-md-2.text-center.d-flex.justify-content-center.align-items-center
+                    p.text-muted.mb-0.small Tên CH: #{storeName}
+                  .col-md-2.text-center.d-flex.justify-content-center.align-items-center
+                    p.text-muted.mb-0.small Địa chỉ CH: #{storeAddress}
+                  .col-md-2.text-center.d-flex.justify-content-center.align-items-center
+                    p.text-muted.mb-0.small SL: #{quantity}
+                  .col-md-2.text-center.d-flex.justify-content-center.align-items-center
+                    p.text-muted.mb-0.small #{helpers.formatCurrency(unitPrice)}
+                hr.mb-4(style='background-color: #e0e0e0; opacity: 1;')
+          .d-flex.justify-content-between.pt-2
+            p.text-muted.mb-0
+              span.fw-bold.me-4 Tổng tiền: 
+              |  #{helpers.formatCurrency(orderTotal)}
+          .d-flex.justify-content-between.mb-5
+              p.text-muted.mb-0
+                span.fw-bold.me-4 Phí vận chuyển: 
+                |  Free   
+      hr
+      a.btn.btn-warning(href='./order' data-abc='true')
+        i.fa.fa-chevron-left
+        |  Quay lại quản lý đơn hàng
+block addScript
+  script.
+    const page = parseInt("#{page}");
+    const total = parseInt("#{total}");
+    const pageSize = parseInt("#{pageSize}");
+
+  script(src="/js/admin/order.js") 
