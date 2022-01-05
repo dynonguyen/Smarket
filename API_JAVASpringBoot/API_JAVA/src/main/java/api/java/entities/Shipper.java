@@ -80,7 +80,7 @@ public class Shipper implements Serializable {
 	}
 
 	@Column(name = "UserId")
-	public float getUserId() {
+	public int getUserId() {
 		return this.UserId;
 	}
 

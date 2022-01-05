@@ -1,0 +1,50 @@
+extends ../templates/admin.template.pug
+include ../mixins/get-server-variables.pug
+
+block title 
+  title Smarket | Quản lý đơn hàng
+
+block addStyle
+  link(rel="stylesheet", href="/vendors/selectize/selectize.min.css")
+  link(rel="stylesheet", href="/css/admin/region.css")
+
+block addContent 
+  .p-4.flex-grow-1
+    table.table.table-striped.bg-white
+      thead.thead-dark
+        tr
+          th(scope="col") Mã ĐH
+          th(scope="col") Tổng giá
+          th(scope="col") Trạng thái
+          th(scope="col") Người nhận
+          th(scope="col") Ngày đặt
+          th(scope="col") Địa chỉ nhận
+      tbody
+        if orderList && orderList.length > 0
+          each order in orderList 
+            - const { orderId, orderCode, orderTotal, orderStatus, receiverName, createDate, deliveryAddress } = order;
+            tr
+              td 
+                a(href=`./order-detail?oid=${orderId}`) #[b= orderCode]
+              td= helpers.formatCurrency(orderTotal)
+              td= helpers.convertOrderStatus(orderStatus)
+              td= receiverName
+              td= helpers.formatDate(createDate)
+              td= deliveryAddress
+        else 
+          tr 
+            td.text-center.py-4.text-gray(colspan="6") Không tìm thấy đơn hàng nào 
+
+    if orderList && orderList.length > 0
+      #pagination
+
+block addScript
+  script.
+    const page = parseInt("#{page}");
+    const total = parseInt("#{total}");
+    const pageSize = parseInt("#{pageSize}");
+    
+  script(src="/vendors/pagination.min.js") 
+  script(src="/js/pagination.js") 
+  script(src="/js/admin/order.js")
+  

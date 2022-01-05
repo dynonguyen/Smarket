@@ -7,4 +7,5 @@ import api.java.entities.AppUser;
 
 @Repository
 public interface AppUserRepository extends JpaRepository<AppUser, Integer> {
+    AppUser getById(int Id);
 }

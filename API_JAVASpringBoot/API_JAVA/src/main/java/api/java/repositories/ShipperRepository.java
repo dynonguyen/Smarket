@@ -7,4 +7,5 @@ import api.java.entities.Shipper;
 
 @Repository
 public interface ShipperRepository extends JpaRepository<Shipper, Integer> {
+    Shipper getById(int shipperId);
 }
