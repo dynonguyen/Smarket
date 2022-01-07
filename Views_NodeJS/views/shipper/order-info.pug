@@ -3,6 +3,9 @@ extends ../templates/shipper.template.pug
 block title 
   title Thông tin chi tiết đơn hàng | Smarket
 
+block addStyle 
+  link(rel="stylesheet", href="/css/shipper/order-info.css")
+
 block addContent 
   .p-4.flex-grow-1.row.justify-content-md-center
 
@@ -10,34 +13,33 @@ block addContent
       each orderInfo in orderInfoData 
         - const { productName, quantitativeUnit, unitPrice, source, orderDetailUnitPrice, quantity, orderDetailDes, productTypeName, storeName, storeAddress, storeStatus, imageSource } = orderInfo;
 
-        .card.col.mb-3(style="max-width: 540px; max-height: 540px")
-          .row.no-gutters
-            .col-md-4
-              img.card-img-top(src="https://picsum.photos/200/200", alt="...")
-            .col-md-8
-              .card-body
-                h2.text-primary.card-title= orderInfo.productName
-                h5.text-secondary.card-text Giá sản phẩm: 
-                  = orderInfo.unitPrice
-                h5.text-secondary.card-text Đơn vị tính: 
-                  = orderInfo.quantitativeUnit
-                h5.text-secondary.card-text Loại sản phẩm: 
-                  = orderInfo.productTypeName
-                h5.text-secondary.card-text Số lượng: 
-                  = orderInfo.quantity
-                h5.text-secondary.card-text Nguồn: 
-                  = orderInfo.source
-                h5.text-secondary.card-text Cửa hàng: 
-                  = orderInfo.storeName
-                h5.text-secondary.card-text Địa chỉ cửa hàng: 
-                  = orderInfo.storeAddress
-                h5.text-secondary.card-text Trạng thái cửa hàng: 
-                  = orderInfo.storeStatus
-                h5.text-secondary.card-text Mô tả: 
-                  = orderInfo.orderDetailDes
-                h3.text-secondary.card-text Giá đơn hàng: 
-                  = orderInfo.orderDetailUnitPrice
-                //- h5.text-secondary.card-text= orderInfo.imageSource          
+          .row.row-cols-1.row-row-cols-md-3
+            .col.mb-4
+              .card
+                img.card-img-top.rounded.mx-auto.d-block.w-50(src="https://picsum.photos/200/200", alt="...")
+                .card-body
+                  h3.text-primary.card-title= orderInfo.productName
+                  p.text-secondary.card-text Giá sản phẩm: 
+                    = orderInfo.unitPrice
+                  p.text-secondary.card-text Đơn vị tính: 
+                    = orderInfo.quantitativeUnit
+                  p.text-secondary.card-text Loại sản phẩm: 
+                    = orderInfo.productTypeName
+                  p.text-secondary.card-text Số lượng: 
+                    = orderInfo.quantity
+                  p.text-secondary.card-text Nguồn: 
+                    = orderInfo.source
+                  p.text-secondary.card-text Cửa hàng: 
+                    = orderInfo.storeName
+                  p.text-secondary.card-text Địa chỉ cửa hàng: 
+                    = orderInfo.storeAddress
+                  p.text-secondary.card-text Trạng thái cửa hàng: 
+                    = orderInfo.storeStatus
+                  p.text-secondary.card-text Mô tả: 
+                    = orderInfo.orderDetailDes
+                  h3.text-secondary.card-text Giá đơn hàng: 
+                    = orderInfo.orderDetailUnitPrice
+                  //- p.text-secondary.card-text= orderInfo.imageSource          
 
 block addScript
   script(src="/js/shipper/order-info.js") 
