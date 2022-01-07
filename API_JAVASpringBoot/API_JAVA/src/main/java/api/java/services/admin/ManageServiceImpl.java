@@ -7,11 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import api.java.constants.AppConstants;
-import api.java.dto.EmptyDto;
-import api.java.dto.ManageOrderDto;
-import api.java.dto.OrderDetailInfoDto;
+import api.java.dto.*;
 import api.java.utils.EntityManagerUtil;
 import api.java.utils.QueryUtil;
+import api.java.entities.*;
+import api.java.repositories.*;
 
 @Service("manageService")
 @Transactional
@@ -21,6 +21,12 @@ public class ManageServiceImpl implements ManageService {
 
     @Autowired
     private EntityManagerUtil<OrderDetailInfoDto> orderDetailInfoEmu;
+
+    @Autowired
+    private AccountRepository accountRepo;
+
+    @Autowired
+    private EntityManagerUtil<CustomerDto> cusDto;
 
     @Override
     public List<ManageOrderDto> getOrder() {
@@ -43,5 +49,25 @@ public class ManageServiceImpl implements ManageService {
             System.out.println("GET ORDER INFO ERROR" + e.toString());
             return null;
         }
+    }
+
+    @Override
+    public List<Account> getAccounts() {
+        try {
+            return accountRepo.findAll();
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    @Override
+    public CustomerDto getUserInfo(int accountId) {
+        try {
+            String query = QueryUtil.getCustomerInfo(accountId);
+            return (CustomerDto) cusDto.getSingleResult(query);
+        } catch (Exception e) {
+            return null;
+        }
+       
     }
 }

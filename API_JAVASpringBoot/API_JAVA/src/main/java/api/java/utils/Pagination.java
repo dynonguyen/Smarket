@@ -13,7 +13,7 @@ public class Pagination<T> {
 		int desPage = (pageSize*page -1);
 		List<T> newData = new ArrayList<>();
 		for(int i =curPage; i<=desPage; i++){
-            if(i<=data.size()){
+            if(i < data.size()){
 			    newData.add(data.get(i));
             }
             else{
