@@ -13,13 +13,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import api.java.services.admin.ManageService;
 import api.java.constants.AppConstants;
-import api.java.dto.ManageOrderDto;
-import api.java.dto.OrderDetailDto;
-import api.java.dto.OrderDetailInfoDto;
-import api.java.dto.PaginationDto;
+import api.java.dto.*;
+import api.java.entities.Account;
 import api.java.entities.AppUser;
 import api.java.entities.CusOrder;
 import api.java.entities.Shipper;
+import api.java.repositories.AccountRepository;
 import api.java.repositories.AppUserRepository;
 import api.java.repositories.CusOrderRepository;
 import api.java.repositories.ShipperRepository;
@@ -40,7 +39,8 @@ public class ManageApi {
     @Autowired
     private  ShipperRepository  cShipperRepository;
 
-    
+    @Autowired
+    private AccountRepository accountRepository;
 
     
 	@GetMapping(path = "/order")
@@ -89,4 +89,21 @@ public class ManageApi {
 
         return result;
     }
+
+    @GetMapping(path = "/account")
+    public PaginationDto<Account> getAccounts(@RequestParam(defaultValue = "1") int userType, @RequestParam(defaultValue = "1") int page) {
+        if (page <= 0) {
+            page = 1;
+        }
+        Pagination<Account> accountPage = new Pagination<>();
+        List<Account> accounts =  accountRepository.findByAccountType(userType);
+        PaginationDto<Account> result = accountPage.paging(accounts, AppConstants.PAGE_SIZE, page);
+		return result;
+    }
+
+    @GetMapping(path = "/account/detail")
+    public CustomerDto getUserInfo(@RequestParam(defaultValue = "1") int userType, @RequestParam(defaultValue = "1") int accountId) {
+        return manageService.getUserInfo(accountId);
+    }
+    
 }

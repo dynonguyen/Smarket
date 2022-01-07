@@ -27,6 +27,14 @@ public class QueryUtil {
 
 	}
 
+	// ---------- Admin account, user -----------------//
+
+	public static String getCustomerInfo(int accountId) {
+		return "SELECT TOP 1 a.UserId, a.AccountId, a.Name, a.Address, a.Phone, a.PeopleId, c.CustomerLevel"
+				+ " FROM AppUser a, Customer c"
+				+ String.format("WHERE a.UserId = c.UserId AND a.AccountId = %d", accountId);
+	}
+
 	// ----------- Shipper ----------- //
 	public static String getOrderHistoryWithShipper(int shipperId) {
 		return "SELECT o.orderId, o.orderCode, o.orderTotal, o.orderStatus, u.name as cusName, o.createDate, o.deliveryAddress"
