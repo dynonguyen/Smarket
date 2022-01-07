@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace API_.NET.Utils
+﻿namespace API_.NET.Utils
 {
     public class Utils_Queries
     {
@@ -77,6 +72,17 @@ namespace API_.NET.Utils
             string query = "SELECT u.UserId, u.Name, u.Phone, u.Address, s.StoreId, s.StoreType, s.Area, s.Categories, s.Certificate"
                              + " FROM AppUser u, Store s, Product p"
                                + $" WHERE s.UserId = u.UserId AND s.Status != 0 AND s.StoreId = p.StoreId AND LOWER(p.ProductName) LIKE  '%{productName}%'";
+            return query;
+        }
+
+
+
+        // Get all feedback of a product
+        public static string GetFeedbackOfProduct(int productId)
+        {
+            string query = "SELECT fb.OrderDetailFeedbackId, fb.DetailId, fb.Content, fb.Rating, fb.FeedbackTime"
+                            + " FROM OrderDetail o, OrderDetailFeedback fb"
+                            + $" WHERE o.OrderDetailId = fb.DetailId AND o.ProductId = {productId}";
             return query;
         }
     }
