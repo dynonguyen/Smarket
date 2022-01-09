@@ -4,8 +4,9 @@ mixin navbar
       { label: 'Rau củ sạch', keyword: 'rau củ sạch' },
       { label: 'Thịt tươi', keyword: 'thịt tươi' },
       { label: 'Trái cây', keyword: 'trái cây' },
+      { label: 'Nước giải khát', keyword: 'nước giải khát' },
       { label: 'Bia rượu', keyword: 'bia rượu' },
-      { label: 'Thực phẩm chức năng', keyword: 'thực phẩm chức năng' },
+      { label: 'Gia vị', keyword: 'gia vị' },
     ]
   
   link(rel="stylesheet", href="/css/navbar.css")
@@ -34,7 +35,7 @@ mixin navbar
           div.searchbar.position-relative
             input.field.w-100.bg-white(type="text", placeholder="Bạn muốn tìm gì ...")
             i.bi.bi-search.field-end-icon
-          ul.menu.d-flex.mb-0.pl-2.mt-1
+          ul.menu.flex-center.mb-0.pl-2.mt-1
             each menuItem in navbarMenu
               li.menu-item
                 a(href="?keyword=" + menuItem.keyword)= menuItem.label
@@ -42,4 +43,3 @@ mixin navbar
           i.bi.bi-cart-fill.cart.position-relative
             if cartTotal
               span.cart-total= cartTotal
-  .navbar-break

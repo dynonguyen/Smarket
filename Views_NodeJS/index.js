@@ -51,7 +51,6 @@ app.use(unlessRouteMiddleware([], passVariableToClientMiddleware));
 app.use('/admin', authorizationMiddleware(ROLES.ADMIN), adminRoute);
 app.use('/shipper', authorizationMiddleware(ROLES.SHIPPER), shipperRoute);
 app.use('/auth', authRoute);
-app.get('/', redirectorMiddleware);
 app.use('/common', commonRoute);
 app.get('/redirector', redirectorMiddleware);
 app.get('/', (req, res) => {
