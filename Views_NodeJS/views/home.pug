@@ -2,5 +2,10 @@ extends ./templates/general.template.pug
 include ./mixins/navbar.mixin.pug
 include ./mixins/footer.mixin.pug
 
-block content    
-  +navbar
+block content
+  .page-container
+    section.content-wrap
+      +navbar
+      //- .navbar-break
+      //- All content here
+    +footer

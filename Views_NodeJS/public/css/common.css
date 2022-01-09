@@ -36,6 +36,22 @@ a {
 	pointer-events: none;
 }
 
+.page-container {
+	position: relative;
+	min-height: 100vh;
+}
+
+.footer {
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	height: 13.5rem;
+}
+
+.content-wrap {
+	padding-bottom: 13.5rem;
+}
+
 /* ----------- atomic ------------- */
 .flex-center {
 	display: flex;

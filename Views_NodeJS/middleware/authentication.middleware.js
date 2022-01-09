@@ -62,12 +62,12 @@ const authorizationMiddleware = (role = ROLES.GUEST) => {
 			const isAuthenticated = await authenticateAndCreateSession(req);
 			if (!isAuthenticated) {
 				req.session.user = {};
-				return res.redirect('/');
+				return res.redirect('/redirector');
 			}
 		}
 
 		if (req.session.user.role !== role) {
-			return res.redirect('/');
+			return res.redirect('/redirector');
 		}
 
 		return next();
