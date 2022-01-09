@@ -21,6 +21,7 @@ const redirectorMiddleware = require('./middleware/redirector.middleware');
 const adminRoute = require('./routes/admin');
 const shipperRoute = require('./routes/shipper.route');
 const authRoute = require('./routes/auth.route');
+const commonRoute = require('./routes/common.route');
 
 /* ============== Config =============== */
 app.use(express.static(path.join(__dirname, 'public')));
