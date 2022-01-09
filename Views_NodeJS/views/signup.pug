@@ -13,41 +13,41 @@ block content
       .col-lg-12.form-title ĐĂNG KÝ
       .col-lg-12.form-form
         form(action="/auth/signup", enctype="multipart/form-data", method="POST")
-         .row
+          .row
             .col
-                .form-group
-                  label.form-control-label(for="username") TÊN ĐĂNG NHẬP
-                  input.form-control#username(type="text", name="username", value=username ? username : "" autofocus, maxLength="20")
-                .form-group
-                  label.form-control-label(for="password") MẬT KHẨU                
-                  input.form-control#password(type="password", name="password", maxLength="50")
-                  i.bi.bi-eye-slash-fill.view-password-icon.viewfor-signup
-                .form-group
-                  label.form-control-label(for="confirm-password") XÁC NHẬN MẬT KHẨU               
-                  input.form-control#confirm-password(type="password", maxLength="50")               
-              .col
-                .form-group
-                    label.form-control-label(for="email") EMAIL
-                    input.form-control#email(type="text", name="email", value=email ? email : "", maxLength="50")
-                .form-group
-                    label.form-control-label(for="avatar") AVATAR
-                    input.form-control#avatar(type="file", accept="image/*", name="avatar", maxLength="50")
-                .form-group 
-                    label.form-control-label(for="email") ĐĂNG KÝ VỚI VAI TRÒ
-                    select.custom-select.form-select(id="type", name="type")
-                        option#option-clear(value='0') Lựa chọn
-                        option(value='1') Khách hàng
-                        option(value='2') Vận chuyển hàng
-                        option(value='3') Đối tác bán hàng                    
-         .row#addition
-         .row
+              .form-group
+                label.form-control-label(for="username") TÊN ĐĂNG NHẬP
+                input.form-control#username(type="text", name="username", value=username ? username : "" autofocus, maxLength="20")
+              .form-group
+                label.form-control-label(for="password") MẬT KHẨU                
+                input.form-control#password(type="password", name="password", maxLength="50")
+                i.bi.bi-eye-slash-fill.view-password-icon.viewfor-signup
+              .form-group
+                label.form-control-label(for="confirm-password") XÁC NHẬN MẬT KHẨU               
+                input.form-control#confirm-password(type="password", maxLength="50")               
+            .col
+              .form-group
+                label.form-control-label(for="email") EMAIL
+                input.form-control#email(type="text", name="email", value=email ? email : "", maxLength="50")
+              .form-group
+                label.form-control-label(for="avatar") AVATAR
+                input.form-control#avatar(type="file", accept="image/*", name="avatar", maxLength="50")
+              .form-group 
+                label.form-control-label(for="email") ĐĂNG KÝ VỚI VAI TRÒ
+                select.custom-select.form-select(id="type", name="type")
+                  option#option-clear(value='0') Lựa chọn
+                  option(value='1') Khách hàng
+                  option(value='2') Vận chuyển hàng
+                  option(value='3') Đối tác bán hàng                    
+          #addition.row.w-100.mx-0
             .col.col-lg-12.p-0.mb-4.d-flex.justify-content-between.align-items-center
-                .form-text.text-danger#formMsg.ml-5= msg ? msg : ""
+              .form-text.text-danger#formMsg.ml-5= msg ? msg : ""
             .col.col-lg-12.p-0.mb-4.d-flex.justify-content-between.align-items-center
-                .form-button
-                a.btn.btn-outline-primary(href="/auth/login") Đăng nhập
+              .w-100.text-right
                 button.btn.btn-outline-primary(type="submit") Đăng Ký
-            
+            .col-12
+              p.text-gray.text-center Bạn đã có tài khoản? #[a.text-info(href="/auth/login") Đăng nhập]
+
     .col-lg-3.col-md-2
 
 block append script 

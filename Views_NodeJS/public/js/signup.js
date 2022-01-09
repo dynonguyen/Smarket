@@ -1,6 +1,6 @@
 const urlProvince = 'http://localhost:8080/api/common/province-all';
 const urlDistrict = 'http://localhost:8080/api/common/district/';
-const urlWard = 'http://localhost:8080/api/common/ward/'
+const urlWard = 'http://localhost:8080/api/common/ward/';
 
 $(document).ready(async function () {
 	let provinces;
@@ -9,88 +9,83 @@ $(document).ready(async function () {
 	} catch (error) {
 		alert('Lỗi không tải được dữ liệu tỉnh thành, vui lòng thử lại sau');
 	}
-	
+
 	$('form').submit(function (e) {
 		e.preventDefault();
 		const msgBox = $('#formMsg');
-		try {		
-		const username = $('#username').val().trim();
-		const password = $('#password').val().trim();
-        const confirmPasword = $('#confirm-password').val().trim();
-        const email = $('#email').val().trim();
-		const name = $('#name').val();
-		const phone = $('#phone').val();
-		const province = $('#province').val();
-		const district = $('#district').val();
-		const ward = $('#ward').val();
-		const address = $('#address').val();
-		const peopleid = $('#peopleId').val();
-		let certificate;
-		let categories;
-		if($('#type').val() === '2') {
-			certificate = $('#certificate').val();
-			categories = $('#categories').val();
-		}
-		if($('#type').val() === '3') {
-			certificate = $('#certificate').val();
-		}
-		
-		
-	
-		if (!username) {
-			return msgBox.text('Vui lòng nhập tên đăng nhập');
-		}
+		try {
+			const username = $('#username').val().trim();
+			const password = $('#password').val().trim();
+			const confirmPasword = $('#confirm-password').val().trim();
+			const email = $('#email').val().trim();
+			const name = $('#name').val();
+			const phone = $('#phone').val();
+			const province = $('#province').val();
+			const district = $('#district').val();
+			const ward = $('#ward').val();
+			const address = $('#address').val();
+			const peopleid = $('#peopleId').val();
+			let certificate;
+			let categories;
+			if ($('#type').val() === '2') {
+				certificate = $('#certificate').val();
+				categories = $('#categories').val();
+			}
+			if ($('#type').val() === '3') {
+				certificate = $('#certificate').val();
+			}
 
-		if (!password) {
-			return msgBox.text('Vui lòng nhập mật khẩu');
-		}
+			if (!username) {
+				return msgBox.text('Vui lòng nhập tên đăng nhập');
+			}
 
-        if (!confirmPasword) {
-			return msgBox.text('Vui lòng nhập xác nhận mật khẩu');
-		}
+			if (!password) {
+				return msgBox.text('Vui lòng nhập mật khẩu');
+			}
 
-		if (!email) {
-			return msgBox.text('Vui lòng nhập địa chỉ email');
-		}
+			if (!confirmPasword) {
+				return msgBox.text('Vui lòng nhập xác nhận mật khẩu');
+			}
 
-		if (username.length > 20) {
-			return msgBox.text('Tên đăng nhập tối đa 20 ký tự');
-		}
+			if (!email) {
+				return msgBox.text('Vui lòng nhập địa chỉ email');
+			}
 
-		if (password.length > 50) {
-			return msgBox.text('Mật khẩu tối đa 50 ký tự');
-		}
+			if (username.length > 20) {
+				return msgBox.text('Tên đăng nhập tối đa 20 ký tự');
+			}
 
-        if(password !== confirmPasword) {
-            return msgBox.text('Xác nhận mật khẩu không trùng khớp')
-        }
+			if (password.length > 50) {
+				return msgBox.text('Mật khẩu tối đa 50 ký tự');
+			}
 
-        if (email.length > 50) {
-			return msgBox.text('Địa chỉ email tối đa 50 ký tự');
-		}
-        
+			if (password !== confirmPasword) {
+				return msgBox.text('Xác nhận mật khẩu không trùng khớp');
+			}
 
-        if(!$('#check').is(':checked')) {
-            return msgBox.text('Vui lòng đồng ý với các cam kết');
-        }
+			if (email.length > 50) {
+				return msgBox.text('Địa chỉ email tối đa 50 ký tự');
+			}
 
-		// if(!name || !phone || !province || !district || !address || !ward || !peopleid || !certificate) {
-		// 	return msgBox.text('Vui lòng nhập đầy đủ thông tin');
-		// }
+			if (!$('#check').is(':checked')) {
+				return msgBox.text('Vui lòng đồng ý với các cam kết');
+			}
 
-		msgBox.text('');
-		$('button[type="submit"]').addClass('disabled');
+			// if(!name || !phone || !province || !district || !address || !ward || !peopleid || !certificate) {
+			// 	return msgBox.text('Vui lòng nhập đầy đủ thông tin');
+			// }
 
-		this.submit();
+			msgBox.text('');
+			$('button[type="submit"]').addClass('disabled');
+
+			this.submit();
 		} catch (error) {
 			return msgBox.text(error);
 		}
-		
 	});
-	$('select').on('change', function() {
+	$('select').on('change', function () {
 		$('#option-clear').remove();
-		switch($(this).val()) {
-			
+		switch ($(this).val()) {
 			case '1': {
 				$('#addition').empty();
 				$('#addition').html(`
@@ -115,7 +110,7 @@ $(document).ready(async function () {
 					</div>
 				`);
 				break;
-			};
+			}
 			case '2': {
 				$('#addition').empty();
 				$('#addition').html(`
@@ -139,11 +134,10 @@ $(document).ready(async function () {
 					<div class="text-center"><a id="contract" href="#">Nội dung cam kết</a></div>
 					<div class="form-check constract mt-3"><input class="form-check-input mt-2" id="check" type="checkbox" /><label class="form-check-label form-control-label" for="check">Đồng ý với cam kết</label></div>
 				</div>
-				`)
+				`);
 				break;
 			}
 			case '3': {
-
 				$('#addition').empty();
 				$('#addition').html(`
 				<div class="col">
@@ -174,45 +168,41 @@ $(document).ready(async function () {
 				`);
 				break;
 			}
-		}	
+		}
 		for (const item of provinces) {
 			$('#province').append(`
 				<option value="${item.provinceId}">${item.provinceName}</option>
-			`)
+			`);
 		}
-		$('#province').on('change', async function() {
+		$('#province').on('change', async function () {
 			$('#district').empty();
 			$('#ward').empty();
 			$('#district').append(`
 				<option id="option-clear" value="0">Quận/Huyện</option>
-			`)
+			`);
 			$('#ward').append(`
 				<option id="option-clear" value="0">Phường/Xã</option>
-			`)
+			`);
 			const districts = await $.get(`${urlDistrict}${$(this).val()}`);
 			for (const item of districts) {
 				$('#district').append(`
-					<option value="${item.districtId}">${item.prefix + ' ' + item.districtName}</option>
-				`)
+					<option value="${item.districtId}">${
+					item.prefix + ' ' + item.districtName
+				}</option>
+				`);
 			}
-			
-		})
-		$('#district').on('change', async function() {
+		});
+		$('#district').on('change', async function () {
 			$('#ward').empty();
 			$('#ward').append(`
 				<option id="option-clear" value="0">Phường/Xã</option>
-			`)
+			`);
 			const wards = await $.get(`${urlWard}${$(this).val()}`);
 			for (const item of wards) {
 				$('#ward').append(`
 					<option value="${item.wardId}">${item.prefix + ' ' + item.wardName}</option>
-				`)
+				`);
 			}
-			
-		})
+		});
 	});
-	
-	
-
-	
 });
