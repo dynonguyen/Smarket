@@ -50,7 +50,10 @@ app.use(unlessRouteMiddleware([], passVariableToClientMiddleware));
 app.use('/admin', authorizationMiddleware(ROLES.ADMIN), adminRoute);
 app.use('/shipper', authorizationMiddleware(ROLES.SHIPPER), shipperRoute);
 app.use('/auth', authRoute);
-app.get('/', redirectorMiddleware);
+app.get('/redirector', redirectorMiddleware);
+app.get('/', (req, res) => {
+	res.render('home.pug');
+});
 
 // 404 Not found redirect
 app.use((req, res) => res.status(404).render('404.pug'));

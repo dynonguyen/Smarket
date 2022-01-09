@@ -36,19 +36,21 @@ const authenticationMiddleware = async (req, res, next) => {
 	const jwt = req.cookies[JWT_HEADER];
 
 	if (!jwt) {
-		return res.redirect('/auth/login');
+		return next();
 	}
 
 	if (req.session.user) {
 		const { expired } = req.session.user;
 		if (expired < Date.now()) {
-			return res.redirect('/auth/login');
+			req.session.user = {};
+			return next();
 		}
 	} else {
 		// if session hasn't been created then call Authentication API
 		const isAuthenticated = await authenticateAndCreateSession(req);
 		if (!isAuthenticated) {
-			return res.redirect('/auth/login');
+			req.session.user = {};
+			return next();
 		}
 	}
 	return next();
@@ -58,7 +60,10 @@ const authorizationMiddleware = (role = ROLES.GUEST) => {
 	return async (req, res, next) => {
 		if (!req.session.user) {
 			const isAuthenticated = await authenticateAndCreateSession(req);
-			if (!isAuthenticated) return res.redirect('/auth/login');
+			if (!isAuthenticated) {
+				req.session.user = {};
+				return res.redirect('/');
+			}
 		}
 
 		if (req.session.user.role !== role) {

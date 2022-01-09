@@ -3,6 +3,9 @@ const { JWT_HEADER, JWT_STORE_KEY } = require('../constants/index.constant');
 const store = require('store');
 
 exports.getLogin = (req, res) => {
+	if (req.session.user) {
+		return res.redirect('/redirector');
+	}
 	return res.render('login.pug');
 };
 
@@ -55,15 +58,23 @@ exports.postLogin = async (req, res) => {
 };
 
 exports.getSignUP = (req, res) => {
+	if (req.session.user) {
+		return res.redirect('/redirector');
+	}
 	return res.render('signup');
-}
+};
 
 exports.postSignUp = async (req, res) => {
 	const account = req.body;
-	if(!account.username || !account.password || !account.type || !account.email) {
+	if (
+		!account.username ||
+		!account.password ||
+		!account.type ||
+		!account.email
+	) {
 		return res.render('/signup', {
-			msg: "Đăng ký thất bại, vui lòng thử lại!"
-		})
+			msg: 'Đăng ký thất bại, vui lòng thử lại!',
+		});
 	}
 	try {
 		const entity = {
@@ -71,21 +82,20 @@ exports.postSignUp = async (req, res) => {
 			Password: account.password,
 			Email: account.email,
 			AccountType: account.type,
-			CreateTime: new Date()
-		}
+			CreateTime: new Date(),
+		};
 		const apiRes = await authApi.signup(entity);
-		if(apiRes.data === 'Success') {
+		if (apiRes.data === 'Success') {
 			return res.redirect('/auth/login');
 		} else {
 			return res.render('signup', {
-				msg: 'Đăng ký thất bại, vui lòng kiểm tra lại các thông tin'
+				msg: 'Đăng ký thất bại, vui lòng kiểm tra lại các thông tin',
 			});
 		}
-		
 	} catch (error) {
 		console.log(error);
 		return res.render('signup', {
-			msg: 'Đăng ký thất bại, vui lòng thử lại!.'
+			msg: 'Đăng ký thất bại, vui lòng thử lại!.',
 		});
-	}	
-}
+	}
+};
