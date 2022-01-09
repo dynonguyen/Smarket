@@ -1,6 +1,5 @@
 package api.java.dto;
 
-import java.sql.Date;
 
 import api.java.utils.MappingObjectDto;
 

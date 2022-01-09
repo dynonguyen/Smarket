@@ -1,12 +1,11 @@
 package api.java.apis.admin;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -55,7 +54,7 @@ public class ManageApi {
 	}
 
     @GetMapping(path = "/orderDetail")
-    public OrderDetailDto getOrderInfo(@RequestParam(name = "oid", defaultValue = "1") int oid) {
+    public OrderDetailDto<OrderDetailInfoDto> getOrderInfo(@RequestParam(name = "oid", defaultValue = "1") int oid) {
         CusOrder orderInfor = cOrderRepository.findById(oid);
         LocalDateTime createDate = orderInfor.getCreateDate();
         int orderStatus = orderInfor.getOrderStatus();

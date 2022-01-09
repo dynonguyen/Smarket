@@ -1,11 +1,8 @@
 package api.java.dto;
 
 import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.util.List;
 
-import api.java.constants.AppConstants;
-import api.java.utils.MappingObjectDto;
+import java.util.List;
 
 public class OrderDetailDto<T> {
     private LocalDateTime createDate;
