@@ -28,8 +28,9 @@ mixin navbar
             a.header-item(href="/customer/" + user.username)= user.username
 
       .flex-grow-1.center-vertical.justify-content-between
-        a.logo(href="/")
-          img.w-100.h-100(src="https://picsum.photos/140/54", alt="Logo")
+        a.logo.mb-3(href="/")
+          img.w-100.h-100.mr-5(src="/images/logo.png", alt="Logo")
+          a#sys-name.mr-3.mb-3(href="/") Smarket
         .flex-grow-1.mx-4
           div.searchbar.position-relative
             input.field.w-100.bg-white(type="text", placeholder="Bạn muốn tìm gì ...")

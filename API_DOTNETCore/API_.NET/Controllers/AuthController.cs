@@ -25,7 +25,7 @@ namespace API_.NET.Controllers
 
                     return new DTO_Response("Success", acc.AccountId);
                 }
-            } catch(Exception ex)
+            } catch
             {
                 return new DTO_Response("Fail", 0);
             }          
@@ -45,7 +45,7 @@ namespace API_.NET.Controllers
                     return new DTO_Response("Success", user.UserId);
                 }
             }
-            catch (Exception ex)
+            catch
             {
                 return new DTO_Response("Fail", 0);
             }

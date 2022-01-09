@@ -27,7 +27,7 @@ namespace API_.NET.DAO.Customer
                     return context.Stores.FromSql(Utils_Queries.GetStoreById(storeId)).FirstOrDefault();
                 }
             }
-            catch (Exception ex)
+            catch 
             {
                 return null;
             }

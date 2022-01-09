@@ -33,9 +33,14 @@
 }
 
 .navbar-wrap .logo {
-	width: 8.75em;
-	height: 3.5em;
+	width: 4.5em;
+	height: 4.5em;
 	flex-shrink: 0;
+}
+
+#sys-name {
+	font-size: 2em;
+	color: #fff;
 }
 
 .searchbar .field {
