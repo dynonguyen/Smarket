@@ -7,5 +7,7 @@ module.exports = passVariableToClientMiddleware = (req, res, next) => {
 		USER_TYPES: constant.USER_TYPES,
 	});
 
+	res.locals.user = req.session.user;
+
 	next();
 };

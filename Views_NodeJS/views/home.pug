@@ -1,4 +1,6 @@
 extends ./templates/general.template.pug
+include ./mixins/navbar.mixin.pug
+include ./mixins/footer.mixin.pug
 
-block content
-  p Hello Home
+block content    
+  +navbar

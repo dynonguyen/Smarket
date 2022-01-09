@@ -256,7 +256,7 @@ td {
 .paginationjs-pages li a {
 	font-size: 0.9rem;
 	font-weight: 500;
-	color: var(--gray-dark);
+	color: var(--dark-gray);
 	text-decoration: none;
 }
 
