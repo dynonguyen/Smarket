@@ -69,6 +69,7 @@ GO
 CREATE TABLE AppUser(
 	UserId int not null IDENTITY(1,1),
 	AccountId int not null,
+	Avatar varchar(150) not null,
 	Name nvarchar(30) not null,
 	PeopleId varchar(12) not null,
 	Phone varchar(11) not null,
@@ -85,7 +86,7 @@ CREATE TABLE Shipper(
 	ShipperId int not null IDENTITY(1,1),
 	Status int not null,
 	Area int not null,
-	ShipperLicense varchar(50) not null,
+	ShipperLicense varchar(150) not null,
 	ShipperRating float not null,
 	UserId int not null, 
 	

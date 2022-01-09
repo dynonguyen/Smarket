@@ -2,6 +2,12 @@
 {
     public class Utils_Queries
     {
+        // --------------- Common ----------------//
+        public static string DeleteRowOfTable(string table, string fieldName, int id)
+        {
+            return $"DELETE FROM {table} WHERE {fieldName} = {id}";
+        }
+
         // List product for search
         public static string ListSearchProduct(string str)
         {
@@ -85,5 +91,8 @@
                             + $" WHERE o.OrderDetailId = fb.DetailId AND o.ProductId = {productId}";
             return query;
         }
+
+
+        
     }
 }

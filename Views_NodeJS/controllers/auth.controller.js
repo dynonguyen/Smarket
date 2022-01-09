@@ -1,6 +1,12 @@
 const authApi = require('../apis/auth.api');
 const { JWT_HEADER, JWT_STORE_KEY } = require('../constants/index.constant');
 const store = require('store');
+const upload = require('../configs/multer.config');
+const cloudinary = require('../configs/cloudinary.config');
+const fs = require('fs');
+const { UploadStream } = require('cloudinary');
+const commonApi = require('../apis/common.api');
+
 
 exports.getLogin = (req, res) => {
 	return res.render('login.pug');
@@ -59,33 +65,129 @@ exports.getSignUP = (req, res) => {
 }
 
 exports.postSignUp = async (req, res) => {
+
 	const account = req.body;
 	if(!account.username || !account.password || !account.type || !account.email) {
-		return res.render('/signup', {
+		return res.render('signup', {
 			msg: "Đăng ký thất bại, vui lòng thử lại!"
 		})
 	}
+	const uploader = async (path) => await cloudinary.uploads(path, 'Images');
 	try {
-		const entity = {
+		const acc = {
+			AccountType: account.type,
 			Username: account.username,
 			Password: account.password,
-			Email: account.email,
-			AccountType: account.type,
+			Email: account.email,			
 			CreateTime: new Date()
 		}
-		const apiRes = await authApi.signup(entity);
-		if(apiRes.data === 'Success') {
-			return res.redirect('/auth/login');
+		let ward = await commonApi.getWardById(account.ward);
+		let district = await commonApi.getDistrictById(account.district);
+		let province = await commonApi.getProvinceById(account.province);
+		ward = ward.data; district = district.data; province = province.data;
+		const accRes = await authApi.signup(acc);
+		if(accRes.data.msg === 'Success') {
+			const accountId = accRes.data.data;
+			let avatar;
+			let certificate;
+			if(req.files.avatar) {			
+				avatar = await uploader(req.files.avatar[0].path);
+			} else {
+				avatar = {
+					url: '',
+				};
+			}
+			if(req.files.certificate) {
+				certificate = await uploader(req.files.certificate[0].path);
+			} else {
+				certificate = {
+					url: '',
+				}
+			}
+			const user = {
+				AccountId: accountId,
+				Avatar: avatar.url,
+				Name: account.name,
+				Phone: account.phone,
+				PeopleId: account.peopleid,
+				Address: `${account.address}, ${ward.prefix + ' ' + ward.wardName}, ${district.prefix + ' ' + district.districtName}, ${province.provincename}`,
+				Ward: account.ward
+			}
+			const userRes = await authApi.createUser(user);
+			if(userRes.data.msg === 'Success') {
+				const UserId = parseInt(userRes.data.data);
+				switch(account.type) {
+					case '1': {
+						const customer = {
+							CustomerLevel: 1,
+							UserId: UserId
+						}
+						const cusRes = await authApi.createCustomer(customer);
+						if(cusRes.data === 'Success') {
+							return res.redirect('/auth/login');
+						} else {
+							return res.render('signup', {
+								msg: 'Đăng ký thất bại, vui lòng kiểm tra lại các thông tin'
+							});
+						}
+						break;
+					};
+					case '2': {
+						
+						const shipper = {
+							Status: 0,
+							Area: account.district,
+							ShipperLicense: certificate.url,
+							ShipperRating: 5,
+							UserId: UserId
+						}
+						const shipRes = await authApi.createShipper(shipper);
+						if(shipRes.data === 'Success') {
+							return res.redirect('/auth/login');
+						} else {
+							return res.render('signup', {
+								msg: 'Đăng ký thất bại, vui lòng kiểm tra lại các thông tin'
+							});
+						}
+						break;
+					};
+					case '3': {
+						const store = {
+							StoreType: account.storeType,
+							Status: 0,
+							Area: account.district,
+							Certificate: certificate.url,
+							Categories: account.categories,
+							UserId: UserId
+						}
+						const storeRes = await authApi.createStore(store);
+						if(storeRes.data === 'Success') {
+							return res.redirect('/auth/login');
+						} else {
+							return res.render('signup', {
+								msg: 'Đăng ký thất bại, vui lòng kiểm tra lại các thông tin'
+							});
+						}
+						break;
+					}
+				}
+			} else {
+				return res.render('signup', {
+					msg: 'Tên đăng nhập đã tồn tại.'
+				});
+			}
+			
 		} else {
 			return res.render('signup', {
-				msg: 'Đăng ký thất bại, vui lòng kiểm tra lại các thông tin'
+				msg: 'Tên đăng nhập đã tồn tại.'
 			});
 		}
 		
 	} catch (error) {
-		console.log(error);
+		//console.log('ERROR' + error);
 		return res.render('signup', {
 			msg: 'Đăng ký thất bại, vui lòng thử lại!.'
 		});
+
 	}	
 }

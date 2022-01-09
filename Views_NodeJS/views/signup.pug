@@ -12,7 +12,7 @@ block content
     .col-lg-6.col-md-8.form-box(style="max-width: 800px")     
       .col-lg-12.form-title ĐĂNG KÝ
       .col-lg-12.form-form
-        form(action="/auth/signup", method="POST")
+        form(action="/auth/signup", enctype="multipart/form-data", method="POST")
          .row
             .col
                 .form-group
@@ -29,22 +29,25 @@ block content
                 .form-group
                     label.form-control-label(for="email") EMAIL
                     input.form-control#email(type="text", name="email", value=email ? email : "", maxLength="50")
+                .form-group
+                    label.form-control-label(for="avatar") AVATAR
+                    input.form-control#avatar(type="file", accept="image/*", name="avatar", maxLength="50")
                 .form-group 
                     label.form-control-label(for="email") ĐĂNG KÝ VỚI VAI TRÒ
-                    select.custom-select.form-select(id="type" name="type")
+                    select.custom-select.form-select(id="type", name="type")
+                        option#option-clear(value='0') Lựa chọn
                         option(value='1') Khách hàng
                         option(value='2') Vận chuyển hàng
-                        option(value='3') Đối tác bán hàng                   
-                .text-center
-                    a#contract(href="#") Nội dung cam kết
-                .form-check.constract.mt-3
-                    input#check.form-check-input.mt-2(type='checkbox')
-                    label.form-check-label.form-control-label(for='exampleCheck1') Đồng ý với cam kết trên 
+                        option(value='3') Đối tác bán hàng                    
+         .row#addition
          .row
-                .col.col-lg-12.p-0.mb-4.d-flex.justify-content-between.align-items-center
-                    .form-text.text-danger#formMsg.ml-5= msg ? msg : ""
-                    .form-button
-                    button.btn.btn-outline-primary(type="submit") Đăng Ký
+            .col.col-lg-12.p-0.mb-4.d-flex.justify-content-between.align-items-center
+                .form-text.text-danger#formMsg.ml-5= msg ? msg : ""
+            .col.col-lg-12.p-0.mb-4.d-flex.justify-content-between.align-items-center
+                .form-button
+                a.btn.btn-outline-primary(href="/auth/login") Đăng nhập
+                button.btn.btn-outline-primary(type="submit") Đăng Ký
+            
     .col-lg-3.col-md-2
 
 block append script 
