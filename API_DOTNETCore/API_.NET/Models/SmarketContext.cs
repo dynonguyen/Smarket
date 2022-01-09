@@ -1,7 +1,6 @@
-﻿using System;
+﻿using API_.NET.DTO;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
-using API_.NET.DTO;
+using System;
 namespace API_.NET.Models
 {
     public partial class SmarketContext : DbContext
@@ -35,9 +34,8 @@ namespace API_.NET.Models
         public virtual DbSet<Store> Store { get; set; }
         public virtual DbSet<StoreFeedback> StoreFeedback { get; set; }
         public virtual DbSet<Ward> Ward { get; set; }
-        public DbSet<ProductOfStore> ProductOfStore { get; set; }
-        public DbSet<DTO.Stores> Stores { get; set; }
-
+        public DbSet<DTO_Stores> Stores { get; set; }
+        public DbSet<DTO_Empty> Empty { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
@@ -116,6 +114,10 @@ namespace API_.NET.Models
                     .HasMaxLength(100);
 
                 entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(30);
+
+                entity.Property(e => e.Avatar)
                     .IsRequired()
                     .HasMaxLength(30);
 

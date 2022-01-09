@@ -18,8 +18,25 @@ const authApi = {
 			},
 		});
 	},
+
 	signup: (account) => {
 		return axiosCSharp.post(`${BASE_URL}/signup`, account);
+	},
+
+	createUser: (user) => {
+		return axiosCSharp.post(`${BASE_URL}/user/create`, user);
+	},
+
+	createCustomer: (customer) => {
+		return axiosCSharp.post(`${BASE_URL}/user/customer`, customer);
+	},
+
+	createShipper: (shipper) => {
+		return axiosCSharp.post(`${BASE_URL}/user/shipper`, shipper);
+	},
+
+	createStore: (store) => {
+		return axiosCSharp.post(`${BASE_URL}/user/store`, store);
 	}
 };
 

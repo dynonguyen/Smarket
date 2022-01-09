@@ -60,6 +60,16 @@ input[type='password'] {
 	color: var(--light-gray);
 }
 
+input[type='file'] {
+	background-color: #1a2226;
+	border: none;
+	border-bottom: 2px solid var(--primary);
+	border-top: 0px;
+	border-radius: 0px;
+	outline: 0;
+	padding-left: 0px;
+	color: var(--light-gray);
+}
 .view-password-icon {
 	position: absolute;
 	right: 0.75rem;

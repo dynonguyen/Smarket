@@ -7,4 +7,5 @@ import api.java.entities.Province;
 
 @Repository
 public interface ProvinceRepository extends JpaRepository<Province, Integer> {
+    Province findByProvinceId(int provinceId);
 }

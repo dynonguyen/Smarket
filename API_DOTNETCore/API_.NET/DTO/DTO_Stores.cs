@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace API_.NET.DTO
 {
-    public class Stores
+    public class DTO_Stores
     {
         [Key]
         public int UserId { get; set; }

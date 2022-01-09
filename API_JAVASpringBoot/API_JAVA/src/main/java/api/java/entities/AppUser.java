@@ -16,6 +16,7 @@ public class AppUser implements Serializable {
 
 	private int UserId;
 	private int AccountId;
+	private String Avatar;
 	private String Name;
 	private String PeopleId;
 	private String Phone;
@@ -25,8 +26,9 @@ public class AppUser implements Serializable {
 	public AppUser() {
 	}
 
-	public AppUser(int AccountId, String Name, String PeopleId, String Phone, String Address, int Ward) {
+	public AppUser(int AccountId, String Avatar, String Name, String PeopleId, String Phone, String Address, int Ward) {
 		this.AccountId = AccountId;
+		this.Avatar = Avatar;
 		this.Name = Name;
 		this.PeopleId = PeopleId;
 		this.Phone = Phone;
@@ -63,7 +65,16 @@ public class AppUser implements Serializable {
 		this.Name = Name;
 	}
 
-	@Column(name = "PeopleId", length = 12)
+	@Column(name = "Avatar", length = 150)
+	public String getAvatar() {
+		return this.Avatar;
+	}
+
+	public void setAvatar(String Avatar) {
+		this.Avatar = Avatar;
+	}
+
+	@Column(name = "PeopleId", length = 13)
 	public String getPeopleId() {
 		return this.PeopleId;
 	}
