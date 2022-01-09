@@ -1,6 +1,6 @@
-const urlProvince = 'http://localhost:8080/api/common/province-all';
-const urlDistrict = 'http://localhost:8080/api/common/district/';
-const urlWard = 'http://localhost:8080/api/common/ward/'
+const urlProvince = `${window.location.origin}/common/province-all`;
+const urlDistrict = `${window.location.origin}/common/district?provinceid=`
+const urlWard = `${window.location.origin}/common/ward?districtid=`
 
 $(document).ready(async function () {
 	let provinces;

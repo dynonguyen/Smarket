@@ -21,6 +21,7 @@ const redirectorMiddleware = require('./middleware/redirector.middleware');
 const adminRoute = require('./routes/admin');
 const shipperRoute = require('./routes/shipper.route');
 const authRoute = require('./routes/auth.route');
+const commonRoute = require('./routes/common.route');
 
 /* ============== Config =============== */
 app.use(express.static(path.join(__dirname, 'public')));
@@ -51,6 +52,7 @@ app.use('/admin', authorizationMiddleware(ROLES.ADMIN), adminRoute);
 app.use('/shipper', authorizationMiddleware(ROLES.SHIPPER), shipperRoute);
 app.use('/auth', authRoute);
 app.get('/', redirectorMiddleware);
+app.use('/common', commonRoute);
 
 // 404 Not found redirect
 app.use((req, res) => res.status(404).render('404.pug'));

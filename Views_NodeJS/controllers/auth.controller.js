@@ -1,10 +1,7 @@
 const authApi = require('../apis/auth.api');
 const { JWT_HEADER, JWT_STORE_KEY } = require('../constants/index.constant');
 const store = require('store');
-const upload = require('../configs/multer.config');
 const cloudinary = require('../configs/cloudinary.config');
-const fs = require('fs');
-const { UploadStream } = require('cloudinary');
 const commonApi = require('../apis/common.api');
 
 
