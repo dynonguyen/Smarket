@@ -10,7 +10,7 @@ namespace API_.NET.DAO.Customer
     public class DAO_Store
     {
         // Get all store
-        public static List<DTO.Stores> GetAllStore()
+        public static List<DTO.DTO_Stores> GetAllStore()
         {
             using (var context = new SmarketContext())
             {
@@ -18,7 +18,7 @@ namespace API_.NET.DAO.Customer
             }
         }
         // Get store by id
-        public static DTO.Stores GetStoreById(int storeId)
+        public static DTO.DTO_Stores GetStoreById(int storeId)
         {
             try
             {
@@ -34,7 +34,7 @@ namespace API_.NET.DAO.Customer
         }
 
         // Get store in area (nearest)
-        public static List<DTO.Stores> GetNearestStore(int area)
+        public static List<DTO.DTO_Stores> GetNearestStore(int area)
         {
             try
             {
@@ -50,7 +50,7 @@ namespace API_.NET.DAO.Customer
         }
 
         // Get stores by search
-        public static List<DTO.Stores> GetSearchStores(string storeName)
+        public static List<DTO.DTO_Stores> GetSearchStores(string storeName)
         {
             try
             {
@@ -65,7 +65,7 @@ namespace API_.NET.DAO.Customer
         }
 
         // Get stores by product name
-        public static List<DTO.Stores> GetStoresByProductName(string productName)
+        public static List<DTO.DTO_Stores> GetStoresByProductName(string productName)
         {
             try
             {

@@ -14,6 +14,7 @@ namespace API_.NET.Models
 
         public int UserId { get; set; }
         public int AccountId { get; set; }
+        public string Avatar { get; set; }
         public string Name { get; set; }
         public string PeopleId { get; set; }
         public string Phone { get; set; }
