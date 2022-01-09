@@ -38,7 +38,7 @@ h5 {
 #greenRegionBox h4 {
 	font-size: 1.25rem;
 	font-weight: 600;
-	color: var(--gray-dark);
+	color: var(--dark-gray);
 }
 
 .rate-item {
@@ -68,7 +68,7 @@ h5 {
 
 .rate-item .rate {
 	font-size: 0.65rem;
-	color: var(--gray-dark);
+	color: var(--dark-gray);
 	text-align: right;
 	background-color: var(--teal);
 	padding: 1px 4px;

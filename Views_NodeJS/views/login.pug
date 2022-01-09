@@ -24,10 +24,11 @@ block content
               input.form-control#password(type="password", name="password", maxLength="50")
               i.bi.bi-eye-slash-fill.view-password-icon
           .col-lg-12.p-0.mb-4.d-flex.justify-content-between.align-items-center            
-            a.btn.btn-outline-primary(href="/auth/signup") Đăng ký
-            .form-button              
+            .form-text.text-danger#formMsg= msg ? msg : ""
+            .form-button
               button.btn.btn-outline-primary(type="submit") Đăng nhập
-          .form-text.text-danger#formMsg= msg ? msg : ""
+          .col-12
+            .text-center.text-gray Bạn chưa có tài khoản? #[a.font-weight-bold.text-info(href="/auth/signup") Đăng ký]
     .col-lg-3.col-md-2
 
 block append script 

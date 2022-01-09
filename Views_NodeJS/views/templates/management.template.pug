@@ -34,7 +34,7 @@ block content
               h3.menu-title #[i.mr-2(class=menu.icon)] #{menu.menuTitle}
               ul.menu-list
                 each menuItem in menu.list
-                  li.menu-item(data-path=menuItem.to)
+                  li.menu-item(data-path=rootPath+menuItem.to)
                     a(href=`${rootPath}${menuItem.to}`)= menuItem.title
 
       //- main content

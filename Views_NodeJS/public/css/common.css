@@ -163,7 +163,7 @@ a {
 	font-size: 1.1rem;
 	font-weight: 500;
 	box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 50px -12px;
-	color: var(--gray-dark);
+	color: var(--dark-gray);
 	display: none;
 }
 

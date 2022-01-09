@@ -7,8 +7,10 @@ const fs = require('fs');
 const { UploadStream } = require('cloudinary');
 const commonApi = require('../apis/common.api');
 
-
 exports.getLogin = (req, res) => {
+	if (req.session.user) {
+		return res.redirect('/redirector');
+	}
 	return res.render('login.pug');
 };
 
@@ -61,16 +63,23 @@ exports.postLogin = async (req, res) => {
 };
 
 exports.getSignUP = (req, res) => {
+	if (req.session.user) {
+		return res.redirect('/redirector');
+	}
 	return res.render('signup');
-}
+};
 
 exports.postSignUp = async (req, res) => {
-
 	const account = req.body;
-	if(!account.username || !account.password || !account.type || !account.email) {
+	if (
+		!account.username ||
+		!account.password ||
+		!account.type ||
+		!account.email
+	) {
 		return res.render('signup', {
-			msg: "Đăng ký thất bại, vui lòng thử lại!"
-		})
+			msg: 'Đăng ký thất bại, vui lòng thử lại!',
+		});
 	}
 	const uploader = async (path) => await cloudinary.uploads(path, 'Images');
 	try {
@@ -78,31 +87,33 @@ exports.postSignUp = async (req, res) => {
 			AccountType: account.type,
 			Username: account.username,
 			Password: account.password,
-			Email: account.email,			
-			CreateTime: new Date()
-		}
+			Email: account.email,
+			CreateTime: new Date(),
+		};
 		let ward = await commonApi.getWardById(account.ward);
 		let district = await commonApi.getDistrictById(account.district);
 		let province = await commonApi.getProvinceById(account.province);
-		ward = ward.data; district = district.data; province = province.data;
+		ward = ward.data;
+		district = district.data;
+		province = province.data;
 		const accRes = await authApi.signup(acc);
-		if(accRes.data.msg === 'Success') {
+		if (accRes.data.msg === 'Success') {
 			const accountId = accRes.data.data;
 			let avatar;
 			let certificate;
-			if(req.files.avatar) {			
+			if (req.files.avatar) {
 				avatar = await uploader(req.files.avatar[0].path);
 			} else {
 				avatar = {
 					url: '',
 				};
 			}
-			if(req.files.certificate) {
+			if (req.files.certificate) {
 				certificate = await uploader(req.files.certificate[0].path);
 			} else {
 				certificate = {
 					url: '',
-				}
+				};
 			}
 			const user = {
 				AccountId: accountId,
@@ -110,47 +121,48 @@ exports.postSignUp = async (req, res) => {
 				Name: account.name,
 				Phone: account.phone,
 				PeopleId: account.peopleid,
-				Address: `${account.address}, ${ward.prefix + ' ' + ward.wardName}, ${district.prefix + ' ' + district.districtName}, ${province.provincename}`,
-				Ward: account.ward
-			}
+				Address: `${account.address}, ${ward.prefix + ' ' + ward.wardName}, ${
+					district.prefix + ' ' + district.districtName
+				}, ${province.provincename}`,
+				Ward: account.ward,
+			};
 			const userRes = await authApi.createUser(user);
-			if(userRes.data.msg === 'Success') {
+			if (userRes.data.msg === 'Success') {
 				const UserId = parseInt(userRes.data.data);
-				switch(account.type) {
+				switch (account.type) {
 					case '1': {
 						const customer = {
 							CustomerLevel: 1,
-							UserId: UserId
-						}
+							UserId: UserId,
+						};
 						const cusRes = await authApi.createCustomer(customer);
-						if(cusRes.data === 'Success') {
+						if (cusRes.data === 'Success') {
 							return res.redirect('/auth/login');
 						} else {
 							return res.render('signup', {
-								msg: 'Đăng ký thất bại, vui lòng kiểm tra lại các thông tin'
+								msg: 'Đăng ký thất bại, vui lòng kiểm tra lại các thông tin',
 							});
 						}
 						break;
-					};
+					}
 					case '2': {
-						
 						const shipper = {
 							Status: 0,
 							Area: account.district,
 							ShipperLicense: certificate.url,
 							ShipperRating: 5,
-							UserId: UserId
-						}
+							UserId: UserId,
+						};
 						const shipRes = await authApi.createShipper(shipper);
-						if(shipRes.data === 'Success') {
+						if (shipRes.data === 'Success') {
 							return res.redirect('/auth/login');
 						} else {
 							return res.render('signup', {
-								msg: 'Đăng ký thất bại, vui lòng kiểm tra lại các thông tin'
+								msg: 'Đăng ký thất bại, vui lòng kiểm tra lại các thông tin',
 							});
 						}
 						break;
-					};
+					}
 					case '3': {
 						const store = {
 							StoreType: account.storeType,
@@ -158,14 +170,14 @@ exports.postSignUp = async (req, res) => {
 							Area: account.district,
 							Certificate: certificate.url,
 							Categories: account.categories,
-							UserId: UserId
-						}
+							UserId: UserId,
+						};
 						const storeRes = await authApi.createStore(store);
-						if(storeRes.data === 'Success') {
+						if (storeRes.data === 'Success') {
 							return res.redirect('/auth/login');
 						} else {
 							return res.render('signup', {
-								msg: 'Đăng ký thất bại, vui lòng kiểm tra lại các thông tin'
+								msg: 'Đăng ký thất bại, vui lòng kiểm tra lại các thông tin',
 							});
 						}
 						break;
@@ -173,21 +185,18 @@ exports.postSignUp = async (req, res) => {
 				}
 			} else {
 				return res.render('signup', {
-					msg: 'Tên đăng nhập đã tồn tại.'
+					msg: 'Tên đăng nhập đã tồn tại.',
 				});
 			}
-			
 		} else {
 			return res.render('signup', {
-				msg: 'Tên đăng nhập đã tồn tại.'
+				msg: 'Tên đăng nhập đã tồn tại.',
 			});
 		}
-		
 	} catch (error) {
 		//console.log('ERROR' + error);
 		return res.render('signup', {
-			msg: 'Đăng ký thất bại, vui lòng thử lại!.'
+			msg: 'Đăng ký thất bại, vui lòng thử lại!.',
 		});
-
-	}	
-}
+	}
+};
