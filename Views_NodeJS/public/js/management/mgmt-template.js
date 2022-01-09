@@ -38,10 +38,7 @@ $(document).ready(function () {
 	});
 
 	// auto active menu item
-	const pathnameSplit = window.location.pathname
-		.replace(ROOT_PATH, '')
-		.split('/');
-	const pathname = '/' + pathnameSplit[1];
+	const { pathname } = window.location;
 
 	$(`.menu-item[data-path="${pathname}"]`).addClass('active');
 });

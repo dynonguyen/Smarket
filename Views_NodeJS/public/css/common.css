@@ -30,6 +30,7 @@ html {
 
 a {
 	text-decoration: none !important;
+	color: var(--info);
 }
 
 .disabled {
