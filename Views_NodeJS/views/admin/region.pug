@@ -1,5 +1,6 @@
 extends ../templates/admin.template.pug
 include ../mixins/get-server-variables.pug
+include ../mixins/chartjs-script.mixin.pug
 
 block title 
   title Smarket | Thống kê theo vùng
@@ -37,7 +38,7 @@ block addContent
           #msg.text-center.text-gray Chọn tỉnh thành để thống kê dữ liệu
           ul.p-4.m-0
 block addScript
-  script(src="https://cdn.jsdelivr.net/npm/chart.js@3.6.2/dist/chart.min.js") 
+  +chartjsScript
   script(src="/vendors/selectize/selectize.min.js")
   +getServerVarScript
   script(src="/js/admin/region.js") 

@@ -5,14 +5,15 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import api.java.services.admin.ManageService;
 import api.java.constants.AppConstants;
-import api.java.dto.*;
+import api.java.dto.CustomerDto;
+import api.java.dto.OrderDetailDto;
+import api.java.dto.OrderDetailInfoDto;
+import api.java.dto.PaginationDto;
 import api.java.entities.Account;
 import api.java.entities.AppUser;
 import api.java.entities.CusOrder;
@@ -21,6 +22,7 @@ import api.java.repositories.AccountRepository;
 import api.java.repositories.AppUserRepository;
 import api.java.repositories.CusOrderRepository;
 import api.java.repositories.ShipperRepository;
+import api.java.services.admin.ManageService;
 import api.java.utils.Pagination;
 
 @RestController
@@ -29,29 +31,28 @@ public class ManageApi {
     @Autowired
     private ManageService manageService;
 
-	@Autowired
+    @Autowired
     private CusOrderRepository cOrderRepository;
-    
-	@Autowired
-    private  AppUserRepository  cAppUserRepository;
 
     @Autowired
-    private  ShipperRepository  cShipperRepository;
+    private AppUserRepository cAppUserRepository;
+
+    @Autowired
+    private ShipperRepository cShipperRepository;
 
     @Autowired
     private AccountRepository accountRepository;
 
-    
-	@GetMapping(path = "/order")
-	public PaginationDto<CusOrder> getOrderInfor(@RequestParam(name = "p", defaultValue = "1") int page) {
-		if (page <= 0) {
+    @GetMapping(path = "/order")
+    public PaginationDto<CusOrder> getOrderInfor(@RequestParam(name = "p", defaultValue = "1") int page) {
+        if (page <= 0) {
             page = 1;
         }
-		Pagination<CusOrder> cpage = new Pagination<>();
-		List<CusOrder> data = cOrderRepository.findAll();
-		PaginationDto<CusOrder> result = cpage.paging(data, AppConstants.PAGE_SIZE, page);
-		return result;
-	}
+        Pagination<CusOrder> cpage = new Pagination<>();
+        List<CusOrder> data = cOrderRepository.findAll();
+        PaginationDto<CusOrder> result = cpage.paging(data, AppConstants.PAGE_SIZE, page);
+        return result;
+    }
 
     @GetMapping(path = "/orderDetail")
     public OrderDetailDto<OrderDetailInfoDto> getOrderInfo(@RequestParam(name = "oid", defaultValue = "1") int oid) {
@@ -62,7 +63,6 @@ public class ManageApi {
 
         Shipper shipperInfor = cShipperRepository.getById(shipperId);
 
-        
         AppUser userInfor = cAppUserRepository.getById(shipperInfor.getUserId());
 
         String receiverName = orderInfor.getReceiverName();
@@ -70,7 +70,6 @@ public class ManageApi {
         String orderCode = orderInfor.getOrderCode();
         String shipperName = userInfor.getName();
         String shipperPhone = userInfor.getPhone();
-
 
         List<OrderDetailInfoDto> listOrder;
         listOrder = manageService.getOrderInfo(oid);
@@ -90,19 +89,21 @@ public class ManageApi {
     }
 
     @GetMapping(path = "/account")
-    public PaginationDto<Account> getAccounts(@RequestParam(defaultValue = "1") int userType, @RequestParam(defaultValue = "1") int page) {
+    public PaginationDto<Account> getAccounts(@RequestParam(defaultValue = "1") int userType,
+            @RequestParam(defaultValue = "1") int page) {
         if (page <= 0) {
             page = 1;
         }
         Pagination<Account> accountPage = new Pagination<>();
-        List<Account> accounts =  accountRepository.findByAccountType(userType);
+        List<Account> accounts = accountRepository.findByAccountType(userType);
         PaginationDto<Account> result = accountPage.paging(accounts, AppConstants.PAGE_SIZE, page);
-		return result;
+        return result;
     }
 
     @GetMapping(path = "/account/detail")
-    public CustomerDto getUserInfo(@RequestParam(defaultValue = "1") int userType, @RequestParam(defaultValue = "1") int accountId) {
+    public CustomerDto getUserInfo(@RequestParam(defaultValue = "1") int userType,
+            @RequestParam(defaultValue = "1") int accountId) {
         return manageService.getUserInfo(accountId);
     }
-    
+
 }
