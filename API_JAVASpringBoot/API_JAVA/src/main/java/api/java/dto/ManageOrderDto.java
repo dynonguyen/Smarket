@@ -1,8 +1,6 @@
 package api.java.dto;
 
-
 import api.java.utils.MappingObjectDto;
-
 
 public class ManageOrderDto implements MappingObjectDto<ManageOrderDto> {
     private int orderId;
@@ -12,11 +10,13 @@ public class ManageOrderDto implements MappingObjectDto<ManageOrderDto> {
     private String orderCode;
     private int orderStatus;
     private int orderTotal;
-    
-    public ManageOrderDto(){
-        
+
+    public ManageOrderDto() {
+
     }
-    public ManageOrderDto(int orderId,int customerId,int shipperId,int storeId,String orderCode,int orderStatus,int orderTotal){
+
+    public ManageOrderDto(int orderId, int customerId, int shipperId, int storeId, String orderCode, int orderStatus,
+            int orderTotal) {
         this.orderId = orderId;
         this.customerId = customerId;
         this.shipperId = shipperId;
@@ -26,63 +26,62 @@ public class ManageOrderDto implements MappingObjectDto<ManageOrderDto> {
         this.orderTotal = orderTotal;
     }
 
-    public int getOrderId(){
+    public int getOrderId() {
         return this.orderId;
     }
 
-    public void setOrderId(int orderId){
+    public void setOrderId(int orderId) {
         this.orderId = orderId;
     }
 
-    public int getCustomerId(){
+    public int getCustomerId() {
         return this.customerId;
     }
-    
-    public void setCustomerId(int customerId){
+
+    public void setCustomerId(int customerId) {
         this.customerId = customerId;
     }
 
-    public int getShipperId(){
+    public int getShipperId() {
         return this.shipperId;
     }
-    
-    public void setShipperId(int shipperId){
+
+    public void setShipperId(int shipperId) {
         this.shipperId = shipperId;
     }
 
-    public int getStoreId(){
+    public int getStoreId() {
         return this.storeId;
     }
-    
-    public void setStoreId(int storeId){
+
+    public void setStoreId(int storeId) {
         this.storeId = storeId;
     }
 
-    public String getOrderCode(){
+    public String getOrderCode() {
         return this.orderCode;
     }
-    
-    public void setOrderCode(String orderCode){
+
+    public void setOrderCode(String orderCode) {
         this.orderCode = orderCode;
     }
 
-    public int getOrderStatus(){
+    public int getOrderStatus() {
         return this.orderStatus;
     }
-    
-    public void setorderStatus(int orderStatus){
+
+    public void setorderStatus(int orderStatus) {
         this.orderStatus = orderStatus;
     }
 
-    public int getOrderTotal(){
+    public int getOrderTotal() {
         return this.orderTotal;
     }
-    
-    public void setOrderTotal(int orderTotal){
+
+    public void setOrderTotal(int orderTotal) {
         this.orderTotal = orderTotal;
     }
 
-    
     @Override
     public ManageOrderDto mapValueFromObject(Object[] obj) {
         if (obj.length < 4) {

@@ -1,7 +1,6 @@
 package api.java.dto;
 
 import java.time.LocalDateTime;
-
 import java.util.List;
 
 public class OrderDetailDto<T> {
@@ -14,11 +13,11 @@ public class OrderDetailDto<T> {
     private String orderCode;
     private List<T> data;
 
-
     public OrderDetailDto() {
     }
 
-    public OrderDetailDto(LocalDateTime createDate, String cusName, String cusPhone, String shipperName, String orderCode,String shipperPhone, int status, List<T> data) {
+    public OrderDetailDto(LocalDateTime createDate, String cusName, String cusPhone, String shipperName,
+            String orderCode, String shipperPhone, int status, List<T> data) {
         this.createDate = createDate;
         this.cusName = cusName;
         this.cusPhone = cusPhone;
@@ -65,7 +64,6 @@ public class OrderDetailDto<T> {
         return this.shipperPhone;
     }
 
-
     public void setShipperPhone(String shipperPhone) {
         this.shipperPhone = shipperPhone;
     }
@@ -77,8 +75,6 @@ public class OrderDetailDto<T> {
     public void setOrderCode(String orderCode) {
         this.orderCode = orderCode;
     }
-
-
 
     public int getStatus() {
         return this.status;
@@ -95,7 +91,5 @@ public class OrderDetailDto<T> {
     public void setData(List<T> data) {
         this.data = data;
     }
-
-
 
 }

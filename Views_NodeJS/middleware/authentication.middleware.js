@@ -42,14 +42,14 @@ const authenticationMiddleware = async (req, res, next) => {
 	if (req.session.user) {
 		const { expired } = req.session.user;
 		if (expired < Date.now()) {
-			req.session.user = {};
+			req.session.user = null;
 			return next();
 		}
 	} else {
 		// if session hasn't been created then call Authentication API
 		const isAuthenticated = await authenticateAndCreateSession(req);
 		if (!isAuthenticated) {
-			req.session.user = {};
+			req.session.user = null;
 			return next();
 		}
 	}
@@ -61,7 +61,7 @@ const authorizationMiddleware = (role = ROLES.GUEST) => {
 		if (!req.session.user) {
 			const isAuthenticated = await authenticateAndCreateSession(req);
 			if (!isAuthenticated) {
-				req.session.user = {};
+				req.session.user = null;
 				return res.redirect('/redirector');
 			}
 		}
