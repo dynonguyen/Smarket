@@ -30,9 +30,9 @@ public class QueryUtil {
 	// ---------- Admin account, user -----------------//
 
 	public static String getCustomerInfo(int accountId) {
-		return "SELECT TOP 1 a.UserId, a.AccountId, a.Name, a.Address, a.Phone, a.PeopleId, c.CustomerLevel"
+		return "SELECT  a.userId, a.accountId, a.name, a.peopleId, a.address, a.phone, c.customerLevel"
 				+ " FROM AppUser a, Customer c"
-				+ String.format("WHERE a.UserId = c.UserId AND a.AccountId = %d", accountId);
+				+ String.format(" WHERE a.userId = c.userId AND a.accountId = %d", accountId);
 	}
 
 	// ----------- Shipper ----------- //

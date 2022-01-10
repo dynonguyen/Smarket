@@ -69,8 +69,6 @@ public class CustomerDto implements MappingObjectDto<CustomerDto>{
         this.Address = address;
     }
 
-
-
     public String getPeopleId() {
         return this.PeopleId;
     }
@@ -93,13 +91,13 @@ public class CustomerDto implements MappingObjectDto<CustomerDto>{
             return this;
         }
 
-        this.UserId = ((Long) obj[0]).intValue();
-        this.AccountId = ((Long) obj[1]).intValue();
+        this.UserId = ((int) obj[0]);
+        this.AccountId = ((int) obj[1]);
         this.Name = (String) obj[2];
         this.PeopleId = (String) obj[3];
         this.Address = (String) obj[4];
         this.Phone = (String) obj[5];
-        this.CustomerLevel = ((Long) obj[6]).intValue();
+        this.CustomerLevel = ((int) obj[6]);
         return this;
     }
 }
