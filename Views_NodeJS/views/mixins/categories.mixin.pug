@@ -1,0 +1,48 @@
+mixin categories
+  -
+    const categories = [
+      {
+        photo: 'https://res.cloudinary.com/tuan-cloudinary/image/upload/v1641937016/smarket/categories/thit-ca-hai-san.png',
+        title: 'Thịt cá tươi sống',
+        groupType: 1
+      },
+      {
+        photo: 'https://res.cloudinary.com/tuan-cloudinary/image/upload/v1641937016/smarket/categories/nuoc-ngot-cac-loai.png',
+        title: 'Nước uống',
+        groupType: 2
+      },
+      {
+        photo: 'https://res.cloudinary.com/tuan-cloudinary/image/upload/v1641937016/smarket/categories/thit-rau-dong-lanh.png',
+        title: 'Thịt đông lạnh',
+        groupType: 3
+      },
+      {
+        photo: 'https://res.cloudinary.com/tuan-cloudinary/image/upload/v1641937016/smarket/categories/trai-cay-tuoi-ngon.png',
+        title: 'Trái cây tươi ngon',
+        groupType: 4
+      },
+      {
+        photo: 'https://res.cloudinary.com/tuan-cloudinary/image/upload/v1641937015/smarket/categories/sua-tuoi-cac-loai.png',
+        title: 'Sữa tươi',
+        groupType: 5
+      },
+      {
+        photo: 'https://res.cloudinary.com/tuan-cloudinary/image/upload/v1641937016/smarket/categories/mi-goi-an-lien.png',
+        title: 'Mì gói',
+        groupType: 6
+      },
+      {
+        photo: 'https://res.cloudinary.com/tuan-cloudinary/image/upload/v1641937016/smarket/categories/dau-goi-cac-loai.png',
+        title: 'Dầu gội',
+        groupType: 7
+      },
+    ];
+
+  link(rel="stylesheet", href="/css/categories.css")
+  .categories
+    h3.categories__title Danh mục
+    .categories__list
+      each category in categories
+        a.categories__item(href="/catagories/" + category.groupType)
+          img(src=category.photo, alt=category.title)
+          h5= category.title

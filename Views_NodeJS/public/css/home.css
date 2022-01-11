@@ -1,0 +1,14 @@
+body {
+  background-color: #eee;
+}
+
+@media only screen and (max-width: 768px) {
+  html {
+    font-size: 80%;
+  }
+}
+@media only screen and (max-width: 576) {
+  html {
+    font-size: 62.5%;
+  }
+}

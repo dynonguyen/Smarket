@@ -1,11 +1,19 @@
 extends ./templates/general.template.pug
 include ./mixins/navbar.mixin.pug
 include ./mixins/footer.mixin.pug
+include ./mixins/categories.mixin.pug
+
+block append style
+  link(rel="stylesheet", href="/css/home.css")
 
 block content
   .page-container
     section.content-wrap
       +navbar
-      //- .navbar-break
-      //- All content here
+      .navbar-break
+      
+      .container.py-3
+        //- categories 
+        +categories
+
     +footer
