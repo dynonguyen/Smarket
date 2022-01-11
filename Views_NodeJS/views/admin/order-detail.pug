@@ -42,11 +42,11 @@ block addContent
         .step(class={active: status>=1})
           span.icon
             i.bi.bi-check
-          span.text Đã nhận
+          span.text Shipper đã nhận
         .step(class={active: status>=2})
           span.icon
             i.bi.bi-person-fill
-          span.text  Đang mua hàng
+          span.text  Đã đóng gói
         .step(class={active: status>=3})
           span.icon
             i.bi.bi-truck 
@@ -91,13 +91,9 @@ block addContent
                 span.fw-bold.me-4 Phí vận chuyển: 
                 |  Free   
       hr
-      a.btn.btn-warning(href='./order' data-abc='true')
+      
+      a.btn.btn-warning(href='order?page=2' data-abc='true')
         i.fa.fa-chevron-left
         |  Quay lại quản lý đơn hàng
 block addScript
-  script.
-    const page = parseInt("#{page}");
-    const total = parseInt("#{total}");
-    const pageSize = parseInt("#{pageSize}");
-
   script(src="/js/admin/order.js") 

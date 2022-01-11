@@ -45,9 +45,6 @@ public class ManageApi {
 
     @GetMapping(path = "/order")
     public PaginationDto<CusOrder> getOrderInfor(@RequestParam(name = "p", defaultValue = "1") int page) {
-        if (page <= 0) {
-            page = 1;
-        }
         Pagination<CusOrder> cpage = new Pagination<>();
         List<CusOrder> data = cOrderRepository.findAll();
         PaginationDto<CusOrder> result = cpage.paging(data, AppConstants.PAGE_SIZE, page);
