@@ -2,6 +2,7 @@ extends ./templates/general.template.pug
 include ./mixins/navbar.mixin.pug
 include ./mixins/footer.mixin.pug
 include ./mixins/categories.mixin.pug
+include ./mixins/product-card.mixin.pug
 
 block append style
   link(rel="stylesheet", href="/css/home.css")
@@ -15,5 +16,13 @@ block content
       .container.py-3
         //- categories 
         +categories
-
+        
+        .mt-4 
+          +productCard("Nấm mỡ trắng Yoshi tươi hộp 150g", 
+          "https://cdn.tgdd.vn/Products/Images/8779/233788/bhx/nam-mo-trang-hop-150g-202101292221292506_300x300.jpg",
+          "53.000vnd",
+          "Kg",
+          "Khuyến mãi",
+          "54.000vnd"
+          )
     +footer

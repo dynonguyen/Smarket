@@ -1,0 +1,14 @@
+mixin productCard(name, thumbnail, price, unit, badge, discount)
+  link(rel="stylesheet", href="/css/product-card.css")
+  .product-card 
+    .product-card__top 
+      img.thumbnail(src=thumbnail, alt=name)
+    .product-card__body
+      h2.product-card__title= name
+      if discount
+        p.product-card__discount= discount
+      p.product-card__price #[span.price= price]#[span.unit &nbsp;/&nbsp;#{unit}]
+    .product-card__bottom
+      button.btn.btn-primary.w-100 Thêm giỏ hàng #[i.bi.bi-cart-plus]
+    if badge
+      .product-card__badge= badge

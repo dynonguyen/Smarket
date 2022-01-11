@@ -1,6 +1,7 @@
 .categories {
   background-color: #fff;
   box-shadow: var(--sm-box-shadow);
+  border-radius: var(--box-radius);
 }
 
 .categories__list {
