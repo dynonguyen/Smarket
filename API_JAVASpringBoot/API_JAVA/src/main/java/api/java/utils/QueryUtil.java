@@ -30,11 +30,31 @@ public class QueryUtil {
 	// ---------- Admin account, user -----------------//
 
 	public static String getCustomerInfo(int accountId) {
-		return "SELECT  a.userId, a.accountId, a.name, a.peopleId, a.address, a.phone, c.customerLevel"
+		return "SELECT a.userId, a.accountId, a.avatar, a.name, a.peopleId, a.address, a.phone, c.customerLevel"
 				+ " FROM AppUser a, Customer c"
 				+ String.format(" WHERE a.userId = c.userId AND a.accountId = %d", accountId);
 	}
 
+	public static String getStoreInfo(int accountId) {
+		return "SELECT a.userId, a.accountId, a.avatar, a.name, a.peopleId, a.address, a.phone, s.storeType, s.status, s.area, s.categories, s.certificate, s.storeId"
+				+ " FROM AppUser a, Store s"
+				+ String.format(" WHERE a.userId = s.userId AND a.accountId = %d", accountId);
+	}
+
+	public static String getShipperInfo(int accountId) {
+		return "SELECT a.userId, a.accountId, a.avatar, a.name, a.peopleId, a.address, a.phone, s.status, s.area, s.shipperLicense, s.shipperRating, s.shipperId"
+				+ " FROM AppUser a, Shipper s"
+				+ String.format(" WHERE a.userId = s.userId AND a.accountId = %d", accountId);
+	}
+
+
+	public static String getAmountProductOfEachGroupType() {
+		return "SELECT t.groupType, count(p.productId) AS AmountProduct" 
+				+ " FROM Product p, ProductType t"
+				+ " WHERE p.productTypeId = t.productTypeId"
+				+ " GROUP BY t.groupType"
+				+ " ORDER BY t.groupType";
+	}
 	// ----------- Shipper ----------- //
 	public static String getOrderHistoryWithShipper(int shipperId) {
 		return "SELECT o.orderId, o.orderCode, o.orderTotal, o.orderStatus, u.name as cusName, o.createDate, o.deliveryAddress"

@@ -1,7 +1,9 @@
 package api.java.services.admin;
 
+import javax.persistence.Entity;
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,6 +28,12 @@ public class ManageServiceImpl implements ManageService {
 
     @Autowired
     private EntityManagerUtil<CustomerDto> cusDto;
+
+    @Autowired
+    private EntityManagerUtil<StoreDto> storeDto;
+
+    @Autowired
+    private EntityManagerUtil<ShipperDto> shipperDto;
 
     @Override
     public List<ManageOrderDto> getOrder() {
@@ -60,13 +68,31 @@ public class ManageServiceImpl implements ManageService {
     }
 
     @Override
-    public CustomerDto getUserInfo(int accountId) {
+    public <Any> Any getUserInfo(int accountId) {
         try {
-            String query = QueryUtil.getCustomerInfo(accountId);
-            return (CustomerDto) cusDto.getSingleResult(query);
+            Account account = accountRepo.findByAccountId(accountId);
+            
+            switch(account.getAccountType()) {
+                case 1: {
+                    String query = QueryUtil.getCustomerInfo(accountId);
+                    List<CustomerDto> result =   cusDto.getResultList(CustomerDto.class, query);
+                    return (Any) result.get(0);
+                }
+                case 2: {
+                    String query = QueryUtil.getShipperInfo(accountId);
+                    List<ShipperDto> result =   shipperDto.getResultList(ShipperDto.class, query);
+                    return (Any) result.get(0);
+                }
+                case 3: {
+                    String query = QueryUtil.getStoreInfo(accountId);
+                    List<StoreDto> result =   storeDto.getResultList(StoreDto.class, query);
+                    return (Any) result.get(0);
+                }
+            }
+            
         } catch (Exception e) {
             return null;
         }
-       
+        return null;      
     }
 }

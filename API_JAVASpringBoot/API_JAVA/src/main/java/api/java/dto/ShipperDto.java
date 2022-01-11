@@ -2,7 +2,7 @@ package api.java.dto;
 
 import api.java.utils.*;
 
-public class CustomerDto implements MappingObjectDto<CustomerDto>{
+public class ShipperDto implements MappingObjectDto<ShipperDto>{
     
     private int UserId;
     private int AccountId;
@@ -11,14 +11,17 @@ public class CustomerDto implements MappingObjectDto<CustomerDto>{
     private String PeopleId;
     private String Address;
     private String Phone;
-    private int CustomerLevel;
-    
+    private int Status;
+    private int Area;
+    private String ShipperLicense;
+    private float ShipperRating;
+    private int ShipperId;
 
 
-    public CustomerDto() {
+    public ShipperDto() {
     }
 
-    public CustomerDto(int UserId, int AccountId, String Avatar, String Name, String PeopleId, String Address, String Phone, int CustomerLevel) {
+    public ShipperDto(int UserId, int AccountId,String Avatar, String Name, String PeopleId, String Address, String Phone, int Status, int Area, String ShipperLicense, float ShipperRating, int ShipperId) {
         this.UserId = UserId;
         this.AccountId = AccountId;
         this.Avatar = Avatar;
@@ -26,7 +29,11 @@ public class CustomerDto implements MappingObjectDto<CustomerDto>{
         this.PeopleId = PeopleId;
         this.Phone = Phone;
         this.Address = Address;
-        this.CustomerLevel = CustomerLevel;
+        this.Status = Status;
+        this.Area = Area;
+        this.ShipperLicense = ShipperLicense;
+        this.ShipperRating = ShipperRating;
+        this.ShipperId = ShipperId;
     }
 
 
@@ -79,16 +86,48 @@ public class CustomerDto implements MappingObjectDto<CustomerDto>{
         return this.PeopleId;
     }
 
-    public void setStatus(String peopleId) {
+    public void setPeopleId(String peopleId) {
         this.PeopleId = peopleId;
     }
 
-    public int getCusLevel() {
-        return this.CustomerLevel;
+    public int getStatus() {
+        return this.Status;
     }
 
-    public void setCusLevel(int level) {
-        this.CustomerLevel = level;
+    public void setStatus(int status) {
+        this.Status = status;
+    }
+
+    public int getArea() {
+        return this.Area;
+    }
+
+    public void setArea(int area) {
+        this.Area = area;
+    }
+
+    public String getLicense() {
+        return this.ShipperLicense;
+    }
+
+    public void setLicense(String license) {
+        this.ShipperLicense = license;
+    }
+
+    public float get() {
+        return this.ShipperRating;
+    }
+
+    public void setRating(float rating) {
+        this.ShipperRating = rating;
+    }
+
+    public int getShipperId() {
+        return this.ShipperId;
+    }
+
+    public void setShipperId(int shipperId) {
+        this.ShipperId = shipperId;
     }
 
     public String getAvatar() {
@@ -100,8 +139,8 @@ public class CustomerDto implements MappingObjectDto<CustomerDto>{
     }
 
     @Override
-    public CustomerDto mapValueFromObject(Object[] obj) {
-        if (obj.length < 8) {
+    public ShipperDto mapValueFromObject(Object[] obj) {
+        if (obj.length < 12) {
             return this;
         }
 
@@ -112,7 +151,12 @@ public class CustomerDto implements MappingObjectDto<CustomerDto>{
         this.PeopleId = (String) obj[4];
         this.Address = (String) obj[5];
         this.Phone = (String) obj[6];
-        this.CustomerLevel = ((int) obj[7]);
+        this.Status = ((int) obj[7]);
+        this.Area = ((int) obj[8]);
+        this.ShipperLicense = (String) obj[9];
+        this.ShipperRating = ((float) obj[10]);
+        this.ShipperId = ((int) obj[11]);
         return this;
     }
 }
+

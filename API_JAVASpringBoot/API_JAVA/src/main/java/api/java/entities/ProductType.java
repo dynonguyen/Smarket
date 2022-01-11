@@ -14,10 +14,11 @@ public class ProductType {
 	private int ProductTypeId;
 	private String ProductTypeName;
 	private String ProductTypeDes;
-
-	public ProductType(String ProductTypeName, String ProductTypeDes) {
+	private int GroupType;
+	public ProductType(String ProductTypeName, String ProductTypeDes, int GroupType) {
 		this.ProductTypeName = ProductTypeName;
 		this.ProductTypeDes = ProductTypeDes;
+		this.GroupType = GroupType;
 	}
 
 	public ProductType() {
@@ -50,6 +51,15 @@ public class ProductType {
 
 	public void setProductTypeDes(String ProductTypeDes) {
 		this.ProductTypeDes = ProductTypeDes;
+	}
+
+	@Column(name = "GroupType")
+	public int getGroupType() {
+		return GroupType;
+	}
+
+	public void setGroupType(int GroupType) {
+		this.GroupType = GroupType;
 	}
 
 }

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import api.java.constants.AppConstants;
 import api.java.dto.GreenRegionRatioDto;
+import api.java.dto.ProductAmountDto;
 import api.java.services.admin.StatisticService;
 
 @RestController
@@ -33,5 +34,10 @@ public class StatisticApi {
 	@GetMapping(path = "/region/green-ratio/{provinceId}")
 	public List<GreenRegionRatioDto> getGreenRegionRatio(@PathVariable int provinceId) {
 		return statisticService.getGreenRegionRatio(provinceId);
+	}
+
+	@GetMapping(path = "type/amount-product")
+	public List<ProductAmountDto> getAmountProductOfEachType() {
+		return statisticService.getAmountProductOfEachType();
 	}
 }
