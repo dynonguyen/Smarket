@@ -137,7 +137,7 @@ CREATE TABLE ProductType(
 	ProductTypeId int not null IDENTITY(1,1),
 	ProductTypeName nvarchar(30) not null,
 	ProductTypeDes nvarchar(50) not null,
-
+	GroupType int not null,
 	PRIMARY KEY(ProductTypeId)
 );
 GO
