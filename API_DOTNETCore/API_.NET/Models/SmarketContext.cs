@@ -364,6 +364,7 @@ namespace API_.NET.Models
                 entity.Property(e => e.ProductTypeName)
                     .IsRequired()
                     .HasMaxLength(30);
+
             });
 
             modelBuilder.Entity<Province>(entity =>
