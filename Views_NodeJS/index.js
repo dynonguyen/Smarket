@@ -22,6 +22,7 @@ const adminRoute = require('./routes/admin');
 const shipperRoute = require('./routes/shipper.route');
 const authRoute = require('./routes/auth.route');
 const commonRoute = require('./routes/common.route');
+const { getHomeGuest } = require('./controllers/common.controller.js');
 
 /* ============== Config =============== */
 app.use(express.static(path.join(__dirname, 'public')));
@@ -48,14 +49,16 @@ app.use(unlessRouteMiddleware(['/auth'], authenticationMiddleware));
 app.use(unlessRouteMiddleware([], passVariableToClientMiddleware));
 
 /* ============== Routes =============== */
-app.use('/admin', authorizationMiddleware(ROLES.ADMIN), adminRoute);
-app.use('/shipper', authorizationMiddleware(ROLES.SHIPPER), shipperRoute);
+app.use('/admin', authorizationMiddleware([ROLES.ADMIN]), adminRoute);
+app.use('/shipper', authorizationMiddleware([ROLES.SHIPPER]), shipperRoute);
 app.use('/auth', authRoute);
 app.use('/common', commonRoute);
 app.get('/redirector', redirectorMiddleware);
-app.get('/', (req, res) => {
-  res.render('home.pug');
-});
+app.get(
+  '/',
+  authorizationMiddleware([ROLES.GUEST, ROLES.CUSTOMER]),
+  getHomeGuest
+);
 // 404 Not found redirect
 app.use((req, res) => res.status(404).render('404.pug'));
 

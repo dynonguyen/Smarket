@@ -24,7 +24,7 @@ mixin navbar
           a.header-item(href="https://instagram.com", target="_blank") 
             i.bi.bi-instagram
         .header-auth
-          if !user
+          if !user || user.role === 'ROLE_GUEST'
             a.header-item(href="/auth/signup") Đăng ký
             a.header-item(href="/auth/login") Đăng nhập
           else 
