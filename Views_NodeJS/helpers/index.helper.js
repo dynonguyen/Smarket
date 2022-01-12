@@ -29,22 +29,44 @@ exports.convertOrderStatus = (status = 1) => {
 };
 
 exports.convertAccountType = (type) => {
-	for (let key in USER_TYPES) {
-		if (USER_TYPES[key] === type) {
-			switch(key) {
-				case 'CUSTOMER': {
-					return 'Khách hàng'
-				};
-				case 'SHIPPER': {
-					return 'Shipper'
-				};
-				case 'STORE': {
-					return 'Cửa hàng'
-				};
-				case 'ADMIN': {
-					return 'Admin'
-				};
-			}			
-		}
-	}
-}
+  for (let key in USER_TYPES) {
+    if (USER_TYPES[key] === type) {
+      switch (key) {
+        case 'CUSTOMER': {
+          return 'Khách hàng';
+        }
+        case 'SHIPPER': {
+          return 'Shipper';
+        }
+        case 'STORE': {
+          return 'Cửa hàng';
+        }
+        case 'ADMIN': {
+          return 'Admin';
+        }
+      }
+    }
+  }
+};
+
+exports.cloudinaryOptimize = (src = '', option = '') => {
+  if (!option) {
+    return src;
+  }
+
+  const isCloudinary = src.includes('res.cloudinary.com');
+  if (!isCloudinary) {
+    return src;
+  }
+  const separator = 'image/upload';
+  return src.replace(separator, separator + '/' + option);
+};
+
+exports.getOriginSrcCloudinary = (optimizedSrc = '') => {
+  const isCloudinary = optimizedSrc.includes('res.cloudinary.com');
+  if (!isCloudinary) {
+    return optimizedSrc;
+  }
+
+  return optimizedSrc.replace(/upload\/(.+\/)v/i, 'upload/v');
+};

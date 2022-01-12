@@ -24,6 +24,7 @@ block content
         if productCategories
           each prodCat in productCategories
             - const { groupTypeId, groupTypeName, products } = prodCat;
+            - const { formatCurrency, cloudinaryOptimize } = helpers;
             .product-list.mt-5
               h3.product-list__title.d-flex.justify-content-between
                 span= groupTypeName
@@ -33,7 +34,7 @@ block content
                   each product in products
                     - const { productId, productName, unitPrice, quantitativeUnit, thumbnail } = product;
                     .px-2
-                      +productCard(productId, productName, thumbnail, helpers.formatCurrency(unitPrice), quantitativeUnit)
+                      +productCard(productId, productName, cloudinaryOptimize(thumbnail), formatCurrency(unitPrice), quantitativeUnit)
     +footer
     +scrollTop
 

@@ -2,7 +2,7 @@
 mixin productCard(id, name, thumbnail, price, unit, badge, discount)
   .product-card
     a.product-card__top(href=`/product/${id}`)  
-      img.thumbnail(src=thumbnail, alt=name)
+      img.thumbnail(src=thumbnail, alt=name, onerror="this.onerror=null;this.src='https://res.cloudinary.com/tuan-cloudinary/image/upload/v1642031448/smarket/no-img.png'")
     .product-card__body
       a.product-card__title(href=`/product/${id}`)= name
       if discount

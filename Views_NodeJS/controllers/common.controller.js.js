@@ -1,6 +1,9 @@
 const commonApi = require('../apis/common.api');
 const constants = require('../constants/index.constant');
-const { formatCurrency } = require('../helpers/index.helper');
+const {
+  formatCurrency,
+  cloudinaryOptimize,
+} = require('../helpers/index.helper');
 
 exports.getProvince = async (req, res) => {
   try {
@@ -64,6 +67,7 @@ exports.getHomeGuest = async (req, res) => {
       productCategories,
       helpers: {
         formatCurrency,
+        cloudinaryOptimize,
       },
     });
   } catch (error) {
