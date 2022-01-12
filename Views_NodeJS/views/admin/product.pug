@@ -21,7 +21,7 @@ block addContent
         select#groupType.py-2(name="group")
           option(value="", hidden, disabled, selected) Chọn nhóm thống kê          
           each element in group 
-            option(value=element.id)= element.label
+            option.option(value=element.id)= element.label
     .row
       .col.col-12.col-md-12.col-xl-12.mb-5.mt-2.mx-auto
         .p-3.sm-box-shadow.bg-white.border-rad.sm-border-radius.chart-box

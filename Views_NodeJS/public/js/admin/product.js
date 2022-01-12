@@ -1,5 +1,6 @@
 const defaultChartData = [1, 1, 1, 1, 1, 1, 1, 1, 2, 4, 1, 1, 1, 2, 4];
 const defaultLabels = ['Thịt bò', 'Thịt lợn', 'Thịt gà', 'Cá thu', 'Cá tra', 'Cá diêu hồng', 'Ốc mỡ', 'Ốc móng tay', 'Ốc mỡ', 'Ốc móng tay', 'Thịt bò', 'Thịt lợn', 'Thịt gà', 'Cá thu', 'Cá tra'];
+const groupLabels = ['Thịt, cá, hải sản', 'Rau, củ, trái cây','Đồ uống', 'Bánh kẹo', 'Mì, cháo, phở, bún', 'Dầu ăn, gia vị', 'Gạo, bột, đồ khô', 'Đồ gia dụng'];
 let groupChart = null;
 let typeChart = null;
 let groupChartData = null;
@@ -8,7 +9,7 @@ let groupChartData = null;
 const chartOptions = (data = [], title) => ({
 	type: 'pie',
 	data: {
-		labels: ['Thịt, cá, hải sản', 'Rau, củ, trái cây','Đồ uống', 'Bánh kẹo', 'Mì, cháo, phở, bún', 'Dầu ăn, gia vị', 'Gạo, bột, đồ khô', 'Đồ gia dụng'],
+		labels: groupLabels,
 		datasets: [
 			{
 				data,
@@ -217,7 +218,8 @@ downloadCSV = async args => {
 }
 
 async function Printer() {
-  downloadCSV({filename: $('#groupType').text()}); 
+
+  downloadCSV({filename: groupLabels[$('#groupType').val()]}); 
 }
 $(document).ready(function () {
   renderGroupChart();
