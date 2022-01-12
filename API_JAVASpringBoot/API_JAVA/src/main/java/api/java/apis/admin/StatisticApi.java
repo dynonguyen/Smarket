@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import api.java.constants.AppConstants;
 import api.java.dto.GreenRegionRatioDto;
 import api.java.dto.ProductAmountDto;
+import api.java.dto.TypeInGroupDto;
 import api.java.services.admin.StatisticService;
 
 @RestController
@@ -40,4 +41,10 @@ public class StatisticApi {
 	public List<ProductAmountDto> getAmountProductOfEachType() {
 		return statisticService.getAmountProductOfEachType();
 	}
+
+	@GetMapping(path = "type/amount-type")
+	public List<TypeInGroupDto> getTypeInGroup(@RequestParam(defaultValue = "1") int group){
+		return statisticService.getTypeInGroup(group);
+	}
+
 }

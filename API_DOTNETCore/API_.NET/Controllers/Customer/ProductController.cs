@@ -94,6 +94,7 @@ namespace API_.NET.Controllers
             return DAO_Product.GetAllProductOfStore(storeId);
         }
 
+        
 
     }
 }

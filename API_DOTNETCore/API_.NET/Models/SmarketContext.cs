@@ -36,6 +36,8 @@ namespace API_.NET.Models
         public virtual DbSet<Ward> Ward { get; set; }
         public DbSet<DTO_Stores> Stores { get; set; }
         public DbSet<DTO_Empty> Empty { get; set; }
+        public DbSet<DTO_ProductEachType> ProductEachType { get; set; }
+        
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)

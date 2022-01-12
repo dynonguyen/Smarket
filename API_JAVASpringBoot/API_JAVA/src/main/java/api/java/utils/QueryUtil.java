@@ -55,6 +55,13 @@ public class QueryUtil {
 				+ " GROUP BY t.groupType"
 				+ " ORDER BY t.groupType";
 	}
+
+	public static String getAmountProductInType(int group) {
+		return "select t.productTypeId as TypeId, t.groupType as GroupId, t.productTypeName as TypeName, count(p.productId) as Amount"
+						+ " from Product p, ProductType t"
+						+ String.format(" where t.groupType = %d and t.productTypeId = p.productTypeId", group)
+						+ " Group by t.productTypeId,t.groupType, t.productTypeName";
+	}
 	// ----------- Shipper ----------- //
 	public static String getOrderHistoryWithShipper(int shipperId) {
 		return "SELECT o.orderId, o.orderCode, o.orderTotal, o.orderStatus, u.name as cusName, o.createDate, o.deliveryAddress"
