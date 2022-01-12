@@ -6,6 +6,7 @@ include ./mixins/product-card.mixin.pug
 include ./mixins/scroll-top.mixin.pug
 
 block append style
+  link(rel="stylesheet", href="/vendors/selectize/selectize.min.css")
   link(rel="stylesheet", type="text/css", href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css")
   link(rel="stylesheet", href="/css/product-card.css")
   link(rel="stylesheet", href="/css/home.css")
@@ -40,5 +41,7 @@ block content
     +scrollTop
 
 block append script 
+  script(src="/vendors/selectize/selectize.min.js") 
+  script(src="/js/navbar.js") 
   script(type="text/javascript", src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js")
   script(src="/js/home.js") 
