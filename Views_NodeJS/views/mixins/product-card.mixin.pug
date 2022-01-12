@@ -1,10 +1,9 @@
-mixin productCard(name, thumbnail, price, unit, badge, discount)
-  link(rel="stylesheet", href="/css/product-card.css")
-  .product-card 
-    .product-card__top 
+mixin productCard(id, name, thumbnail, price, unit, badge, discount)
+  .product-card
+    a.product-card__top(href=`/product/${id}`)  
       img.thumbnail(src=thumbnail, alt=name)
     .product-card__body
-      h2.product-card__title= name
+      a.product-card__title(href=`/product/${id}`)= name
       if discount
         p.product-card__discount= discount
       p.product-card__price #[span.price= price]#[span.unit &nbsp;/&nbsp;#{unit}]
