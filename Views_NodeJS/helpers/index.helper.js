@@ -1,4 +1,4 @@
-const { ORDER_STATUS } = require('../constants/index.constant');
+const { ORDER_STATUS, USER_TYPES } = require('../constants/index.constant');
 
 exports.formatCurrency = (money) => {
   return money.toLocaleString('it-IT', { style: 'currency', currency: 'VND' });
@@ -27,3 +27,24 @@ exports.convertOrderStatus = (status = 1) => {
     }
   }
 };
+
+exports.convertAccountType = (type) => {
+	for (let key in USER_TYPES) {
+		if (USER_TYPES[key] === type) {
+			switch(key) {
+				case 'CUSTOMER': {
+					return 'Khách hàng'
+				};
+				case 'SHIPPER': {
+					return 'Shipper'
+				};
+				case 'STORE': {
+					return 'Cửa hàng'
+				};
+				case 'ADMIN': {
+					return 'Admin'
+				};
+			}			
+		}
+	}
+}

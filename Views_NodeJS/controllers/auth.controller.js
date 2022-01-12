@@ -102,14 +102,14 @@ exports.postSignUp = async (req, res) => {
         avatar = await uploader(req.files.avatar[0].path);
       } else {
         avatar = {
-          url: '',
+          url: ' ',
         };
       }
       if (req.files.certificate) {
         certificate = await uploader(req.files.certificate[0].path);
       } else {
         certificate = {
-          url: '',
+          url: ' ',
         };
       }
       const user = {
@@ -120,7 +120,7 @@ exports.postSignUp = async (req, res) => {
         PeopleId: account.peopleid,
         Address: `${account.address}, ${ward.prefix + ' ' + ward.wardName}, ${
           district.prefix + ' ' + district.districtName
-        }, ${province.provincename}`,
+        }, ${province.provinceName}`,
         Ward: account.ward,
       };
       const userRes = await authApi.createUser(user);

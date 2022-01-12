@@ -1,4 +1,4 @@
-const { axiosJava } = require('./axiosClient');
+const { axiosJava, axiosCSharp } = require('./axiosClient');
 
 const BASE_URL = '/common';
 
@@ -26,6 +26,10 @@ const commonApi = {
 	getProvinceById: (provinceId) => {
 		return axiosJava.get(`${BASE_URL}/province?provinceId=${provinceId}`);	
 	},
+
+	getProductEachType: (group) => {
+		return axiosCSharp.get(`${BASE_URL}/type/amount-type?group=${group}`);	
+	}
 };
 
 module.exports = commonApi;

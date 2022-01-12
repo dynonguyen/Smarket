@@ -1,0 +1,61 @@
+extends ../templates/admin.template.pug
+include ../mixins/get-server-variables.pug
+
+block title 
+  title Smarket | Quản lý tài khoản
+
+block addStyle
+  link(rel="stylesheet", href="/vendors/selectize/selectize.min.css")
+  link(rel="stylesheet", href="/css/admin/account.css")
+
+block addContent 
+  .p-4.flex-grow-1
+    .row.text-center.mb-3
+      .col.btn.type-account#customer
+        | Khách hàng
+      .col.btn.type-account#shipper
+        | Shipper
+      .col.btn.type-account#store
+        | Cửa hàng
+      .col.btn.type-account#admin
+        | Người quản lý
+    table.table.table-striped.bg-white
+      thead.thead-dark
+        tr
+          th(scope="col") Mã TK
+          th(scope="col") Loại TK
+          th(scope="col") Tên đăng nhập
+          th(scope="col") Email
+          th(scope="col") Ngày đăng ký
+          if type != 4
+            th(scope="col") Xem chi tiết
+      tbody
+        if accountList && accountList.length > 0
+          each account in accountList 
+            - const { accountId, accountType, username, email, createTime, password} = account;
+            tr
+              td= accountId             
+              td= helpers.convertAccountType(accountType)
+              td= username
+              td= email
+              td= helpers.formatDate(createTime)
+              if type != 4
+                td
+                  a.btn.btn-success(href=`/admin/management/account/detail?id=${accountId}`) Chi tiết
+        else 
+          tr 
+            td.text-center.py-4.text-gray(colspan="6") Không tìm tài khoản nào
+
+    if accountList && accountList.length > 0
+      #pagination
+
+block addScript
+  script.
+    const page = parseInt("#{page}");
+    const total = parseInt("#{total}");
+    const pageSize = parseInt("#{pageSize}");
+    
+  script(src="/vendors/pagination.min.js") 
+  script(src="/js/pagination.js") 
+  script(src="/js/admin/account.js")
+  

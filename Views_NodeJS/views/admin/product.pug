@@ -1,0 +1,47 @@
+extends ../templates/admin.template.pug
+include ../mixins/get-server-variables.pug
+include ../mixins/chartjs-script.mixin.pug
+
+block title 
+  title Smarket | Thống kê nhu yếu phẩm
+
+block addStyle
+  link(rel="stylesheet", href="/vendors/selectize/selectize.min.css")
+  link(rel="stylesheet", href="/css/admin/product.css")
+
+block addContent 
+  .p-4.flex-grow-1(style="max-width: 1200px;margin: 0 auto;") 
+    h2.mt-3.title.text-center Thống kê nhu yếu phẩm theo nhóm
+    .row
+      .col.col-12.col-md-9.col-xl-9.mb-3.mt-2.mx-auto
+        .p-3.sm-box-shadow.bg-white.border-rad.sm-border-radius.chart-box
+          canvas.chart#groupChart
+    .row
+      .mx-auto(style="max-width:350px").mt-5.mb-3
+        select#groupType.py-2(name="group")
+          option(value="", hidden, disabled, selected) Chọn nhóm thống kê          
+          each element in group 
+            option(value=element.id)= element.label
+    .row
+      .col.col-12.col-md-12.col-xl-12.mb-5.mt-2.mx-auto
+        .p-3.sm-box-shadow.bg-white.border-rad.sm-border-radius.chart-box
+          canvas.chart#typeChart
+    .row
+      .col.col-md-12
+        table.table.table-striped.bg-white
+          thead.thead-dark
+            tr
+              th(scope="col") Loại NYP
+              th(scope="col") Cửa hàng
+              th(scope="col") Mã NYP
+              th(scope="col") Tên NYP
+              th(scope="col") Đơn giá
+              th(scope="col") Đơn vị
+          tbody#tbody.overflow-auto                 
+    .row
+      #printer.col.col-md-4.btn.btn-success.mx-auto Xuất file
+block addScript
+  +chartjsScript
+  script(src="/vendors/selectize/selectize.min.js")
+  +getServerVarScript
+  script(src="/js/admin/product.js") 

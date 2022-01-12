@@ -5,15 +5,39 @@ module.exports = {
     STORE: 3,
     ADMIN: 4,
   },
-
-  ROLES: {
-    CUSTOMER: 'ROLE_CUSTOMER',
-    SHIPPER: 'ROLE_SHIPPER',
-    STORE: 'ROLE_STORE',
-    ADMIN: 'ROLE_ADMIN',
-    GUEST: 'ROLE_GUEST',
-  },
-
+	ROLES: {
+		CUSTOMER: 'ROLE_CUSTOMER',
+		SHIPPER: 'ROLE_SHIPPER',
+		STORE: 'ROLE_STORE',
+		ADMIN: 'ROLE_ADMIN',
+		GUEST: 'ROLE_GUEST',
+	},
+	GROUP_TYPES: [{
+		label:'Thịt, cá, hải sản',	
+		id: 1,
+	}, {
+		label: 'Rau, củ, trái cây,',
+		id: 2,
+	}, {
+		label: 'Đồ uống',
+		id: 3,
+	}, {
+		label: 'Bánh kẹo',
+		id: 4,
+	}, {
+		label: 'Mì, cháo, phở, bún',
+		id: 5,
+	}, {
+		label: 'Dầu ăn, gia vị',
+		id: 6
+	}, {
+		label: 'Gạo, bột, đồ khô',
+		id: 7,
+	}, {
+		label: 'Đồ gia dụng',
+		id: 8,
+	}],
+  
   JWT_HEADER: 'Authorization',
   JWT_STORE_KEY: 'jwt',
 
