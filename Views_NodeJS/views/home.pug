@@ -3,6 +3,7 @@ include ./mixins/navbar.mixin.pug
 include ./mixins/footer.mixin.pug
 include ./mixins/categories.mixin.pug
 include ./mixins/product-card.mixin.pug
+include ./mixins/scroll-top.mixin.pug
 
 block append style
   link(rel="stylesheet", type="text/css", href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css")
@@ -36,6 +37,7 @@ block content
                   "54.000vnd"
                   )
     +footer
+    +scrollTop
 
 block append script 
   script(type="text/javascript", src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js")
