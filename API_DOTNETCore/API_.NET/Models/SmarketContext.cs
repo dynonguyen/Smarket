@@ -1,6 +1,6 @@
-﻿using API_.NET.DTO;
+﻿using System;
+using API_.NET.DTO;
 using Microsoft.EntityFrameworkCore;
-using System;
 namespace API_.NET.Models
 {
     public partial class SmarketContext : DbContext
@@ -37,7 +37,9 @@ namespace API_.NET.Models
         public DbSet<DTO_Stores> Stores { get; set; }
         public DbSet<DTO_Empty> Empty { get; set; }
         public DbSet<DTO_ProductEachType> ProductEachType { get; set; }
-        
+
+        public DbSet<DTO_ProductCard> ProductCard { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
@@ -462,7 +464,7 @@ namespace API_.NET.Models
                 entity.Property(e => e.Level)
                     .IsRequired()
                     .HasMaxLength(10);
-                    
+
                 entity.HasOne(d => d.DistrictNavigation)
                     .WithMany(p => p.Ward)
                     .HasForeignKey(d => d.District)
