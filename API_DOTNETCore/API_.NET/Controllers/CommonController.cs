@@ -25,10 +25,10 @@ namespace API_.NET.Controllers
             return DAO_Common.GetProductEachType(group);
         }
 
-        [HttpGet("products-by-type/{productType}")]
-        public List<DTO_ProductCard> GetProductsByType(int productType, [FromQuery] int page = 1, [FromQuery] int pageSize = 8)
+        [HttpGet("products-by-grouptype/{groupType}")]
+        public List<DTO_ProductCard> GetProductsByGroupType(int groupType, [FromQuery] int page = 1, [FromQuery] int pageSize = 8)
         {
-            return DAO_Common.GetProductsByType(productType, page, pageSize);
+            return DAO_Common.GetProductsByGroupType(groupType, page, pageSize);
         }
     }
 }

@@ -100,11 +100,11 @@
         }
 
         // Get product card list by type
-        public static string GetProductCardByType(int productType)
+        public static string GetProductCardByGroupType(int groupType)
         {
             return $@"SELECT p.ProductId, p.ProductName, p.UnitPrice, p.QuantitativeUnit, pi.Source AS Thumbnail
-                        FROM Product p, ProductImage pi
-                        WHERE p.ProductTypeId = {productType} AND pi.ProductId = p.ProductId AND pi.IsThumbnail = 1";
+                        FROM Product p, ProductImage pi, ProductType pt
+                        WHERE p.ProductTypeId = pt.ProductTypeId AND pt.GroupType = {groupType} AND pi.ProductId = p.ProductId AND pi.IsThumbnail = 1";
         }
     }
 }

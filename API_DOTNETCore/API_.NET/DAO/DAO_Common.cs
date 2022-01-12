@@ -41,7 +41,7 @@ namespace API_.NET.DAO
             }
         }
 
-        public static List<DTO_ProductCard> GetProductsByType(int productType, int page, int pageSize)
+        public static List<DTO_ProductCard> GetProductsByGroupType(int groupType, int page, int pageSize)
         {
             if (page < 1)
             {
@@ -53,7 +53,7 @@ namespace API_.NET.DAO
             {
                 using (var context = new SmarketContext())
                 {
-                    var sqlResult = context.ProductCard.FromSql(Utils_Queries.GetProductCardByType(productType));
+                    var sqlResult = context.ProductCard.FromSql(Utils_Queries.GetProductCardByGroupType(groupType));
                     return sqlResult.Skip(skipRows).Take(pageSize).ToList();
                 }
             }
