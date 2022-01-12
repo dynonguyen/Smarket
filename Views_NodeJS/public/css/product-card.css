@@ -9,7 +9,8 @@
 }
 
 .product-card__top {
-  max-height: 12rem;
+  flex-basis: 12rem;
+  flex-shrink: 0;
   overflow: hidden;
 }
 

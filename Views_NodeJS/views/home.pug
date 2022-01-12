@@ -20,23 +20,20 @@ block content
       .container.py-4
         //- categories 
         +categories
-        each a in new Array(5).fill(2)
-          .product-list.mt-5
-            h3.product-list__title.d-flex.justify-content-between
-              span Sản phẩm mới
-              a.view-more(href=`/categories/1`) Xem thêm #[i.bi.bi-chevron-double-right]
-            .products-slider
-              each i in new Array(10).fill(0)
-                .px-2
-                  +productCard(
-                  1,
-                  "Nấm mỡ trắng Yoshi tươi hộp 150g", 
-                  "https://cdn.tgdd.vn/Products/Images/8779/233788/bhx/nam-mo-trang-hop-150g-202101292221292506_300x300.jpg",
-                  "53.000vnd",
-                  "Kg",
-                  "Khuyến mãi",
-                  "54.000vnd"
-                  )
+
+        if productCategories
+          each prodCat in productCategories
+            - const { groupTypeId, groupTypeName, products } = prodCat;
+            .product-list.mt-5
+              h3.product-list__title.d-flex.justify-content-between
+                span= groupTypeName
+                a.view-more(href=`/categories/${groupTypeId}`) Xem thêm #[i.bi.bi-chevron-double-right]
+              .products-slider
+                if products
+                  each product in products
+                    - const { productId, productName, unitPrice, quantitativeUnit, thumbnail } = product;
+                    .px-2
+                      +productCard(productId, productName, thumbnail, helpers.formatCurrency(unitPrice), quantitativeUnit)
     +footer
     +scrollTop
 

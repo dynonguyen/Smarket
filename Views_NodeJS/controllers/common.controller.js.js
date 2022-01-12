@@ -1,4 +1,6 @@
 const commonApi = require('../apis/common.api');
+const constants = require('../constants/index.constant');
+const { formatCurrency } = require('../helpers/index.helper');
 
 exports.getProvince = async (req, res) => {
   try {
@@ -41,7 +43,29 @@ exports.getWard = async (req, res) => {
 
 exports.getHomeGuest = async (req, res) => {
   try {
-    return res.render('home');
+    const productCategories = [];
+    const promises = [];
+
+    constants.GROUP_TYPES.forEach((gp, index) => {
+      promises.push(
+        commonApi.getProductsByGroupType(gp.id, 1, 8).then((apiRes) => {
+          productCategories.push({
+            groupTypeName: gp.label,
+            groupTypeId: gp.id,
+            products: apiRes.data || [],
+          });
+        })
+      );
+    });
+
+    await Promise.all(promises);
+
+    return res.render('home.pug', {
+      productCategories,
+      helpers: {
+        formatCurrency,
+      },
+    });
   } catch (error) {
     console.error('Function getHomeGuest Error: ', error);
     return res.render('404');

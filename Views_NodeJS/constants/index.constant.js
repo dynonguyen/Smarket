@@ -18,7 +18,7 @@ module.exports = {
       id: 1,
     },
     {
-      label: 'Rau, củ, trái cây,',
+      label: 'Rau, củ, trái cây',
       id: 2,
     },
     {
