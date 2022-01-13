@@ -5,9 +5,10 @@ mixin productCard(id, name, thumbnail, price, unit, badge, discount)
       img.thumbnail(src=thumbnail, alt=name, onerror="this.onerror=null;this.src='https://res.cloudinary.com/tuan-cloudinary/image/upload/v1642031448/smarket/no-img.png'")
     .product-card__body
       a.product-card__title(href=`/product/${id}`)= name
-      if discount
-        p.product-card__discount= discount
-      p.product-card__price #[span.price= price]#[span.unit &nbsp;/&nbsp;#{unit}]
+      .mt-auto
+        if discount
+          p.product-card__discount= discount
+        p.product-card__price #[span.price= price]#[span.unit &nbsp;/&nbsp;#{unit}]
     .product-card__bottom
       button.btn.btn-primary.w-100 Thêm giỏ hàng #[i.bi.bi-cart-plus]
     if badge

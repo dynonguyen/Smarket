@@ -16,6 +16,14 @@ body {
   text-transform: capitalize;
 }
 
+.slick-track {
+  display: flex !important;
+}
+
+.slick-slide {
+  height: inherit !important;
+}
+
 i.slick-arrow {
   position: absolute;
   font-size: 1.75rem;
