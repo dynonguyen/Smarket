@@ -77,6 +77,8 @@ public class StatisticServiceImpl implements StatisticService {
             return list;
         } catch (Exception e) {
             System.out.println("GET REVENUE AND INCOME  ERROR: " + e.toString());
+        }
+    }
           
     @Override
     public List<ProductAmountDto> getAmountProductOfEachType() {
