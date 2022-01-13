@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import api.java.constants.AppConstants;
 import api.java.dto.EmptyDto;
 import api.java.dto.GreenRegionRatioDto;
+import api.java.dto.RevenueAndIncomeDto;
 import api.java.utils.EntityManagerUtil;
 import api.java.utils.QueryUtil;
 
@@ -17,6 +18,9 @@ import api.java.utils.QueryUtil;
 public class StatisticServiceImpl implements StatisticService {
     @Autowired
     private EntityManagerUtil<GreenRegionRatioDto> gRegionRatioEmu;
+
+    @Autowired
+    private EntityManagerUtil<RevenueAndIncomeDto> gRevenueAndIncomeDtoEmu;
 
     @Autowired
     private EntityManagerUtil<EmptyDto> emptyEmu;
@@ -52,6 +56,19 @@ public class StatisticServiceImpl implements StatisticService {
             return list;
         } catch (Exception e) {
             System.out.println("GET GREEN REGION RATIO ERROR: " + e.toString());
+            return List.of();
+        }
+    }
+
+    @Override
+    public List<RevenueAndIncomeDto> getRevenueAndIncome(int year) {
+        try {
+            String sqlString = QueryUtil.getRevenueAndIncomeQuery(year);
+            List<RevenueAndIncomeDto> list = gRevenueAndIncomeDtoEmu.getResultList(RevenueAndIncomeDto.class,
+                    sqlString);
+            return list;
+        } catch (Exception e) {
+            System.out.println("GET REVENUE AND INCOME  ERROR: " + e.toString());
             return List.of();
         }
     }

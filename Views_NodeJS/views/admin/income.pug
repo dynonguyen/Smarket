@@ -1,0 +1,41 @@
+extends ../templates/admin.template.pug
+include ../mixins/get-server-variables.pug
+include ../mixins/chartjs-script.mixin.pug
+
+block title 
+  title Smarket | Thông tin đơn hàng
+
+block addStyle
+  link(rel="stylesheet", href="/vendors/selectize/selectize.min.css")
+  link(rel="stylesheet", href="/css/admin/order-detail.css")
+
+block addContent
+  .p-4.flex-grow-1(style="max-width: 1200px;margin: 0 auto;") 
+    h2.mt-3.title.text-center Thống kê doanh thu và thu nhập
+    div(style="max-width:350px").mt-5.mb-3
+    .row
+     .col-sm-3
+      select#type(name="type")
+        option(hidden,disabled, selected) Thống kê theo
+        option(value="month").time Tháng
+        option(value="quarter").time Quý
+     .col-sm-3.yearSelection
+    .row.py-5
+      .col-sm-5
+        div.text-center
+          h4.font-weight-bold Doanh thu
+          canvas#revenueChart
+      .col-sm-1
+      .col-sm-5
+        div.text-center
+          h4.font-weight-bold Thu nhập
+          canvas#incomeChart
+
+block addScript
+ script.
+    const revenue = "#{revenue}";
+    const income = "#{income}";
+ +chartjsScript
+ +getServerVarScript
+ script(src="/js/admin/income.js") 
+ script(src="/vendors/selectize/selectize.min.js")

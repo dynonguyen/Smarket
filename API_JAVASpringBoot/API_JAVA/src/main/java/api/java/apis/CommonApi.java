@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import api.java.entities.District;
 import api.java.entities.Province;
 import api.java.entities.Ward;
+import api.java.entities.Payment;
 import api.java.services.CommonService;
 
 @RestController
@@ -31,11 +32,11 @@ public class CommonApi {
     }
 
     @GetMapping(path = "/ward/{districtId}")
-    public List<Ward> getWard(@PathVariable int districtId){
+    public List<Ward> getWard(@PathVariable int districtId) {
         return commonService.getWard(districtId);
     }
 
-    @GetMapping(path = "/province") 
+    @GetMapping(path = "/province")
     public Province getProvinceById(@RequestParam int provinceId) {
         return commonService.getProvinceById(provinceId);
     }
@@ -50,6 +51,9 @@ public class CommonApi {
         return commonService.getWardById(wardId);
     }
 
+    @GetMapping(path = "/payment")
+    public List<Payment> getAllYearPayment() {
+        return commonService.getAllPayments();
 
-    
+    }
 }
