@@ -7,6 +7,7 @@ public class QueryUtil {
 		return "select orderId,shipperId,customerId,storeId"
 				+ String.format(" from %s", tableName);
 	}
+
 	// ----------- Admin Statistic ----------- //
 	public static String countCusBelongToRegionByLevel(String userTableName, int level, int provinceId) {
 		return "select count(distinct a.peopleId)"
@@ -25,6 +26,12 @@ public class QueryUtil {
 						provinceId)
 				+ " GROUP BY d.districtName, d.prefix, d.districtId";
 
+	}
+
+	public static String getRevenueAndIncomeQuery(int year) {
+		return "SELECT o.orderId, o.orderCode, o.orderTotal, p.shippingMoney, p.totalMoney,p.paymentTime"
+				+ " FROM CusOrder o,Payment p"
+				+ String.format(" WHERE o.orderId = p.orderId and orderStatus = 6 and YEAR(p.paymentTime) = %d", year);
 	}
 
 	// ---------- Admin account, user -----------------//
@@ -47,9 +54,8 @@ public class QueryUtil {
 				+ String.format(" WHERE a.userId = s.userId AND a.accountId = %d", accountId);
 	}
 
-
 	public static String getAmountProductOfEachGroupType() {
-		return "SELECT t.groupType, count(p.productId) AS AmountProduct" 
+		return "SELECT t.groupType, count(p.productId) AS AmountProduct"
 				+ " FROM Product p, ProductType t"
 				+ " WHERE p.productTypeId = t.productTypeId"
 				+ " GROUP BY t.groupType"
@@ -58,10 +64,11 @@ public class QueryUtil {
 
 	public static String getAmountProductInType(int group) {
 		return "select t.productTypeId as TypeId, t.groupType as GroupId, t.productTypeName as TypeName, count(p.productId) as Amount"
-						+ " from Product p, ProductType t"
-						+ String.format(" where t.groupType = %d and t.productTypeId = p.productTypeId", group)
-						+ " Group by t.productTypeId,t.groupType, t.productTypeName";
+				+ " from Product p, ProductType t"
+				+ String.format(" where t.groupType = %d and t.productTypeId = p.productTypeId", group)
+				+ " Group by t.productTypeId,t.groupType, t.productTypeName";
 	}
+
 	// ----------- Shipper ----------- //
 	public static String getOrderHistoryWithShipper(int shipperId) {
 		return "SELECT o.orderId, o.orderCode, o.orderTotal, o.orderStatus, u.name as cusName, o.createDate, o.deliveryAddress"

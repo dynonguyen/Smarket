@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import api.java.constants.AppConstants;
 import api.java.dto.GreenRegionRatioDto;
- 
+
 import api.java.dto.RevenueAndIncomeDto;
 import api.java.dto.ProductAmountDto;
 import api.java.dto.TypeInGroupDto;
@@ -42,7 +42,6 @@ public class StatisticApi {
 
 	@GetMapping(path = "/income")
 	public List<RevenueAndIncomeDto> getIncome(@RequestParam(name = "y", defaultValue = "2021") int year) {
-
 		List<RevenueAndIncomeDto> list = statisticService.getRevenueAndIncome(year);
 		return list;
 	}
@@ -53,9 +52,8 @@ public class StatisticApi {
 	}
 
 	@GetMapping(path = "type/amount-type")
-	public List<TypeInGroupDto> getTypeInGroup(@RequestParam(defaultValue = "1") int group){
+	public List<TypeInGroupDto> getTypeInGroup(@RequestParam(defaultValue = "1") int group) {
 		return statisticService.getTypeInGroup(group);
 	}
-
 
 }
