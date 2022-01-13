@@ -1,4 +1,5 @@
 const defaultChartData = [1, 1, 1, 1, 1, 1, 1, 1, 2, 4, 1, 1, 1, 2, 4];
+const defaultGroupData = [1, 1, 1, 1, 1, 1, 1, 1];
 const defaultLabels = ['Thịt bò', 'Thịt lợn', 'Thịt gà', 'Cá thu', 'Cá tra', 'Cá diêu hồng', 'Ốc mỡ', 'Ốc móng tay', 'Ốc mỡ', 'Ốc móng tay', 'Thịt bò', 'Thịt lợn', 'Thịt gà', 'Cá thu', 'Cá tra'];
 const groupLabels = ['Thịt, cá, hải sản', 'Rau, củ, trái cây','Đồ uống', 'Bánh kẹo', 'Mì, cháo, phở, bún', 'Dầu ăn, gia vị', 'Gạo, bột, đồ khô', 'Đồ gia dụng'];
 let groupChart = null;
@@ -13,7 +14,7 @@ const chartOptions = (data = [], title) => ({
 		datasets: [
 			{
 				data,
-				backgroundColor: ['#CB4335', '#1F618D', '#F1C40F', '#7d77a6', '#27AE60', '#884EA0', '#D35400',  '#00eeff'],
+				backgroundColor: ['#CB4335', '#1F618D', '#F1C40F', '#e80ee1', '#27AE60', '#884EA0', '#D35400',  '#00eeff'],
 				borderColor: 'transparent',
 				hoverOffset: 4,
 				spacing: 0,
@@ -67,8 +68,11 @@ function renderChart(chartId, data, title, labels = defaultLabels) {
   switch (chartId) {
 		case 'groupChart':
 			groupChart && groupChart.destroy();
+      while(data.length < 8) {
+        data.push(0);
+      }
 			groupChart = new Chart(
-				document.getElementById(chartId).getContext('2d'),
+				document.getElementById(chartId).getContext('2d'),      
 				chartOptions(data, title),
 			);
 			break;
@@ -93,7 +97,7 @@ function renderGroupChart() {
 		ctx.textAlign = 'center';
 		ctx.fillText('Không có dữ liệu', canvas.width / 2, canvas.height / 2);
 	}
-  //renderChart('groupChart', defaultChartData, 'Thống kê nhu yếu phẩm theo nhóm');
+  
   myFetch(
     `${constant.JAVA_API_BASE_URL}/admin/statistic/type/amount-product`,
   )
@@ -222,7 +226,7 @@ async function Printer() {
   downloadCSV({filename: groupLabels[$('#groupType').val()]}); 
 }
 $(document).ready(function () {
-  renderGroupChart();
+  renderGroupChart() || renderChart('groupChart', defaultGroupData, 'Thống kê nhu yếu phẩm theo nhóm');
   $('#printer').hide();
   renderChart('typeChart', defaultChartData, 'Thống kê số lượng nhu yếu phẩm theo loại', defaultLabels);
   $('#groupType').on('change', function() {
