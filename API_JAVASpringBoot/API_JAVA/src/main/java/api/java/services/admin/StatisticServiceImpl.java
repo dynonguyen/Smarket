@@ -10,6 +10,8 @@ import api.java.constants.AppConstants;
 import api.java.dto.EmptyDto;
 import api.java.dto.GreenRegionRatioDto;
 import api.java.dto.RevenueAndIncomeDto;
+import api.java.dto.ProductAmountDto;
+import api.java.dto.TypeInGroupDto;
 import api.java.utils.EntityManagerUtil;
 import api.java.utils.QueryUtil;
 
@@ -24,6 +26,12 @@ public class StatisticServiceImpl implements StatisticService {
 
     @Autowired
     private EntityManagerUtil<EmptyDto> emptyEmu;
+
+    @Autowired
+    private EntityManagerUtil<ProductAmountDto> productAmountDto;
+
+    @Autowired
+    private EntityManagerUtil<TypeInGroupDto> typeInGroupDto;
 
     @Override
     public int getRegionStatistic(int userType, int provinceId, int regionLevel) {
@@ -69,6 +77,27 @@ public class StatisticServiceImpl implements StatisticService {
             return list;
         } catch (Exception e) {
             System.out.println("GET REVENUE AND INCOME  ERROR: " + e.toString());
+          
+    @Override
+    public List<ProductAmountDto> getAmountProductOfEachType() {
+        try {
+            String queryString = QueryUtil.getAmountProductOfEachGroupType();
+            List<ProductAmountDto> result = productAmountDto.getResultList(ProductAmountDto.class, queryString);
+            return result;
+        } catch (Exception e) {
+            System.out.println("----------" + e);
+            return List.of();
+        }
+    }
+
+    @Override
+    public List<TypeInGroupDto> getTypeInGroup(int group) {
+        try {
+            String queryString = QueryUtil.getAmountProductInType(group);
+            List<TypeInGroupDto> result = typeInGroupDto.getResultList(TypeInGroupDto.class, queryString, 1, 20);
+            return result;
+        } catch (Exception e) {
+            System.out.println("----------" + e);
             return List.of();
         }
     }

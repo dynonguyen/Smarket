@@ -1,11 +1,45 @@
 extends ./templates/general.template.pug
 include ./mixins/navbar.mixin.pug
 include ./mixins/footer.mixin.pug
+include ./mixins/categories.mixin.pug
+include ./mixins/product-card.mixin.pug
+include ./mixins/scroll-top.mixin.pug
+
+block append style
+  link(rel="stylesheet", href="/vendors/selectize/selectize.min.css")
+  link(rel="stylesheet", type="text/css", href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css")
+  link(rel="stylesheet", href="/css/product-card.css")
+  link(rel="stylesheet", href="/css/home.css")
 
 block content
   .page-container
     section.content-wrap
       +navbar
-      //- .navbar-break
-      //- All content here
+      .navbar-break
+      
+      .container.py-4
+        //- categories 
+        +categories
+
+        if productCategories
+          each prodCat in productCategories
+            - const { groupTypeId, groupTypeName, products } = prodCat;
+            - const { formatCurrency, cloudinaryOptimize } = helpers;
+            .product-list.mt-5
+              h3.product-list__title.d-flex.justify-content-between
+                span= groupTypeName
+                a.view-more(href=`/categories/${groupTypeId}`) Xem thêm #[i.bi.bi-chevron-double-right]
+              .products-slider
+                if products
+                  each product in products
+                    - const { productId, productName, unitPrice, quantitativeUnit, thumbnail } = product;
+                    .px-2
+                      +productCard(productId, productName, cloudinaryOptimize(thumbnail), formatCurrency(unitPrice), quantitativeUnit)
     +footer
+    +scrollTop
+
+block append script 
+  script(src="/vendors/selectize/selectize.min.js") 
+  script(src="/js/navbar.js") 
+  script(type="text/javascript", src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js")
+  script(src="/js/home.js") 

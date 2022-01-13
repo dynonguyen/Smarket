@@ -1,7 +1,7 @@
 USE master
 GO
 
-DROP DATABASE IF EXIST Smarket
+DROP DATABASE IF EXISTS Smarket
 GO
 
 CREATE DATABASE Smarket
@@ -69,7 +69,7 @@ GO
 CREATE TABLE AppUser(
 	UserId int not null IDENTITY(1,1),
 	AccountId int not null,
-	Avatar varchar(150) not null,
+	Avatar varchar(150),
 	Name nvarchar(30) not null,
 	PeopleId varchar(12) not null,
 	Phone varchar(11) not null,
@@ -137,7 +137,7 @@ CREATE TABLE ProductType(
 	ProductTypeId int not null IDENTITY(1,1),
 	ProductTypeName nvarchar(30) not null,
 	ProductTypeDes nvarchar(50) not null,
-
+	GroupType int not null,
 	PRIMARY KEY(ProductTypeId)
 );
 GO

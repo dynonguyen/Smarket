@@ -1,11 +1,15 @@
 const authApi = require('../apis/auth.api');
-const { JWT_HEADER, JWT_STORE_KEY } = require('../constants/index.constant');
+const {
+  JWT_HEADER,
+  JWT_STORE_KEY,
+  ROLES,
+} = require('../constants/index.constant');
 const store = require('store');
 const cloudinary = require('../configs/cloudinary.config');
 const commonApi = require('../apis/common.api');
 
 exports.getLogin = (req, res) => {
-  if (req.session.user) {
+  if (req.session.user && req.session.user.role !== ROLES.GUEST) {
     return res.redirect('/redirector');
   }
   return res.render('login.pug');
@@ -61,7 +65,7 @@ exports.postLogin = async (req, res) => {
 };
 
 exports.getSignUP = (req, res) => {
-  if (req.session.user) {
+  if (req.session.user && req.session.user.role !== ROLES.GUEST) {
     return res.redirect('/redirector');
   }
   return res.render('signup');
@@ -103,14 +107,14 @@ exports.postSignUp = async (req, res) => {
         avatar = await uploader(req.files.avatar[0].path);
       } else {
         avatar = {
-          url: '',
+          url: ' ',
         };
       }
       if (req.files.certificate) {
         certificate = await uploader(req.files.certificate[0].path);
       } else {
         certificate = {
-          url: '',
+          url: ' ',
         };
       }
       const user = {
@@ -121,7 +125,7 @@ exports.postSignUp = async (req, res) => {
         PeopleId: account.peopleid,
         Address: `${account.address}, ${ward.prefix + ' ' + ward.wardName}, ${
           district.prefix + ' ' + district.districtName
-        }, ${province.provincename}`,
+        }, ${province.provinceName}`,
         Ward: account.ward,
       };
       const userRes = await authApi.createUser(user);

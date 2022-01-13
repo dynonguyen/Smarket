@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import api.java.constants.AppConstants;
-import api.java.dto.CustomerDto;
 import api.java.dto.OrderDetailDto;
 import api.java.dto.OrderDetailInfoDto;
 import api.java.dto.PaginationDto;
@@ -45,9 +44,6 @@ public class ManageApi {
 
     @GetMapping(path = "/order")
     public PaginationDto<CusOrder> getOrderInfor(@RequestParam(name = "p", defaultValue = "1") int page) {
-        if (page <= 0) {
-            page = 1;
-        }
         Pagination<CusOrder> cpage = new Pagination<>();
         List<CusOrder> data = cOrderRepository.findAll();
         PaginationDto<CusOrder> result = cpage.paging(data, AppConstants.PAGE_SIZE, page);
@@ -99,11 +95,18 @@ public class ManageApi {
         PaginationDto<Account> result = accountPage.paging(accounts, AppConstants.PAGE_SIZE, page);
         return result;
     }
-
-    @GetMapping(path = "/account/detail")
-    public CustomerDto getUserInfo(@RequestParam(defaultValue = "1") int userType,
-            @RequestParam(defaultValue = "1") int accountId) {
-        return manageService.getUserInfo(accountId);
+    @GetMapping(path = "/account/info")
+    public Account getAccountInfo(@RequestParam(defaultValue = "1") int accountId) {
+        try {      
+            return accountRepository.findByAccountId(accountId);
+        } catch (Exception e) {
+            return new Account();
+        }
     }
 
+    @GetMapping(path = "/account/detail")
+    public <Any> Any getUserInfo(@RequestParam(defaultValue = "1") int accountId) {
+        return (Any) manageService.getUserInfo(accountId);
+    }
+    
 }

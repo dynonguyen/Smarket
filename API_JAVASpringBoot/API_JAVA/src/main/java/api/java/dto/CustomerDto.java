@@ -6,6 +6,7 @@ public class CustomerDto implements MappingObjectDto<CustomerDto>{
     
     private int UserId;
     private int AccountId;
+    private String Avatar;
     private String Name;
     private String PeopleId;
     private String Address;
@@ -17,9 +18,10 @@ public class CustomerDto implements MappingObjectDto<CustomerDto>{
     public CustomerDto() {
     }
 
-    public CustomerDto(int UserId, int AccountId, String Name, String PeopleId, String Address, String Phone, int CustomerLevel) {
+    public CustomerDto(int UserId, int AccountId, String Avatar, String Name, String PeopleId, String Address, String Phone, int CustomerLevel) {
         this.UserId = UserId;
         this.AccountId = AccountId;
+        this.Avatar = Avatar;
         this.Name = Name;
         this.PeopleId = PeopleId;
         this.Phone = Phone;
@@ -46,6 +48,10 @@ public class CustomerDto implements MappingObjectDto<CustomerDto>{
 
     public int getAccountId() {
         return this.AccountId;
+    }
+
+    public void setAccountId(int id) {
+        this.AccountId = id;
     }
 
     public void setShipperName(int  accountId) {
@@ -85,19 +91,28 @@ public class CustomerDto implements MappingObjectDto<CustomerDto>{
         this.CustomerLevel = level;
     }
 
+    public String getAvatar() {
+        return this.Avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.Avatar = avatar;
+    }
+
     @Override
     public CustomerDto mapValueFromObject(Object[] obj) {
-        if (obj.length < 7) {
+        if (obj.length < 8) {
             return this;
         }
 
         this.UserId = ((int) obj[0]);
         this.AccountId = ((int) obj[1]);
-        this.Name = (String) obj[2];
-        this.PeopleId = (String) obj[3];
-        this.Address = (String) obj[4];
-        this.Phone = (String) obj[5];
-        this.CustomerLevel = ((int) obj[6]);
+        this.Avatar = (String) obj[2];
+        this.Name = (String) obj[3];
+        this.PeopleId = (String) obj[4];
+        this.Address = (String) obj[5];
+        this.Phone = (String) obj[6];
+        this.CustomerLevel = ((int) obj[7]);
         return this;
     }
 }

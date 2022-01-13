@@ -81,8 +81,6 @@
             return query;
         }
 
-
-
         // Get all feedback of a product
         public static string GetFeedbackOfProduct(int productId)
         {
@@ -92,7 +90,21 @@
             return query;
         }
 
+        // Get amount product each type
+        public static string GetProductEachType(int group)
+        {
+            return "select t.ProductTypeName, p.ProductId, p.ProductName, p.UnitPrice, p.Unit, p.QuantitativeUnit, a.Name"
+                    + " from Product p, ProductType t, Store s, AppUser a"
+                    + $" where t.GroupType = {group} and t.ProductTypeId = p.ProductTypeId and p.StoreId = s.StoreId and s.UserId = a.UserId"
+                    + " Group by t.ProductTypeName,a.Name, p.ProductId, p.ProductName, p.UnitPrice, p.Unit, p.QuantitativeUnit";
+        }
 
-        
+        // Get product card list by type
+        public static string GetProductCardByGroupType(int groupType)
+        {
+            return $@"SELECT p.ProductId, p.ProductName, p.UnitPrice, p.QuantitativeUnit, pi.Source AS Thumbnail
+                        FROM Product p, ProductImage pi, ProductType pt
+                        WHERE p.ProductTypeId = pt.ProductTypeId AND pt.GroupType = {groupType} AND pi.ProductId = p.ProductId AND pi.IsThumbnail = 1";
+        }
     }
 }

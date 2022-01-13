@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace API_.NET.Constants
+﻿namespace API_.NET.Constants
 {
     public static class Constants
     {
@@ -27,9 +25,9 @@ namespace API_.NET.Constants
         }
 
         public enum REGION_LEVELS
-            {
-                DEFAULT, GREEN, YELLOW, ORANGE, RED
-            }
+        {
+            DEFAULT, GREEN, YELLOW, ORANGE, RED
+        }
 
         public static int PAGE_SIZE = 8;
 

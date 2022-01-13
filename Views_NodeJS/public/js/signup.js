@@ -97,13 +97,13 @@ $(document).ready(async function () {
 					</div>
 					<div class="col">
 						<div class="form-group"> <label class="form-control-label" for="province">TỈNH/THÀNH PHỐ</label><select class="custom-select form-select" id="province" name="province">
-								<option id="option-clear" value="0">Tỉnh/Thành phố</option>
+								<option id="option-clear" value="1">Tỉnh/Thành phố</option>
 							</select></div>
 						<div class="form-group"> <label class="form-control-label" for="district">QUẬN/HUYỆN</label><select class="custom-select form-select" id="district" name="district">
-								<option id="option-clear" value="0">Quận/Huyện</option>
+								<option id="option-clear" value="1">Quận/Huyện</option>
 							</select></div>
 						<div class="form-group"> <label class="form-control-label" for="ward">PHƯỜNG/XÃ</label><select class="custom-select form-select" id="ward" name="ward">
-								<option id="option-clear" value="0">Phường/Xã</option>
+								<option id="option-clear" value="1">Phường/Xã</option>
 							</select></div>
 						<div><a id="contract" href="#">Nội dung cam kết</a></div>
 						<div class="form-check constract mt-3"><input class="form-check-input mt-2"  id="check" type="checkbox" /><label class="form-check-label form-control-label" for="check">Đồng ý với cam kết trên </label></div>
@@ -123,13 +123,13 @@ $(document).ready(async function () {
 				<div class="col">
 					<div class="form-group"><label class="form-control-label" for="certificate">GIẤY XÁC NHẬN TIÊM CHỦNG</label><input class="form-control" accept="image/*" id="certificate" type="file" name="certificate" maxLength="50" /></div>
 					<div class="form-group"><label class="form-control-label" for="province">TỈNH/THÀNH PHỐ</label><select class="custom-select form-select" id="province" name="province">
-							<option id="option-clear" value="0">Tỉnh/Thành phố</option>
+							<option id="option-clear" value="1">Tỉnh/Thành phố</option>
 						</select></div>
 					<div class="form-group"><label class="form-control-label" for="district">QUẬN/HUYỆN</label><select class="custom-select form-select" id="district" name="district">
-							<option id="option-clear" value="0">Quận/Huyện</option>
+							<option id="option-clear" value="1">Quận/Huyện</option>
 						</select></div>
 					<div class="form-group"><label class="form-control-label" for="ward">PHƯỜNG?XÃ</label><select class="custom-select form-select" id="ward" name="ward">
-							<option id="option-clear" value="0">Phường/Xã</option>
+							<option id="option-clear" value="1">Phường/Xã</option>
 						</select></div>
 					<div class="text-center"><a id="contract" href="#">Nội dung cam kết</a></div>
 					<div class="form-check constract mt-3"><input class="form-check-input mt-2" id="check" type="checkbox" /><label class="form-check-label form-control-label" for="check">Đồng ý với cam kết</label></div>

@@ -1,0 +1,127 @@
+extends ../templates/admin.template.pug
+include ../mixins/get-server-variables.pug
+
+block title 
+  title Smarket | Thông tin người dùng
+
+block addStyle
+  link(rel="stylesheet", href="/vendors/selectize/selectize.min.css")
+  link(rel="stylesheet", href="/css/admin/user-detail.css")
+  link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css")
+
+block addContent 
+  .container
+    .main-body
+      a.btn.btn-success.mb-3(href="/admin/management/account") &lt Quản lý tài khoản
+      .row.gutters-sm
+        .col-md-4.mb-3
+          .card
+            .card-body
+              .d-flex.flex-column.align-items-center.text-center
+                img.rounded-circle(src='https://bootdey.com/img/Content/avatar/avatar7.png' alt='avatar' width='150')
+                .mt-3
+                  h4= user.name
+                  case account.accountType
+                    when 0
+                    when 1
+                      p.text-secondary.mb-1 Khách hàng
+                    when 2
+                      p.text-secondary.mb-1 Shipper
+                    when 3
+                      p.text-secondary.mb-1 Cửa hàng
+                    default
+                       p.text-secondary.mb-1 Khách hàng
+                  if account.accountType == 2
+                    each x in [1, 2, 3, 4, 5]
+                      if rating >= x 
+                        span.fa.fa-star.mx-2.checked 
+                      else 
+                        span.fa.fa-star.mx-2
+                  p.text-secondary.mb-1 Username: #{account.username}
+                  if account.accountType != 1
+                    p.text-secondary.mb-1 Trạng thái: #{status}
+                    if user.status == 0
+                      button#accept.btn.btn-primary Duyệt
+        .col-md-8
+          .card.mb-3
+            .card-body             
+              .row
+                .col-sm-3
+                  h6.mb-0 Họ tên
+                .col-sm-9.text-secondary= user.name
+              hr
+              .row
+                .col-sm-3
+                  h6.mb-0 Mã người dùng
+                #accountId.col-sm-9.text-secondary= user.userId                 
+              hr
+              .row
+                .col-sm-3
+                  h6.mb-0 Email
+                .col-sm-9.text-secondary= account.email
+              hr
+              .row
+                .col-sm-3
+                  h6.mb-0 Số điện thoại
+                .col-sm-9.text-secondary= user.phone
+              hr
+              .row
+                .col-sm-3
+                  case account.accountType 
+                    when 1
+                      h6.mb-0 CCCD/CMND 
+                    when 2
+                      h6.mb-0 CCCD/CMND 
+                    when 3
+                      h6.mb-0 Mã đăng ký kinh doanh
+                .col-sm-9.text-secondary= user.peopleId
+              hr
+              .row
+                .col-sm-3
+                  h6.mb-0 Địa chỉ
+                .col-sm-9.text-secondary= user.address
+              if account.accountType == 2
+                hr
+                .row
+                  .col-sm-3
+                    h6.mb-0 Mã shipper
+                  .col-sm-9.text-secondary= user.shipperId 
+              if account.accountType == 3
+                case user.storeType 
+                  when 1
+                    hr
+                    .row
+                      .col-sm-3
+                        h6.mb-0 Loại hình kinh doanh
+                      .col-sm-9.text-secondary Cửa hàng 
+                  when 2
+                    hr
+                    .row
+                      .col-sm-3
+                        h6.mb-0 Loại hình kinh doanh
+                      .col-sm-9.text-secondary Siêu thị
+                hr
+                .row
+                  .col-sm-3
+                    h6.mb-0 Danh mục sản phẩm
+                  .col-sm-9.text-secondary= user.categories             
+      .row.gutters-sm.mt-2
+      if account.accountType != 1
+        .card.text-center
+          if account.accountType == 2
+            h6.mx-4.my-4.font-weight-bold Chứng nhận tiêm chủng
+            img.rounded.certificate(src=user.license , alt="Chứng nhận tiêm chủng")
+          else 
+            h6.mx-4.my-4.font-weight-bold Chứng nhận kinh doanh
+            img.rounded.certificate(src=user.certificate, alt="Chứng nhận kinh doanh")
+          
+
+
+
+block addScript
+  script.
+    const page = parseInt("#{page}");
+    const total = parseInt("#{total}");
+    const pageSize = parseInt("#{pageSize}");
+
+  script(src="/js/admin/user-detail.js") 

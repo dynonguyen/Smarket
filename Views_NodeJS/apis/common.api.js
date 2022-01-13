@@ -1,8 +1,10 @@
-const { axiosJava } = require('./axiosClient');
+const constants = require('../constants/index.constant');
+const { axiosJava, axiosCSharp } = require('./axiosClient');
 
 const BASE_URL = '/common';
 
 const commonApi = {
+
     getAllProvince: () => {
         return axiosJava.get(`${BASE_URL}/province-all`);
     },
@@ -29,6 +31,20 @@ const commonApi = {
 
     getAllPayment: () => {
         return axiosJava.get(`${BASE_URL}/year-payment`);
+    },
+      
+    getProductEachType: (group) => {
+        return axiosCSharp.get(`${BASE_URL}/type/amount-type?group=${group}`);
+    },
+
+    getProductsByGroupType: (
+      grouptype = 1,
+      page = 1,
+      pageSize = constants.PAGE_SIZE
+    ) => {
+        return axiosCSharp.get(
+        `${BASE_URL}/products-by-grouptype/${grouptype}?page=${page}&pageSize=${pageSize}`
+      );
     },
 };
 

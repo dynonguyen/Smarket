@@ -3,6 +3,7 @@ using API_.NET.Utils;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
+using System;
 namespace API_.NET.DAO.Customer
 {
     public class DAO_ProductType
@@ -11,10 +12,16 @@ namespace API_.NET.DAO.Customer
         // get all product type
         public static List<ProductType> GetAllProductType()
         {
-            using( var context = new SmarketContext())
-            {
-                return context.ProductType.ToList();
+            try {
+                using( var context = new SmarketContext())
+                    {
+                        return context.ProductType.ToList();
+                    }
+            } catch (Exception ex) {
+                Console.Write(ex);
+                return null;
             }
+            
             
         }
 
