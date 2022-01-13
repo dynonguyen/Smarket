@@ -9,4 +9,6 @@ public interface ShipperService {
     List<OrderDetailInfoDto> getOrderInfo(int orderId);
 
     List<OrderHistoryDto> getOrderHistory(int shipperId, int page);
+
+    String updateOrderStatus(int status, int orderId);
 }

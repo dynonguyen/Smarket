@@ -7,8 +7,11 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import api.java.dto.EmptyDto;
 import api.java.dto.OrderDetailInfoDto;
 import api.java.dto.OrderHistoryDto;
+import api.java.entities.CusOrder;
+import api.java.repositories.CusOrderRepository;
 import api.java.utils.EntityManagerUtil;
 import api.java.utils.QueryUtil;
 
@@ -21,6 +24,12 @@ public class ShipperServiceImpl implements ShipperService {
 
     @Autowired
     private EntityManagerUtil<OrderDetailInfoDto> orderDetailInfoEmu;
+
+    @Autowired
+    private CusOrderRepository cusOrderRepository;
+
+    @Autowired
+    private EntityManagerUtil<EmptyDto> emptyDto;
 
     @Override
     public List<OrderDetailInfoDto> getOrderInfo(int orderId) {
@@ -41,6 +50,17 @@ public class ShipperServiceImpl implements ShipperService {
         } catch (Exception e) {
             System.out.println("GET ORDER HISTORY SHIPPER SERVICE ERROR: " + e.toString());
             return List.of();
+        }
+    }
+
+    @Override
+    public String updateOrderStatus(int status, int orderId) {
+        try {
+            String queryString = QueryUtil.updateOrderStatus(status, orderId);
+            return "Success";
+        } catch (Exception e) {
+            System.out.println("CHANGE ORDER STATUS ERROR" + e);;
+            return "Fail";
         }
     }
 }
