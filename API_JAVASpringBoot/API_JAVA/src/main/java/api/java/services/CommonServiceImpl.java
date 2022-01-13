@@ -13,7 +13,6 @@ import api.java.repositories.DistrictRepository;
 import api.java.repositories.ProvinceRepository;
 import api.java.repositories.WardRepository;
 import api.java.repositories.PaymentRepository;
-import api.java.utils.QueryUtil;
 
 @Service("commonService")
 public class CommonServiceImpl implements CommonService {
