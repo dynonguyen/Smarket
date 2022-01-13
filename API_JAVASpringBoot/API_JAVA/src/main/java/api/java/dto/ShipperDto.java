@@ -114,7 +114,7 @@ public class ShipperDto implements MappingObjectDto<ShipperDto>{
         this.ShipperLicense = license;
     }
 
-    public float get() {
+    public float getRating() {
         return this.ShipperRating;
     }
 

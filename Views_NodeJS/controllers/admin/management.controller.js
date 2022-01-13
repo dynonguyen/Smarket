@@ -39,7 +39,7 @@ exports.getUserInfo = async (req, res) => {
 		let status ='';
 		let rating = 0;
 		if(account.accountType === 2) {
-			rating = parseInt(user.shipperRating) ? parseInt(user.shipperRating) : 3;
+			rating = parseInt(user.rating) ? parseInt(user.rating) : 5;
 			switch(user.status) {
 				case 0: {
 					status = 'Chưa duyệt';
