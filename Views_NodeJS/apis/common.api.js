@@ -4,43 +4,48 @@ const { axiosJava, axiosCSharp } = require('./axiosClient');
 const BASE_URL = '/common';
 
 const commonApi = {
-  getAllProvince: () => {
-    return axiosJava.get(`${BASE_URL}/province-all`);
-  },
 
-  getDistrict: (provinceId) => {
-    return axiosJava.get(`${BASE_URL}/district/${provinceId}`);
-  },
+    getAllProvince: () => {
+        return axiosJava.get(`${BASE_URL}/province-all`);
+    },
 
-  getWard: (districtId) => {
-    return axiosJava.get(`${BASE_URL}/ward/${districtId}`);
-  },
+    getDistrict: (provinceId) => {
+        return axiosJava.get(`${BASE_URL}/district/${provinceId}`);
+    },
 
-  getDistrictById: (districtId) => {
-    return axiosJava.get(`${BASE_URL}/district?districtId=${districtId}`);
-  },
+    getWard: (districtId) => {
+        return axiosJava.get(`${BASE_URL}/ward/${districtId}`);
+    },
 
-  getWardById: (wardId) => {
-    return axiosJava.get(`${BASE_URL}/ward?wardId=${wardId}`);
-  },
+    getDistrictById: (districtId) => {
+        return axiosJava.get(`${BASE_URL}/district?districtId=${districtId}`);
+    },
 
-  getProvinceById: (provinceId) => {
-    return axiosJava.get(`${BASE_URL}/province?provinceId=${provinceId}`);
-  },
+    getWardById: (wardId) => {
+        return axiosJava.get(`${BASE_URL}/ward?wardId=${wardId}`);
+    },
 
-  getProductEachType: (group) => {
-    return axiosCSharp.get(`${BASE_URL}/type/amount-type?group=${group}`);
-  },
+    getProvinceById: (provinceId) => {
+        return axiosJava.get(`${BASE_URL}/province?provinceId=${provinceId}`);
+    },
 
-  getProductsByGroupType: (
-    grouptype = 1,
-    page = 1,
-    pageSize = constants.PAGE_SIZE
-  ) => {
-    return axiosCSharp.get(
-      `${BASE_URL}/products-by-grouptype/${grouptype}?page=${page}&pageSize=${pageSize}`
-    );
-  },
+    getAllPayment: () => {
+        return axiosJava.get(`${BASE_URL}/year-payment`);
+    },
+      
+    getProductEachType: (group) => {
+        return axiosCSharp.get(`${BASE_URL}/type/amount-type?group=${group}`);
+    },
+
+    getProductsByGroupType: (
+      grouptype = 1,
+      page = 1,
+      pageSize = constants.PAGE_SIZE
+    ) => {
+        return axiosCSharp.get(
+        `${BASE_URL}/products-by-grouptype/${grouptype}?page=${page}&pageSize=${pageSize}`
+      );
+    },
 };
 
 module.exports = commonApi;

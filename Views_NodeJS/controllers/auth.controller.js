@@ -24,6 +24,7 @@ exports.getLogout = (req, res) => {
 
 exports.postLogin = async (req, res) => {
   const { username, password } = req.body;
+
   if (!username || !password) return res.render('login.pug');
 
   try {

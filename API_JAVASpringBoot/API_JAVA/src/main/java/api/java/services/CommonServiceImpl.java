@@ -6,11 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import api.java.entities.District;
+import api.java.entities.Payment;
 import api.java.entities.Province;
 import api.java.entities.Ward;
 import api.java.repositories.DistrictRepository;
 import api.java.repositories.ProvinceRepository;
 import api.java.repositories.WardRepository;
+import api.java.repositories.PaymentRepository;
+import api.java.utils.QueryUtil;
 
 @Service("commonService")
 public class CommonServiceImpl implements CommonService {
@@ -22,6 +25,9 @@ public class CommonServiceImpl implements CommonService {
 
     @Autowired
     private WardRepository wardRepository;
+
+    @Autowired
+    private PaymentRepository paymentRepository;
 
     @Override
     public List<Province> getAllProvinces() {
@@ -39,7 +45,7 @@ public class CommonServiceImpl implements CommonService {
     }
 
     @Override
-    public List<District> getDistrict(int provinceId){
+    public List<District> getDistrict(int provinceId) {
         try {
             List<District> districts = districtRepository.findByProvince(provinceId);
             if (districts.isEmpty()) {
@@ -53,7 +59,7 @@ public class CommonServiceImpl implements CommonService {
     }
 
     @Override
-    public List<Ward> getWard(int districtId){
+    public List<Ward> getWard(int districtId) {
         try {
             List<Ward> wards = wardRepository.findByDistrict(districtId);
             if (wards.isEmpty()) {
@@ -92,4 +98,14 @@ public class CommonServiceImpl implements CommonService {
             return null;
         }
     }
+
+    @Override
+    public List<Payment> getAllPayments() {
+        try {
+            return paymentRepository.findAll();
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
 }
