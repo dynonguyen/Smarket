@@ -1,4 +1,9 @@
-const { ORDER_STATUS, USER_TYPES } = require('../constants/index.constant');
+const {
+  ORDER_STATUS,
+  USER_TYPES,
+  AREAS,
+  STORE_STATUS,
+} = require('../constants/index.constant');
 
 exports.formatCurrency = (money) => {
   return money.toLocaleString('it-IT', { style: 'currency', currency: 'VND' });
@@ -45,6 +50,22 @@ exports.convertAccountType = (type) => {
           return 'Admin';
         }
       }
+    }
+  }
+};
+
+exports.convertAreas = (area = 1) => {
+  for (let key in AREAS) {
+    if (AREAS[key] === area) {
+      return key;
+    }
+  }
+};
+
+exports.convertStoreStatus = (status = 0) => {
+  for (let key in STORE_STATUS) {
+    if (STORE_STATUS[key] === status) {
+      return key;
     }
   }
 };

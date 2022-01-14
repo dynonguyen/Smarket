@@ -24,7 +24,7 @@ const managementApi = {
   },
 
   getStore: () => {
-    return axiosCSharp.get(`customer/Store/all`);
+    return axiosCSharp.get(`common/Store/all`);
   },
 };
 

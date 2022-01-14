@@ -4,6 +4,8 @@ const {
   convertOrderStatus,
   formatDate,
   convertAccountType,
+  convertAreas,
+  convertStoreStatus,
 } = require('../../helpers/index.helper');
 
 exports.getAccount = async (req, res) => {
@@ -148,6 +150,10 @@ exports.getStore = async (req, res) => {
 
     return res.render('./admin/store', {
       storeList: storeData,
+      helpers: {
+        convertAreas,
+        convertStoreStatus,
+      },
     });
   } catch (error) {
     console.error('Function getStore Error: ', error);
