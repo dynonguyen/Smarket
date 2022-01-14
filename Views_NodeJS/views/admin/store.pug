@@ -1,0 +1,49 @@
+extends ../templates/admin.template.pug
+include ../mixins/get-server-variables.pug
+
+block title 
+  title Smarket | Quản lý đơn hàng
+
+block addStyle
+  link(rel="stylesheet", href="/vendors/selectize/selectize.min.css")
+  link(rel="stylesheet", href="/css/admin/region.css")
+
+block addContent 
+  .p-4.flex-grow-1
+    table.table.table-striped.bg-white
+      thead.thead-dark
+        tr
+          th(scope="col") Mã cửa hàng
+          th(scope="col") Tên cửa hàng
+          th(scope="col") Loại cửa hàng
+          th(scope="col") Khu vực
+          th(scope="col") Trạng thái
+          th(scope="col") Xem chi tiết
+      tbody
+        if storeList && storeList.length > 0
+          each store in storeList 
+            - const { userId, name, storeType, area } = store;
+            tr
+              td= userId
+              td= name
+              td= storeType
+              td= area
+              td Trạng thái
+              td Chi tiết
+        else 
+          tr 
+            td.text-center.py-4.text-gray(colspan="6") Không tìm thấy cửa hàng nào 
+
+    //- if storeList && storeList.length > 0
+    //-   #pagination
+
+block addScript
+  script.
+    const page = parseInt("#{page}");
+    const total = parseInt("#{total}");
+    const pageSize = parseInt("#{pageSize}");
+    
+  script(src="/vendors/pagination.min.js") 
+  script(src="/js/pagination.js") 
+  script(src="/js/admin/order.js")
+  

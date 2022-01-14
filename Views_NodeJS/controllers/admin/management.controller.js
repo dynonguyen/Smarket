@@ -1,82 +1,81 @@
 const managementApi = require('../../apis/admin/management.api');
 const {
-	formatCurrency,
-	convertOrderStatus,
-	formatDate,
-	convertAccountType,
+  formatCurrency,
+  convertOrderStatus,
+  formatDate,
+  convertAccountType,
 } = require('../../helpers/index.helper');
 
 exports.getAccount = async (req, res) => {
-	try {
-		const {page = 1, type = 1} = req.query;
-		const accountRes = await managementApi.getAcount(page, type);
-		const accounts = accountRes.data;
-		const total = accounts.total;
-		const pageSize = accounts.pageSize;
-		return res.render('admin/account', {
-			accountList:accounts.data,
-			total,
-			page,
-			type,
-			pageSize,
-			helpers: {
-				convertAccountType,
-				formatDate
-			}
-		})
-	} catch (error) {
-		return res.render('404');
-	}
-}
+  try {
+    const { page = 1, type = 1 } = req.query;
+    const accountRes = await managementApi.getAcount(page, type);
+    const accounts = accountRes.data;
+    const total = accounts.total;
+    const pageSize = accounts.pageSize;
+    return res.render('admin/account', {
+      accountList: accounts.data,
+      total,
+      page,
+      type,
+      pageSize,
+      helpers: {
+        convertAccountType,
+        formatDate,
+      },
+    });
+  } catch (error) {
+    return res.render('404');
+  }
+};
 
 exports.getUserInfo = async (req, res) => {
-	try {
-		const accountId = req.query.id;
-		const accRes = await managementApi.getAccountInfo(accountId);
-		const userRes = await managementApi.getUser(accountId);
-		const user = userRes.data;
-		const account = accRes.data;
-		let status ='';
-		let rating = 0;
-		if(account.accountType === 2) {
-			rating = parseInt(user.rating) ? parseInt(user.rating) : 5;
-			switch(user.status) {
-				case 0: {
-					status = 'Chưa duyệt';
-					break;
-				}
-				case 1: {
-					status = 'Đã duyệt';
-					break;
-				}
-				case 2: {
-					status = 'Đang nhận đơn hàng';
-					break;
-				}
-				case 3: {
-					status = 'Đang giao hàng';
-					break;
-				}
-				default: status = 'Đã duyệt';
-			}
-		} 
-		if(account.accountType === 3) {
-			if(user.status === 0) {
-				status = 'Chưa duyệt';
-			} else {
-				status = 'Đã duyệt';
-			}
-		}
-		return res.render('admin/user-detail', {
-			account,
-			user,
-			status,
-			rating,
-		})
-	} catch (error) {
-		
-	}
-}
+  try {
+    const accountId = req.query.id;
+    const accRes = await managementApi.getAccountInfo(accountId);
+    const userRes = await managementApi.getUser(accountId);
+    const user = userRes.data;
+    const account = accRes.data;
+    let status = '';
+    let rating = 0;
+    if (account.accountType === 2) {
+      rating = parseInt(user.rating) ? parseInt(user.rating) : 5;
+      switch (user.status) {
+        case 0: {
+          status = 'Chưa duyệt';
+          break;
+        }
+        case 1: {
+          status = 'Đã duyệt';
+          break;
+        }
+        case 2: {
+          status = 'Đang nhận đơn hàng';
+          break;
+        }
+        case 3: {
+          status = 'Đang giao hàng';
+          break;
+        }
+        default:
+          status = 'Đã duyệt';
+      }
+    }
+    if (account.accountType === 3) {
+      if (user.status === 0) {
+        status = 'Chưa duyệt';
+      } else {
+        status = 'Đã duyệt';
+      }
+    }
+    return res.render('admin/user-detail', {
+      account,
+      user,
+      status,
+      rating,
+    });
+  } catch (error) {}
+};
 
 exports.getOrderInfor = async (req, res) => {
   try {
@@ -138,6 +137,20 @@ exports.getOrderDetail = async (req, res) => {
     });
   } catch (error) {
     console.error('Function getRegionStatistic Error: ', error);
+    return res.render('404');
+  }
+};
+
+exports.getStore = async (req, res) => {
+  try {
+    const storeRes = await managementApi.getStore();
+    const storeData = storeRes.data;
+
+    return res.render('./admin/store', {
+      storeList: storeData,
+    });
+  } catch (error) {
+    console.error('Function getStore Error: ', error);
     return res.render('404');
   }
 };
