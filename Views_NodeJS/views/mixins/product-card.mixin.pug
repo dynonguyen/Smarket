@@ -1,10 +1,10 @@
 //- required: link(rel="stylesheet", href="/css/product-card.css")
 mixin productCard(id, name, thumbnail, price, unit, badge, discount)
   .product-card
-    a.product-card__top(href=`/product/${id}`)  
+    a.product-card__top(href=`/common/product/${id}`)  
       img.thumbnail(src=thumbnail, alt=name, onerror="this.onerror=null;this.src='https://res.cloudinary.com/tuan-cloudinary/image/upload/v1642031448/smarket/no-img.png'")
     .product-card__body
-      a.product-card__title(href=`/product/${id}`)= name
+      a.product-card__title(href=`/common/product/${id}`)= name
       .mt-auto
         if discount
           p.product-card__discount= discount

@@ -110,12 +110,12 @@
 
 .cart-total {
   position: absolute;
-  top: -8px;
-  right: -15px;
+  top: -4px;
+  right: -8px;
   background-color: var(--orange);
-  width: 25px;
-  height: 25px;
-  line-height: 25px;
+  width: 18px;
+  height: 18px;
+  line-height: 18px;
   font-size: 11px;
   text-align: center;
   border-radius: 40px;

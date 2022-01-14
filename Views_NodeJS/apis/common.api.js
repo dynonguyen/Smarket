@@ -46,6 +46,29 @@ const commonApi = {
         `${BASE_URL}/products-by-grouptype/${grouptype}?page=${page}&pageSize=${pageSize}`
       );
     },
+
+    getDetailProduct: (productId) => {
+        return axiosCSharp.get(`${BASE_URL}/product?productId=${productId}`);
+    },
+
+    getImagesOfProduct: (productId) => {
+        return axiosCSharp.get(`${BASE_URL}/product/images?productId=${productId}`);
+    },
+
+    getProductSold: (productId) => {
+        return axiosCSharp.get(`${BASE_URL}/product/sold?productId=${productId}`);
+    },
+
+    getProductFeedback: (productId) => {
+        return axiosCSharp.get(`${BASE_URL}/product/feedback?productId=${productId}`);
+    },
+
+    getProductStore: (productId) => {
+        return axiosCSharp.get(`${BASE_URL}/store/info?productId=${productId}`);
+    },
+    getProductType: (typeId) => {
+        return axiosCSharp.get(`${BASE_URL}/product/type?typeId=${typeId}`);
+    }
 };
 
 module.exports = commonApi;

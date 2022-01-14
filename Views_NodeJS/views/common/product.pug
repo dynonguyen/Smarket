@@ -1,0 +1,190 @@
+extends ../templates/general.template.pug
+include ../mixins/navbar.mixin.pug
+include ../mixins/footer.mixin.pug
+include ../mixins/categories.mixin.pug
+include ../mixins/product-card.mixin.pug
+include ../mixins/scroll-top.mixin.pug
+
+block append style
+  link(rel="stylesheet", href="/vendors/selectize/selectize.min.css")
+  link(rel="stylesheet", type="text/css", href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css")
+  link(rel="stylesheet", href="/css/common/product.css")
+  link(rel="stylesheet", href="/css/home.css")
+  link(rel="stylesheet", href="/css/product-card.css")
+  link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css")
+
+block content
+  .page-container
+    section.content-wrap
+      +navbar
+      .navbar-break
+      nav.breadcrumb-nav(aria-label='breadcrumb')
+        ol.breadcrumb
+          li.breadcrumb-item
+            a(href='/') Trang chủ
+          li.breadcrumb-item
+            a(href=`/common/type/${type.productTypeId}`)= type.productTypeName
+          li.breadcrumb-item.active(aria-current='page') Chi tiết sản phẩm
+      .content.mb-3.row.mx-auto.justify-content-md-center
+        .col.col-md-5.mx-2
+          .row#carouselExampleIndicators.carousel.slide.bg-light(data-ride='carousel')
+            ol.carousel-indicators
+              each image in images
+                li.active(data-target='#carouselExampleIndicators' data-slide-to=image.index)            
+            .carousel-inner
+              each image in images
+                if image.index == 0 
+                  .carousel-item.active(id=`rep${image.index}`)
+                    img.zoom.d-block.w-100(src=image.source alt='Hình ảnh sản phẩm')
+                else 
+                  .carousel-item(id=`rep${image.index}`)
+                    img.zoom.d-block.w-100(src=image.source alt='Hình ảnh sản phẩm')
+            a.carousel-control-prev(href='#carouselExampleIndicators' role='button' data-slide='prev')
+              span.carousel-control-prev-icon(aria-hidden='true')
+              span.sr-only Previous
+            a.carousel-control-next(href='#carouselExampleIndicators' role='button' data-slide='next')
+              span.carousel-control-next-icon(aria-hidden='true')
+              span.sr-only Next
+          #images.d-flex.flex-row.flex-start
+            each image in images 
+              img.img-thumbnail(src=image.source, id=`${image.index}`)        
+        .col.col-md-5.mx-2.bg-light.h-
+          .h2.mt-2= product.productName
+          .row 
+            .col.col-md-5.my-auto
+              h5.d-inline.text-danger= rating
+              each x in [1, 2, 3, 4, 5]
+                  if reRating >= x
+                    span.fa.fa-star.mx-2.checked 
+                  else 
+                    span.fa.fa-star.mx-2
+            .col.col-md-3.bd-l.my-auto.text-center
+              h6.pt-2 #{quantitySold} Đã bán
+            .col.col-md-3.text-center.bd-l
+              h6.pt-2 #{quantityFeedback} Đánh giá
+          .row.policy.mt-4
+            h5.text-success.pl-3 Ưu đãi khi mua sản phẩm tại Smarket 
+            ul 
+              li.my-1 Cam kết hàng đã qua kiểm định
+              li.my-1 Giao hàng nhanh với hệ thống quản lý shipper 
+              li.my-1 Cho phép đổi trả trong vòng 12 giờ
+              li.my-1 Miễn phí vận chuyển cho đơn hàng trên 1.000.000 đồng
+          .row.mt-4
+            h4.col.text-danger= helpers.formatCurrency(product.unitPrice)
+          .row.mt-3
+            .col.col-md-3.my-auto 
+              div.pt-2 Số lượng 
+            .col.col-md-5.row.text-center
+              .col.col-md-2#minus.btn.btn-primary -            
+              input#quantity.col.col-md-4.form-control.px-auto(type="number", value="1", min="1", max="10", readonly)
+              .col.col-md-2#plus.btn.btn-primary + 
+          .row.mt-4
+            .col.col-md-12.btn.btn-primary.h-100 Thêm vào giỏ hàng #[i.bi.bi-cart-plus]
+      .row.justify-content-md-center.mb-5
+        .col.col-md-7 
+          .row#store.bg-light
+            .col.col-md-3.mt-1.py-2
+              img.rounded-circle(src=store.avatar width='100')
+            .col.col-md-5.mt-3.h-100
+              .row.mb-2
+                span.fa.fa-star.mx-2.checked
+                span.fa.fa-star.mx-2.checked
+                span.fa.fa-star.mx-2.checked
+                span.fa.fa-star.mx-2.checked
+                span.fa.fa-star.mx-2.checked
+              h4.row= store.name 
+              .row Địa chỉ: #{store.address}
+            .col.col-md-4
+              a.btn.btn-primary.w-100(href=`/common/store/${store.userId}`) Ghé thăm cửa hàng
+          .row#description.bg-light.mt-2
+            .row.my-2.mx-2.w-100
+              h3.detail-info.py-1 Chi tiết sản phẩm
+              .row.w-100
+                .col.col-md-3
+                  .row.detail Danh mục
+                  .row.detail Tên sản phẩm
+                  .row.detail Mã sản phẩm
+                  .row.detail Giá
+                  .row.detail Đơn vị tính 
+                  .row.detail Xuất xứ
+                .col.col-md-9
+                  .row.detail= group
+                  .row.detail= product.productName 
+                  .row.detail= product.productId 
+                  .row.detail= helpers.formatCurrency(product.unitPrice)
+                  .row.detail= product.quantitativeUnit? product.quantitativeUnit : 'Cái'
+                  .row.detail= product.source
+              .row.my-2.mx-2.w-100
+                h3.detail-info.py-1 Mô tả sản phẩm
+                .row.w-100#des.mx-3
+                  .detail.py-1= product.productDes
+          .row.bg-light.mt-2
+            .row.my-2.mx-2.w-100
+              h3.feedback.py-1 Đánh giá sản phẩm
+              .row#block-fb.mx-auto
+                .col.col-md-4.border-primary.d-flex.flex-column.justify-content-center
+                  .group-rating
+                    h4.d-inline.text-danger.ml-5 #{rating} #[h6.d-inline trên 5] #[br]
+                  .group-star.ml-5                 
+                    each x in [1, 2, 3, 4, 5]
+                        if reRating >= x
+                          i.bi.bi-star-fill.checked 
+                        else 
+                          i.bi.bi-star-fill
+                .col.col-md-8.border-primary.row.w-100
+                  .col.col-md-8
+                    .row.pl-5 
+                      i.bi.bi-star-fill.checked.mx-2
+                      i.bi.bi-star-fill.checked.mx-2
+                      i.bi.bi-star-fill.checked.mx-2 
+                      i.bi.bi-star-fill.checked.mx-2 
+                      i.bi.bi-star-fill.checked.mx-2                      
+                    .row.pl-5  
+                      i.bi.bi-star-fill.checked.mx-2 
+                      i.bi.bi-star-fill.checked.mx-2 
+                      i.bi.bi-star-fill.checked.mx-2 
+                      i.bi.bi-star-fill.checked.mx-2 
+                    .row.pl-5  
+                      i.bi.bi-star-fill.checked.mx-2 
+                      i.bi.bi-star-fill.checked.mx-2 
+                      i.bi.bi-star-fill.checked.mx-2  
+                    .row.pl-5  
+                      i.bi.bi-star-fill.checked.mx-2 
+                      i.bi.bi-star-fill.checked.mx-2  
+                    .row.pl-5  
+                      i.bi.bi-star-fill.checked.mx-2  
+                  .col.col-md-4
+                    .row #{statisticFeedback[4]} Đánh giá
+                    .row #{statisticFeedback[3]} Đánh giá
+                    .row #{statisticFeedback[2]} Đánh giá
+                    .row #{statisticFeedback[1]} Đánh giá
+                    .row #{statisticFeedback[0]} Đánh giá
+              .row#content-feedback.w-100
+                each fb in feedback 
+                  .row.my-3.ml-5.w-100
+                    .col.col-md-1
+                      img.rounded-circle(src= "https://picsum.photos/50/50" width='50')                   
+                    .col.col-md-2
+                      each x in [1, 2, 3, 4, 5]
+                        if fb.rating >= x
+                          i.bi.bi-star-fill.checked
+                    .col.col-md-5 
+                      div Nội dung: #{fb.content}
+                      div Thời gian:  #{helpers.formatDate(fb.feedbackTime)}
+        .col.col-md-3.ml-2.suggest
+          if products
+                  each product in products
+                    - const { productId, productName, unitPrice, quantitativeUnit, thumbnail } = product;
+                    .px-2.mb-2
+                      +productCard(productId, productName, helpers.cloudinaryOptimize(thumbnail), helpers.formatCurrency(unitPrice), quantitativeUnit)
+
+      
+
+    +footer
+    +scrollTop
+
+block append script 
+  script(src="/vendors/selectize/selectize.min.js") 
+  script(src="/js/navbar.js") 
+  script(type="text/javascript", src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js")
+  script(src="/js/common/product.js") 
