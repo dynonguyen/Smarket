@@ -1,10 +1,10 @@
-﻿using API_.NET.DAO.Customer;
+﻿using API_.NET.DAO.Common;
 using API_.NET.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 namespace API_.NET.Controllers.Customer
 {
-    [Route("api/customer/[controller]")]
+    [Route("api/common/[controller]")]
     [ApiController]
     public class FeedbackController : ControllerBase
     {

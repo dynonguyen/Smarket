@@ -1,15 +1,13 @@
-﻿using API_.NET.DAO.Customer;
+﻿using API_.NET.DAO.Common;
 using API_.NET.Models;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace API_.NET.Controllers
+namespace API_.NET.Controllers.Common
 {
-    [Route("api/customer/[controller]")]
+    [Route("api/common/[controller]")]
     [ApiController]
-    [Authorize(Roles = "ROLE_CUSTOMER")]
     public class ProductController : ControllerBase
     {
         // Get all product of system
@@ -19,6 +17,30 @@ namespace API_.NET.Controllers
             return DAO_Product.GetAllProduct();
         }
 
+        // Get Quantity product sold
+        [HttpGet("sold")]
+        public List<OrderDetail> GetQuantityProductSold([FromQuery] int productId) 
+        {
+            try 
+            {
+                using(var context = new SmarketContext()) 
+                {
+                    return context.OrderDetail.Where(s => s.ProductId == productId).ToList();
+                }
+            } 
+            catch 
+            {
+                return null;
+            }
+        }
+
+        // Get feedbacks of product
+        [HttpGet("feedback")] 
+        public List<OrderDetailFeedback> GetProductFeedback([FromQuery] int productId)
+        {
+            return DAO_Product.GetAllFeedbackOfProduct(productId);
+        }
+        
         // Get product by search
         [HttpGet("search")]
         public List<Product> GetSearchProduct([FromQuery] string name)
@@ -59,7 +81,7 @@ namespace API_.NET.Controllers
         {
             using (var context = new SmarketContext())
             {
-                return context.ProductImage.Where(s => s.ProductId == productId).ToList();
+                return context.ProductImage.Where(s => s.ProductId == productId).Where(s => s.IsThumbnail == false).ToList();
             }
         }
 

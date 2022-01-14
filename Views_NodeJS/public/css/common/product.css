@@ -1,0 +1,94 @@
+.breadcrumb-nav {
+  margin-left: 8.5%;
+}
+
+img .d-block {
+  height: 500px;
+}
+.checked {
+  color: orange;
+}
+
+.bd-l {
+  border-left: 2px solid #ccc2c2;
+  height: 80%;
+}
+#quantity {
+  text-indent: 60%;
+  border-radius: 0px;
+  height: 100%;
+  border: 1px solid #10941b;
+}
+#minus, #plus{
+  border-radius: 0px;
+}
+
+#images {
+  height: 100px;
+  overflow-x: auto;
+  width: 100%;
+}
+.img-thumbnail {
+  height: 100%
+}
+.img-thumbnail {
+  cursor: pointer;
+}
+
+#images {
+  width: 105%;
+  margin-left: -15px;
+}
+
+#images::-webkit-scrollbar {
+  height: 6px;
+}
+
+#images::-webkit-scrollbar-thumb {
+  background: var(--gray);
+}
+
+.zoom {
+  transition: transform .2s; /* Animation */
+  margin: 0 auto;
+}
+
+.zoom:hover {
+  transform: scale(1.5); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+}
+
+#description {
+  text-indent: 30px;
+}
+.detail-info {
+  width: 100%;
+  padding-right: 50px;
+  background-color: #EFEFEF;
+  display: inline;
+  text-indent: 30px;
+}
+
+.detail {
+  text-indent: 50px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.feedback {
+  width: 100%;
+  padding-right: 50px;
+  display: inline;
+  text-indent: 30px;
+}
+#block-fb {
+
+  width: 95%;
+}
+
+.border-primary {
+  border: 1px solid #10941b;
+}
+.suggest {
+  height: 900px;
+  overflow-y: auto;
+}

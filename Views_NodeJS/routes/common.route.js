@@ -8,4 +8,6 @@ commonRoute.get('/district', commonController.getDistrict);
 
 commonRoute.get('/ward', commonController.getWard);
 
+commonRoute.get('/product/:productId', commonController.getProductPage);
+
 module.exports = commonRoute;

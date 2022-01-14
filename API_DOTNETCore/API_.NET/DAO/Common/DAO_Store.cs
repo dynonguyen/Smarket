@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace API_.NET.DAO.Customer
+namespace API_.NET.DAO.Common
 {
     public class DAO_Store
     {
@@ -74,6 +74,22 @@ namespace API_.NET.DAO.Customer
                     return context.Stores.FromSql(Utils_Queries.GetStoresByProductName(productName)).ToList();
                 }
             } catch
+            {
+                return null;
+            }
+        }
+
+        // Get store by product id
+        public static AppUser GetStoreByProductId(int productId)
+        {
+            try
+            {
+                using(var context = new SmarketContext())
+                {
+                    return context.AppUser.FromSql(Utils_Queries.GetStoreInfoByProductId(productId)).FirstOrDefault();
+                }
+            }
+            catch
             {
                 return null;
             }

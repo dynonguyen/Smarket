@@ -106,5 +106,22 @@
                         FROM Product p, ProductImage pi, ProductType pt
                         WHERE p.ProductTypeId = pt.ProductTypeId AND pt.GroupType = {groupType} AND pi.ProductId = p.ProductId AND pi.IsThumbnail = 1";
         }
+
+        // Get list feedback of a product by id
+        public static string GetAllProductFeedback(int productId) 
+        {
+            return "SELECT ofb.*"
+                    + " FROM OrderDetailFeedback ofb, OrderDetail o" 
+                    + $" WHERE o.ProductId = {productId} and o.OrderDetailId = ofb.DetailId";
+        }
+
+        // Get store information by product id
+        public static string GetStoreInfoByProductId(int productId)
+        {
+            return $@"select a.*
+                    from Store s, Product p, AppUser a
+                    WHERE p.StoreId = s.StoreId and p.ProductId = {productId} and a.UserId = s.UserId";
+        }
+
     }
 }
