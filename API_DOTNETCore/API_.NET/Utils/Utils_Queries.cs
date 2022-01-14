@@ -120,7 +120,7 @@
         {
             return $@"select a.*
                     from Store s, Product p, AppUser a
-                    WHERE p.StoreId = s.StoreId and p.ProductId = 2 and a.UserId = s.UserId";
+                    WHERE p.StoreId = s.StoreId and p.ProductId = {productId} and a.UserId = s.UserId";
         }
 
     }

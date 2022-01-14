@@ -93,7 +93,7 @@ exports.getProductPage = async (req, res) => {
     const products = groupCartRes.data;
     let group;
     for (const item of constants.GROUP_TYPES) {
-      if(item.id = type.groupType) {
+      if(item.id == type.groupType) {
         group = item.label;
         break;
       }
@@ -122,6 +122,7 @@ exports.getProductPage = async (req, res) => {
     const store = storeRes.data;
     const rating = parseFloat(product.productRating).toFixed(1);
     const reRating = Math.round(rating);
+    console.log(store)
     return res.render('common/product', {
       helpers: {
         formatCurrency,
@@ -140,13 +141,8 @@ exports.getProductPage = async (req, res) => {
       quantityFeedback: feedback.length,
       products,
       type,
-
-
-
-
     })
   } catch (error) {
-    console.log(error);
-    return res.send('abc');
+    return res.render('404');
   }
 }
