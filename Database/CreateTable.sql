@@ -149,7 +149,7 @@ CREATE TABLE Product(
 	StoreId int not null,
 	ProductName nvarchar(30) not null,
 	ProductTypeId int not null,
-	ProductDes nvarchar(50) not null,
+	ProductDes nvarchar(1000) not null,
 	ProductRating float not null,
 	UnitPrice int not null,
 	Unit int not null,
