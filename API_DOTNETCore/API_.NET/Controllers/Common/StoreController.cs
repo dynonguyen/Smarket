@@ -11,9 +11,9 @@ namespace API_.NET.Controllers.Customer
     {
         // Get all Store with status != 0
         [HttpGet("all")]
-        public List<DTO.DTO_Stores> GetAllStore()
+        public List<DTO.DTO_Stores> GetAllStore([FromQuery] int page = 1, [FromQuery] int pageSize = 8)
         {
-            return DAO_Store.GetAllStore();
+            return DAO_Store.GetAllStore(page, pageSize);
         }
 
         // Get store by id
@@ -38,7 +38,7 @@ namespace API_.NET.Controllers.Customer
         }
 
         // Get stores have product
-        [HttpGet("product")] 
+        [HttpGet("product")]
         public List<DTO.DTO_Stores> GetStoresByProductName([FromQuery] string productName)
         {
             return DAO_Store.GetStoresByProductName(productName);
