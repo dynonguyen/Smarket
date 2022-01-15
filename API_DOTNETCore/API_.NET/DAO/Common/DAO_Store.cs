@@ -1,4 +1,5 @@
-﻿using API_.NET.Models;
+﻿using API_.NET.DTO;
+using API_.NET.Models;
 using API_.NET.Utils;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -10,11 +11,29 @@ namespace API_.NET.DAO.Common
     public class DAO_Store
     {
         // Get all store
-        public static List<DTO.DTO_Stores> GetAllStore()
+        public static DTO_Pagination<DTO.DTO_Stores> GetAllStore(int page, int pageSize)
         {
-            using (var context = new SmarketContext())
+            if (page < 1)
             {
-                return context.Stores.FromSql(Utils_Queries.GetListStore()).ToList();
+                page = 1;
+            }
+
+            int skipRows = (page - 1) * pageSize;
+
+            try
+            {
+                using (var context = new SmarketContext())
+                {
+                    var sqlResult = context.Stores.FromSql(Utils_Queries.GetListStore()).ToList();
+
+                    List<DTO.DTO_Stores> data = sqlResult.Skip(skipRows).Take(pageSize).ToList();
+                    return new DTO_Pagination<DTO_Stores>(sqlResult.Count(), page, pageSize, data);
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Console.WriteLine(ex.ToString());
+                return new DTO_Pagination<DTO.DTO_Stores>();
             }
         }
         // Get store by id
@@ -27,7 +46,7 @@ namespace API_.NET.DAO.Common
                     return context.Stores.FromSql(Utils_Queries.GetStoreById(storeId)).FirstOrDefault();
                 }
             }
-            catch 
+            catch
             {
                 return null;
             }
@@ -54,11 +73,12 @@ namespace API_.NET.DAO.Common
         {
             try
             {
-                using(var context = new SmarketContext())
+                using (var context = new SmarketContext())
                 {
                     return context.Stores.FromSql(Utils_Queries.GetSearchStores(storeName)).ToList();
                 }
-            } catch
+            }
+            catch
             {
                 return null;
             }
@@ -69,11 +89,12 @@ namespace API_.NET.DAO.Common
         {
             try
             {
-                using(var context = new SmarketContext())
+                using (var context = new SmarketContext())
                 {
                     return context.Stores.FromSql(Utils_Queries.GetStoresByProductName(productName)).ToList();
                 }
-            } catch
+            }
+            catch
             {
                 return null;
             }
@@ -84,7 +105,7 @@ namespace API_.NET.DAO.Common
         {
             try
             {
-                using(var context = new SmarketContext())
+                using (var context = new SmarketContext())
                 {
                     return context.AppUser.FromSql(Utils_Queries.GetStoreInfoByProductId(productId)).FirstOrDefault();
                 }

@@ -39,9 +39,9 @@
         // List Store
         public static string GetListStore()
         {
-            string query = "SELECT u.UserId, u.Name, u.Phone, u.Address, s.StoreId, s.StoreType, s.Area, s.Categories, s.Certificate"
-                             + " FROM AppUser u, Store s"
-                               + " WHERE s.UserId = u.UserId AND s.Status != 0";
+            string query = "SELECT a.accountId, u.UserId, u.Name, u.Phone, u.Address, s.StoreId, s.StoreType, s.Area, s.Status, s.Categories, s.Certificate"
+                             + " FROM AppUser u, Store s, Account a"
+                               + " WHERE s.UserId = u.UserId AND a.AccountId = u.AccountId AND a.AccountType = 3";
             return query;
         }
 
@@ -108,10 +108,10 @@
         }
 
         // Get list feedback of a product by id
-        public static string GetAllProductFeedback(int productId) 
+        public static string GetAllProductFeedback(int productId)
         {
             return "SELECT ofb.*"
-                    + " FROM OrderDetailFeedback ofb, OrderDetail o" 
+                    + " FROM OrderDetailFeedback ofb, OrderDetail o"
                     + $" WHERE o.ProductId = {productId} and o.OrderDetailId = ofb.DetailId";
         }
 

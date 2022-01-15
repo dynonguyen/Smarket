@@ -4,6 +4,8 @@ const {
   convertOrderStatus,
   formatDate,
   convertAccountType,
+  convertAreas,
+  convertStoreStatus,
 } = require('../../helpers/index.helper');
 
 exports.getAccount = async (req, res) => {
@@ -86,6 +88,7 @@ exports.getOrderInfor = async (req, res) => {
     const total = OrderInfor.total;
     const pageSize = OrderInfor.pageSize;
     var data = OrderInfor.data;
+
     res.render('./admin/order.pug', {
       total,
       page,
@@ -143,11 +146,20 @@ exports.getOrderDetail = async (req, res) => {
 
 exports.getStore = async (req, res) => {
   try {
-    const storeRes = await managementApi.getStore();
+    let { page = 1, pageSize = 8 } = req.query;
+    const storeRes = await managementApi.getStore(page, pageSize);
     const storeData = storeRes.data;
+    const total = storeData.total;
 
     return res.render('./admin/store', {
-      storeList: storeData,
+      storeList: storeData.data,
+      total,
+      page,
+      pageSize,
+      helpers: {
+        convertAreas,
+        convertStoreStatus,
+      },
     });
   } catch (error) {
     console.error('Function getStore Error: ', error);

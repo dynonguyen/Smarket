@@ -60,4 +60,20 @@ module.exports = {
     'Đã thanh toán': 5,
     'Đã hoàn trả': 6,
   },
+
+  AREAS: {
+    'Vùng Xanh': 1,
+    'Vùng Vàng': 2,
+    'Vùng Cam': 3,
+    'Vùng Đỏ': 4,
+  },
+
+  STORE_STATUS: {
+    'Chưa duyệt': 0,
+    'Đã duyệt': 1,
+    'Đang hoạt động': 2,
+    'Tạm nghỉ': 3,
+    'Đóng cửa': 4,
+    'Bị chặn': 5,
+  },
 };
