@@ -76,7 +76,7 @@ namespace API_.NET.DAO
             {
                 using (var context = new SmarketContext())
                 {
-                    var sqlResult = context.ProductCard.FromSql(Utils_Queries.GetProductCardByGroupType(typeId));
+                    var sqlResult = context.ProductCard.FromSql(Utils_Queries.GetProductsByType(typeId));
                     return sqlResult.Skip(skipRows).Take(pageSize).ToList();
                 }
             }

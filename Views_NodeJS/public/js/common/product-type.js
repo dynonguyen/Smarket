@@ -25,6 +25,9 @@ async function viewMoreProduct() {
   if(urlParams.get('type') && urlParams.get('type') !== '0') {
     const products = await $.get(`${window.location.origin}/common/categories/${groupId}/view-more?type=${urlParams.get('type')}&page=${page++}`);
     if(products.length > 0) {
+      if(products.length < 12) {
+        $('#view-more').hide();
+      }
       for (const product of products) {
         $('#products').append(`
           <div class="my-2 mx-2">
@@ -45,6 +48,9 @@ async function viewMoreProduct() {
   } else {
       const products = await $.get(`${window.location.origin}/common/categories/${groupId}/view-more?page=${page++}`);
       if(products.length > 0) {
+        if(products.length < 12) {
+          $('#view-more').hide();
+        }
         for (const product of products) {
           $('#products').append(`
             <div class="my-2 mx-2">

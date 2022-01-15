@@ -1,4 +1,5 @@
 ﻿using API_.NET.DAO.Common;
+using API_.NET.DTO;
 using API_.NET.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -43,9 +44,9 @@ namespace API_.NET.Controllers.Common
         
         // Get product by search
         [HttpGet("search")]
-        public List<Product> GetSearchProduct([FromQuery] string name)
+        public List<DTO_ProductCard> GetSearchProduct([FromQuery] string keyword, [FromQuery] int page, [FromQuery] int pageSize)
         {
-            return DAO_Product.GetSearchProduct(name);
+            return DAO_Product.GetProductsBySeach(keyword, page, pageSize);
         }
 
         // Get product by id

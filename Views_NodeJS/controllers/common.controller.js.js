@@ -205,6 +205,10 @@ exports.viewMoreProducts = async (req, res) => {
       productsRes = await commonApi.getProductsByGroupType(req.query.type, page, 12);
     }
     if(productsRes) {
+      let products = productsRes.data;
+      for (let item of products) {
+        item.unitPrice = formatCurrency(item.unitPrice);
+      }
       return res.send(productsRes.data);
     } else {
       return res.send(null);
@@ -232,6 +236,9 @@ exports.sortProducts = async (req, res) => {
         }
         return item1.unitPrice - item2.unitPrice;
       })
+      for (let item of products) {
+        item.unitPrice = formatCurrency(item.unitPrice);
+      }
       return res.send(products);
     } else {
       return res.send(null);
@@ -240,3 +247,50 @@ exports.sortProducts = async (req, res) => {
     return res.send(null);
   }
 }
+
+
+exports.searchProducts = async (req, res) => {
+  try {
+    const keyword = req.query.keyword;
+    const page = 1;
+    const productsRes = await commonApi.getProductsBySeach(keyword, page, 12);
+    let products = productsRes.data || [];
+
+    return res.render('common/product-search', {
+      helpers: {
+        formatCurrency,
+        cloudinaryOptimize,
+      },
+      title: `Smarket | Tìm kiếm = ${keyword}`,
+      products,
+      total: 100,
+      pageSize: 12,
+      page,
+      keyword,
+
+    });
+  } catch (error) {
+    
+  }
+}
+
+exports.viewMoreProductsSearch = async (req, res) => {
+  try {
+    const page = req.query.page;
+    const keyword = req.query.keyword;
+    let productsRes = await commonApi.getProductsBySeach(keyword, page, 12);
+    
+    if(productsRes) {
+      let products = productsRes.data;
+      for (let item of products) {
+        item.unitPrice = formatCurrency(item.unitPrice);
+      }
+      return res.send(productsRes.data);
+    } else {
+      return res.send(null);
+    }
+  } catch (error) {
+    return res.send(null);
+  }
+}
+

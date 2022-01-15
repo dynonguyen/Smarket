@@ -14,4 +14,7 @@ commonRoute.get('/categories/:groupId', commonController.productEachType);
 commonRoute.get('/categories/:groupId/view-more', commonController.viewMoreProducts)
 commonRoute.get('/categories/:groupId/sort', commonController.sortProducts);
 
+commonRoute.get('/search', commonController.searchProducts);
+commonRoute.get('/search/more', commonController.viewMoreProductsSearch);
+
 module.exports = commonRoute;

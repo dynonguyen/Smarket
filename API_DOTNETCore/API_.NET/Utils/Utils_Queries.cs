@@ -128,7 +128,15 @@
         {
             return $@"SELECT p.ProductId, p.ProductName, p.UnitPrice, p.QuantitativeUnit, pi.Source AS Thumbnail
                         FROM Product p, ProductImage pi
-                        WHERE p.ProductTypeId = pt.ProductTypeId AND p.ProductTypeId = {typeId} AND pi.ProductId = p.ProductId AND pi.IsThumbnail = 1";
+                        WHERE p.ProductTypeId = {typeId} AND pi.ProductId = p.ProductId AND pi.IsThumbnail = 1";
+        }
+
+        // Get products by seach
+        public static string GetProductsBySearch(string keyword) 
+        {
+            return $@"SELECT p.ProductId, p.ProductName, p.UnitPrice, p.QuantitativeUnit, pi.Source AS Thumbnail
+                        FROM Product p, ProductImage pi
+                        WHERE LOWER(p.ProductName) LIKE '%{keyword.ToLower()}%' AND pi.ProductId = p.ProductId AND pi.IsThumbnail = 1";
         }
     }
 }

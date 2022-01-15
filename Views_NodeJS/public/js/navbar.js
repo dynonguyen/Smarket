@@ -79,10 +79,15 @@ function onDistrictChange(jqSelector) {
   });
 }
 
+function searchProduct() {
+  window.location.href = `${window.location.origin}/common/search?keyword=${$('#search-input').val()}`
+}
 $(document).ready(async function () {
   await getProvincesAjax();
   renderProvinceToSelect('#province');
   $('#locationModal select').selectize();
-
+  $('#search').click(function(){
+    searchProduct();
+  });
   onProvinceChange('#province');
 });

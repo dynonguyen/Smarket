@@ -77,6 +77,10 @@ const commonApi = {
 
     getProductByType: (typeId, page, pageSize) => {
         return axiosCSharp.get(`${BASE_URL}/product/product-by-type?typeId=${typeId}&page=${page}&pageSize=${pageSize}`);
+    },
+
+    getProductsBySeach: (keyword, page, pageSize) => {
+        return axiosCSharp.get(`${BASE_URL}/product/search?keyword=${keyword}&page=${page}&pageSize=${pageSize}`);
     }
 };
 

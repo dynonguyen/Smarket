@@ -50,6 +50,16 @@ $(document).ready(function(){
           return;
         }
       }
+      const product = {
+        productId: productId,
+        quantity: $('#quantity').val()
+      }
+      products.push(product);
+      localStorage.setItem('cart', JSON.stringify(products));
+      $('#add-cart').html(`
+        Cập nhật giỏ hàng
+        <i class="bi bi-cart-plus"/>
+      `)
     } else {
       products = [];
       const product = {
