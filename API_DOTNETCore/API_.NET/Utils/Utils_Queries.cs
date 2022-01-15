@@ -123,5 +123,12 @@
                     WHERE p.StoreId = s.StoreId and p.ProductId = {productId} and a.UserId = s.UserId";
         }
 
+        // Get products by type
+        public static string GetProductsByType(int typeId) 
+        {
+            return $@"SELECT p.ProductId, p.ProductName, p.UnitPrice, p.QuantitativeUnit, pi.Source AS Thumbnail
+                        FROM Product p, ProductImage pi
+                        WHERE p.ProductTypeId = pt.ProductTypeId AND p.ProductTypeId = {typeId} AND pi.ProductId = p.ProductId AND pi.IsThumbnail = 1";
+        }
     }
 }

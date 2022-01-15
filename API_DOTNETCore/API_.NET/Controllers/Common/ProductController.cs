@@ -116,7 +116,27 @@ namespace API_.NET.Controllers.Common
             return DAO_Product.GetAllProductOfStore(storeId);
         }
 
+        [HttpGet("type-by-group")]
+        public List<ProductType> getTypeByGroup([FromQuery] int groupId)
+        {
+            try 
+            {
+                using(var context = new SmarketContext()) 
+                {
+                    return context.ProductType.Where(s => s.GroupType == groupId).ToList();
+                }
+            }
+            catch
+            {
+                return null;
+            }
+        }
         
+        [HttpGet("product-by-type")]
+        public List<DTO.DTO_ProductCard> geProductByType([FromQuery] int typeId, [FromQuery] int page, [FromQuery] int pageSize) 
+        {
+            return DAO.DAO_Common.GetProductsByType(typeId, page, pageSize);
+        }
 
     }
 }

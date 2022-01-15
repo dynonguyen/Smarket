@@ -10,6 +10,6 @@ mixin productCard(id, name, thumbnail, price, unit, badge, discount)
           p.product-card__discount= discount
         p.product-card__price #[span.price= price]#[span.unit &nbsp;/&nbsp;#{unit}]
     .product-card__bottom
-      button.btn.btn-primary.w-100 Thêm giỏ hàng #[i.bi.bi-cart-plus]
+      button.btn.btn-primary.w-100.add-cart Thêm giỏ hàng #[i.bi.bi-cart-plus]
     if badge
       .product-card__badge= badge

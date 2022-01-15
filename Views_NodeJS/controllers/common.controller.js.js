@@ -141,8 +141,102 @@ exports.getProductPage = async (req, res) => {
       quantityFeedback: feedback.length,
       products,
       type,
+      title: `Chi tiết sản phẩm ${product.productName}`,
+
     })
   } catch (error) {
     return res.render('404');
+  }
+}
+
+exports.productEachType = async (req, res) => {
+  try {
+    const groupId = req.params['groupId'];
+    const type = req.query.type || '0';
+    const page = 1;
+    let productsRes;
+    if(type === '0') {
+      productsRes = await commonApi.getProductsByGroupType(groupId, 1, 12);
+    } else {
+      productsRes = await commonApi.getProductByType(type, 1, 12);
+    }
+    const products = productsRes.data;
+    let title;
+    for (const item of constants.GROUP_TYPES) {
+      if(item.id == groupId) {
+        title = item.label;
+        break;
+      }
+    }
+    const typesRes = await commonApi.getTypeByGroup(groupId);
+    const types = typesRes.data;
+    return res.render('common/product-type', {
+      helpers: {
+        formatCurrency,
+        cloudinaryOptimize,
+      },
+      products,
+      title: `Smarket | ${title}`,
+      groupName: title,
+      groupId,
+      page,
+      pageSize: 12,
+      total: 100,
+      types,
+
+
+
+
+    });
+  } catch (error) {
+    console.log(error)
+    return res.render('404');
+  }
+}
+
+exports.viewMoreProducts = async (req, res) => {
+  try {
+    const page = req.query.page;
+    const groupId = req.params['groupId'];
+    let productsRes;
+    if(req.query.type) {
+      productsRes = await commonApi.getProductByType(groupId, page, 12)
+    } else {
+      productsRes = await commonApi.getProductsByGroupType(req.query.type, page, 12);
+    }
+    if(productsRes) {
+      return res.send(productsRes.data);
+    } else {
+      return res.send(null);
+    }
+  } catch (error) {
+    return res.send(null);
+  }
+}
+
+exports.sortProducts = async (req, res) => {
+  try {
+    const page = req.query.page;
+    const groupId = req.params['groupId'];
+    let productsRes;
+    if(!req.query.type) {
+      productsRes = await commonApi.getProductByType(groupId, 1, parseInt(page) * 12)
+    } else {
+      productsRes = await commonApi.getProductsByGroupType(req.query.type, page, parseInt(page) * 12);
+    }
+    if(productsRes) {
+      let products = productsRes.data;
+      products.sort((item1, item2) => {
+        if(req.query.order === '0') {
+          return item2.unitPrice - item1.unitPrice;
+        }
+        return item1.unitPrice - item2.unitPrice;
+      })
+      return res.send(products);
+    } else {
+      return res.send(null);
+    }
+  } catch (error) {
+    return res.send(null);
   }
 }

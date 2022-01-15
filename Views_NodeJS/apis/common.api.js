@@ -66,8 +66,17 @@ const commonApi = {
     getProductStore: (productId) => {
         return axiosCSharp.get(`${BASE_URL}/store/info?productId=${productId}`);
     },
+
     getProductType: (typeId) => {
         return axiosCSharp.get(`${BASE_URL}/product/type?typeId=${typeId}`);
+    },
+
+    getTypeByGroup: (groupId) => {
+        return axiosCSharp.get(`${BASE_URL}/product/type-by-group?groupId=${groupId}`);
+    },
+
+    getProductByType: (typeId, page, pageSize) => {
+        return axiosCSharp.get(`${BASE_URL}/product/product-by-type?typeId=${typeId}&page=${page}&pageSize=${pageSize}`);
     }
 };
 

@@ -10,4 +10,8 @@ commonRoute.get('/ward', commonController.getWard);
 
 commonRoute.get('/product/:productId', commonController.getProductPage);
 
+commonRoute.get('/categories/:groupId', commonController.productEachType);
+commonRoute.get('/categories/:groupId/view-more', commonController.viewMoreProducts)
+commonRoute.get('/categories/:groupId/sort', commonController.sortProducts);
+
 module.exports = commonRoute;

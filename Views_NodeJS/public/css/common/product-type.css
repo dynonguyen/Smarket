@@ -1,0 +1,12 @@
+#view-more {
+  width: 83%;
+}
+.breadcrumb-nav {
+  margin-left: 8%;
+  margin-top: 20px;
+}
+
+select {
+  border: none;
+  width: 100%;
+}

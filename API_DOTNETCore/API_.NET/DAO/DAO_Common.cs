@@ -63,6 +63,29 @@ namespace API_.NET.DAO
                 return new List<DTO_ProductCard>();
             }
         }
+
+        public static List<DTO_ProductCard> GetProductsByType(int typeId, int page, int pageSize)
+        {
+            if (page < 1)
+            {
+                page = 1;
+            }
+
+            int skipRows = (page - 1) * pageSize;
+            try
+            {
+                using (var context = new SmarketContext())
+                {
+                    var sqlResult = context.ProductCard.FromSql(Utils_Queries.GetProductCardByGroupType(typeId));
+                    return sqlResult.Skip(skipRows).Take(pageSize).ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Console.WriteLine(ex.ToString());
+                return new List<DTO_ProductCard>();
+            }
+        }
     }
 
 }

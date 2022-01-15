@@ -43,6 +43,6 @@ mixin categories
     h3.categories__title Danh mục
     .categories__list
       each category in categories
-        a.categories__item(href="/catagories/" + category.groupType)
+        a.categories__item(href="/common/categories/" + category.groupType)
           img(src=category.photo, alt=category.title)
           h5= category.title
