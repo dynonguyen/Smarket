@@ -23,8 +23,10 @@ const managementApi = {
     return axiosJava.get(`${BASE_URL}/account/detail?accountId=${accountId}`);
   },
 
-  getStore: () => {
-    return axiosCSharp.get(`common/Store/all`);
+  getStore: (page, pageSize) => {
+    return axiosCSharp.get(
+      `common/Store/all?page=${page}&pageSize=${pageSize}`
+    );
   },
 };
 

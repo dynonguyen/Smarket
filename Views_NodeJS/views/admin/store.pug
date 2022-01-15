@@ -30,13 +30,13 @@ block addContent
               td= helpers.convertAreas(area)
               td= helpers.convertStoreStatus(status)
               td
-                  a.btn.btn-success(href=`/admin/management/account/detail?id=${accountId}`) Chi tiết
+                a.btn.btn-success(href=`/admin/management/account/detail?id=${accountId}`) Chi tiết
         else 
           tr 
             td.text-center.py-4.text-gray(colspan="6") Không tìm thấy cửa hàng nào 
 
-    //- if storeList && storeList.length > 0
-    //-   #pagination
+    if storeList && storeList.length > 0
+      #pagination
 
 block addScript
   script.
@@ -46,4 +46,4 @@ block addScript
     
   script(src="/vendors/pagination.min.js") 
   script(src="/js/pagination.js") 
-  script(src="/js/admin/order.js")
+  script(src="/js/admin/store.js")

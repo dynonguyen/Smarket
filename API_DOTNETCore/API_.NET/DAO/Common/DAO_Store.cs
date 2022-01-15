@@ -1,4 +1,5 @@
-﻿using API_.NET.Models;
+﻿using API_.NET.DTO;
+using API_.NET.Models;
 using API_.NET.Utils;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -10,7 +11,7 @@ namespace API_.NET.DAO.Common
     public class DAO_Store
     {
         // Get all store
-        public static List<DTO.DTO_Stores> GetAllStore(int page, int pageSize)
+        public static DTO_Pagination<DTO.DTO_Stores> GetAllStore(int page, int pageSize)
         {
             if (page < 1)
             {
@@ -24,13 +25,15 @@ namespace API_.NET.DAO.Common
                 using (var context = new SmarketContext())
                 {
                     var sqlResult = context.Stores.FromSql(Utils_Queries.GetListStore()).ToList();
-                    return sqlResult.Skip(skipRows).Take(pageSize).ToList();
+
+                    List<DTO.DTO_Stores> data = sqlResult.Skip(skipRows).Take(pageSize).ToList();
+                    return new DTO_Pagination<DTO_Stores>(sqlResult.Count(), page, pageSize, data);
                 }
             }
             catch (Exception ex)
             {
                 System.Console.WriteLine(ex.ToString());
-                return new List<DTO.DTO_Stores>();
+                return new DTO_Pagination<DTO.DTO_Stores>();
             }
         }
         // Get store by id

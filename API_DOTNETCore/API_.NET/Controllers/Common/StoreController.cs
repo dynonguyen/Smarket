@@ -1,4 +1,5 @@
 ﻿using API_.NET.DAO.Common;
+using API_.NET.DTO;
 using API_.NET.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -9,9 +10,9 @@ namespace API_.NET.Controllers.Customer
     [ApiController]
     public class StoreController : ControllerBase
     {
-        // Get all Store with status != 0
+        // Get all Store with AccountType = 3 in Account table
         [HttpGet("all")]
-        public List<DTO.DTO_Stores> GetAllStore([FromQuery] int page = 1, [FromQuery] int pageSize = 8)
+        public DTO_Pagination<DTO.DTO_Stores> GetAllStore([FromQuery] int page = 1, [FromQuery] int pageSize = 8)
         {
             return DAO_Store.GetAllStore(page, pageSize);
         }
