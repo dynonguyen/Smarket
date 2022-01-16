@@ -1,9 +1,9 @@
-﻿using API_.NET.DAO.Common;
+﻿using System.Collections.Generic;
+using System.Linq;
+using API_.NET.DAO.Common;
 using API_.NET.DTO;
 using API_.NET.Models;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using System.Linq;
 namespace API_.NET.Controllers.Customer
 {
     [Route("api/common/[controller]")]
@@ -50,6 +50,14 @@ namespace API_.NET.Controllers.Customer
         public AppUser GetStoreByProductId([FromQuery] int productId)
         {
             return DAO_Store.GetStoreByProductId(productId);
+        }
+
+        // Get full store information by store id
+        [HttpGet("info/{storeId}")]
+        public DTO_StoreInfo GetStoreInfoByStoreId(int storeId)
+        {
+            System.Console.WriteLine(storeId);
+            return DAO_Store.GetStoreInfoByStoreId(storeId);
         }
     }
 }

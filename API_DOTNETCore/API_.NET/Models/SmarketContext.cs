@@ -37,8 +37,9 @@ namespace API_.NET.Models
         public DbSet<DTO_Stores> Stores { get; set; }
         public DbSet<DTO_Empty> Empty { get; set; }
         public DbSet<DTO_ProductEachType> ProductEachType { get; set; }
-        public DbSet<DTO_Count> Count {get; set; }
+        public DbSet<DTO_Count> Count { get; set; }
         public DbSet<DTO_ProductCard> ProductCard { get; set; }
+        public DbSet<DTO_Address> Address { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

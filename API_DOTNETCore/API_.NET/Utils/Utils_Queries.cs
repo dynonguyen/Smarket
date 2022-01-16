@@ -124,7 +124,7 @@
         }
 
         // Get products by type
-        public static string GetProductsByType(int typeId) 
+        public static string GetProductsByType(int typeId)
         {
             return $@"SELECT p.ProductId, p.ProductName, p.UnitPrice, p.QuantitativeUnit, pi.Source AS Thumbnail
                         FROM Product p, ProductImage pi
@@ -132,11 +132,29 @@
         }
 
         // Get products by seach
-        public static string GetProductsBySearch(string keyword) 
+        public static string GetProductsBySearch(string keyword)
         {
             return $@"SELECT p.ProductId, p.ProductName, p.UnitPrice, p.QuantitativeUnit, pi.Source AS Thumbnail
                         FROM Product p, ProductImage pi
                         WHERE LOWER(p.ProductName) LIKE '%{keyword.ToLower()}%' AND pi.ProductId = p.ProductId AND pi.IsThumbnail = 1";
+        }
+
+        // Get product card by storeId
+        public static string GetProductCardByStoreId(int storeId)
+        {
+            return $@"SELECT p.ProductId, p.ProductName, p.UnitPrice, p.QuantitativeUnit, pi.Source AS Thumbnail
+                        FROM Product p, ProductImage pi, Store s
+                        WHERE s.StoreId = {storeId} AND p.StoreId = s.StoreId AND pi.ProductId = p.ProductId AND pi.IsThumbnail = 1";
+        }
+
+        // Get full address by ward id
+        public static string GetAddressByWardId(int wardId)
+        {
+            return $@"SELECT w.Prefix + ' ' + w.WardName AS Ward,
+                             d.Prefix + ' ' + d.DistrictName AS District,
+                             p.ProvinceName AS Province
+                    FROM Ward w, District d, Province p
+                    WHERE w.District = d.DistrictId AND d.Province = p.ProvinceId AND WardId = {wardId}";
         }
     }
 }

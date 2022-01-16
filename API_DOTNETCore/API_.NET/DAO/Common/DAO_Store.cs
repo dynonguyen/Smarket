@@ -1,10 +1,10 @@
-﻿using API_.NET.DTO;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using API_.NET.DTO;
 using API_.NET.Models;
 using API_.NET.Utils;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace API_.NET.DAO.Common
 {
@@ -112,6 +112,55 @@ namespace API_.NET.DAO.Common
             }
             catch
             {
+                return null;
+            }
+
+        }
+
+        // Get full store information by store id
+        public static DTO_StoreInfo GetStoreInfoByStoreId(int storeId)
+        {
+            try
+            {
+                DTO_StoreInfo storeInfo = new DTO_StoreInfo();
+
+                using (var context = new SmarketContext())
+                {
+                    Store store = context.Store.Where(s => s.StoreId == storeId).FirstOrDefault();
+                    AppUser storeUser = context.AppUser.Where(u => u.UserId == store.UserId).FirstOrDefault();
+                    Account storeAccount = context.Account.Where(acc => acc.AccountId == storeUser.AccountId).FirstOrDefault();
+                    DTO_Address address = context.Address.FromSql(Utils_Queries.GetAddressByWardId(storeUser.Ward)).FirstOrDefault();
+                    List<DTO_ProductCard> products = context.ProductCard.FromSql(Utils_Queries.GetProductCardByStoreId(storeId)).ToList();
+                    var feedbacks = context.StoreFeedback
+                                            .Where(f => f.StoreId == storeId)
+                                            .Select(p => new
+                                            {
+                                                p.Content,
+                                                p.FeedbackTime
+                                            }).ToList();
+                    List<DTO_StoreFeedback> storeFeedbacks = new List<DTO_StoreFeedback>();
+                    feedbacks.ForEach(f =>
+                    {
+                        storeFeedbacks.Add(new DTO_StoreFeedback(f.Content, f.FeedbackTime));
+                    });
+
+
+                    storeInfo.StoreName = storeUser.Name;
+                    storeInfo.Avatar = storeUser.Avatar;
+                    storeInfo.Phone = storeUser.Phone;
+                    storeInfo.Address = $"{storeUser.Address}, {address.Ward}, {address.District}, {address.Province}";
+                    storeInfo.Categories = store.Categories;
+                    storeInfo.Status = store.Status;
+                    storeInfo.CreateDate = storeAccount.CreateTime;
+                    storeInfo.Products = products;
+                    storeInfo.Feedbacks = storeFeedbacks;
+                }
+
+                return storeInfo;
+            }
+            catch (Exception ex)
+            {
+                System.Console.WriteLine(ex.ToString());
                 return null;
             }
         }
