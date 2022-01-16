@@ -4,6 +4,7 @@ include ../mixins/footer.mixin.pug
 include ../mixins/categories.mixin.pug
 include ../mixins/product-card.mixin.pug
 include ../mixins/scroll-top.mixin.pug
+include ../mixins/no-result.mixin.pug
 
 block append style
   link(rel="stylesheet", href="/vendors/selectize/selectize.min.css")
@@ -24,18 +25,16 @@ block content
           li.breadcrumb-item Tìm kiếm
           li.breadcrumb-item= keyword
       .row.justify-content-md-center#products       
-        if products
+        if products && products.length > 0
           each product in products
             - const { productId, productName, unitPrice, quantitativeUnit, thumbnail } = product;
             .my-2.mx-2
               +productCard(productId, productName, helpers.cloudinaryOptimize(thumbnail), helpers.formatCurrency(unitPrice), quantitativeUnit)
-      .row.justify-content-md-center.my-3
-        #view-more.btn.btn-primary Xem thêm sản phẩm
-
-        
-          
-
-
+        else 
+          +noResult("", "/")
+      if products && products.length > 0
+        .row.justify-content-md-center.my-3
+          #view-more.btn.btn-primary Xem thêm sản phẩm
 
     +footer
     +scrollTop
