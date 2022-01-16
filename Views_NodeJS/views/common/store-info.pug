@@ -1,0 +1,82 @@
+extends ../templates/general.template.pug
+include ../mixins/navbar.mixin.pug
+include ../mixins/footer.mixin.pug
+include ../mixins/product-card.mixin.pug
+include ../mixins/scroll-top.mixin.pug
+
+block title 
+  title Cửa hàng ABC | Smarket
+
+block append style
+  link(rel="stylesheet", href="/vendors/selectize/selectize.min.css")
+  link(rel="stylesheet", type="text/css", href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css")
+  link(rel="stylesheet", href="/css/product-card.css")
+  link(rel="stylesheet", href="/css/home.css")
+  link(rel="stylesheet", href="/css/common/store-info.css")
+
+block content
+  .page-container
+    section.content-wrap
+      +navbar
+      .navbar-break
+      
+      //- Store Information
+      .bg-white.py-4(style="border-bottom: solid 1px #ddd;")
+        .container
+          .row
+            .col-12.col-md-4.mb-md-0.mb-3.d-flex.flex-column.justify-content-center
+              .basic-info.d-flex.p-3
+                img.store-avt(src="https://picsum.photos/50/50", alt="Avatar")
+                .ml-3.d-flex.flex-column.justify-content-center 
+                  h2.store-name Cửa hàng 1
+                  p.store-status Đang mở
+
+            .col-12.col-md-4.d-flex.flex-column.justify-content-around
+              .d-flex.mb-2 #[i.bi.bi-shop] #[span.mx-2.store-label Sản phẩm:] #[span.text-danger 8]
+              .d-flex.mb-2 #[i.bi.bi-star] #[span.mx-2.store-label Đánh giá:] #[span.text-danger 5.0 (8 lượt)]
+              .d-flex.mb-2 #[i.bi.bi-list-columns] #[span.mx-2.store-label Danh mục:] #[span.text-danger Nhu yếu phầm, hải sản, rau củ]
+
+            .col-12.col-md-4.d-flex.flex-column.justify-content-around
+              .d-flex.mb-2 #[i.bi.bi-telephone] #[span.mx-2.store-label Số điện thoại:] #[span.text-danger 091 819 2281]
+              .d-flex.mb-2 #[i.bi.bi-geo-alt] #[span.mx-2.store-label Địa chỉ:] #[span.text-danger 189, Town 6, Linh Trung Ward, Thu Duc District, HCM City]
+              .d-flex.mb-2 #[i.bi.bi-person-check] #[span.mx-2.store-label Tham gia:] #[span.text-danger 3 tháng trước]
+
+      //- Store's products
+      .container.box.py-3.my-4
+        .product-list
+          h2.product-list__title Tất cả sản phẩm
+          .products-slider
+            each i,p in new Array(10).fill(1)
+              .px-2 
+                +productCard(p, "Sản phẩm " + p, 'https://picsum.photos/200/200', "100.000đ", "cái")
+
+      .container.box.py-3.mb-4
+        h2.product-list__title Đánh giá cửa hàng
+        .review-summary.mb-3
+          .mb-1 #[span.rating 5] trên 5
+          .d-flex
+            each s in new Array(5).fill(1)
+              i.bi.bi-star-fill.star-icon
+
+        ul.review-list
+          each r,i in new Array(10).fill(1)
+            li.review-item.d-flex
+              i.review-avt.bi.bi-person-circle.mr-3
+              .flex-grow-1
+                .review-author user #{i}
+                .review-rating
+                  each s in new Array(5).fill(1)
+                    i.bi.bi-star-fill.review-star
+                .review-date.mb-2 12-10-2021
+                .review-content Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea, aspernatur 
+
+          
+
+      +footer
+      +scrollTop
+
+block append script 
+  script(src="/vendors/selectize/selectize.min.js") 
+  script(type="text/javascript", src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js")
+  script(src="/js/navbar.js") 
+  script(src="/js/home.js") 

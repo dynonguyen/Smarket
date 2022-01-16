@@ -40,6 +40,7 @@ a {
 .page-container {
   position: relative;
   min-height: 100vh;
+  overflow-y: hidden;
 }
 
 .footer {
@@ -47,6 +48,7 @@ a {
   bottom: 0;
   width: 100%;
   height: 13.5rem;
+  border-top: solid 1px #ddd;
 }
 
 .content-wrap {

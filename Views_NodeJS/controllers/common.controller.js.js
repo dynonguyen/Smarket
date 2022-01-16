@@ -85,15 +85,19 @@ exports.getProductPage = async (req, res) => {
     const soldRes = await commonApi.getProductSold(productId);
     const feedbackRes = await commonApi.getProductFeedback(productId);
     const storeRes = await commonApi.getProductStore(productId);
-    
+
     const product = response.data;
     const typeRes = await commonApi.getProductType(product.productTypeId);
     const type = typeRes.data;
-    const groupCartRes = await commonApi.getProductsByGroupType(type.groupType, Math.floor(Math.random()*3), Math.floor(Math.random()*6) + 3);
+    const groupCartRes = await commonApi.getProductsByGroupType(
+      type.groupType,
+      Math.floor(Math.random() * 3),
+      Math.floor(Math.random() * 6) + 3
+    );
     const products = groupCartRes.data;
     let group;
     for (const item of constants.GROUP_TYPES) {
-      if(item.id == type.groupType) {
+      if (item.id == type.groupType) {
         group = item.label;
         break;
       }
@@ -111,18 +115,17 @@ exports.getProductPage = async (req, res) => {
     }
 
     let feedback = feedbackRes.data;
-    const statisticFeedback = [0, 0, 0, 0, 0] 
-      
-    
+    const statisticFeedback = [0, 0, 0, 0, 0];
+
     for (const item of feedback) {
       const star = parseInt(item.rating);
-      statisticFeedback[star-1]++;
+      statisticFeedback[star - 1]++;
       item.rating = star;
     }
     const store = storeRes.data;
     const rating = parseFloat(product.productRating).toFixed(1);
     const reRating = Math.round(rating);
-    console.log(store)
+    console.log(store);
     return res.render('common/product', {
       helpers: {
         formatCurrency,
@@ -142,12 +145,11 @@ exports.getProductPage = async (req, res) => {
       products,
       type,
       title: `Chi tiết sản phẩm ${product.productName}`,
-
-    })
+    });
   } catch (error) {
     return res.render('404');
   }
-}
+};
 
 exports.productEachType = async (req, res) => {
   try {
@@ -155,7 +157,7 @@ exports.productEachType = async (req, res) => {
     const type = req.query.type || '0';
     const page = 1;
     let productsRes;
-    if(type === '0') {
+    if (type === '0') {
       productsRes = await commonApi.getProductsByGroupType(groupId, 1, 12);
     } else {
       productsRes = await commonApi.getProductByType(type, 1, 12);
@@ -163,7 +165,7 @@ exports.productEachType = async (req, res) => {
     const products = productsRes.data;
     let title;
     for (const item of constants.GROUP_TYPES) {
-      if(item.id == groupId) {
+      if (item.id == groupId) {
         title = item.label;
         break;
       }
@@ -183,28 +185,28 @@ exports.productEachType = async (req, res) => {
       pageSize: 12,
       total: 100,
       types,
-
-
-
-
     });
   } catch (error) {
-    console.log(error)
+    console.log(error);
     return res.render('404');
   }
-}
+};
 
 exports.viewMoreProducts = async (req, res) => {
   try {
     const page = req.query.page;
     const groupId = req.params['groupId'];
     let productsRes;
-    if(req.query.type) {
-      productsRes = await commonApi.getProductByType(groupId, page, 12)
+    if (req.query.type) {
+      productsRes = await commonApi.getProductByType(groupId, page, 12);
     } else {
-      productsRes = await commonApi.getProductsByGroupType(req.query.type, page, 12);
+      productsRes = await commonApi.getProductsByGroupType(
+        req.query.type,
+        page,
+        12
+      );
     }
-    if(productsRes) {
+    if (productsRes) {
       let products = productsRes.data;
       for (let item of products) {
         item.unitPrice = formatCurrency(item.unitPrice);
@@ -216,26 +218,34 @@ exports.viewMoreProducts = async (req, res) => {
   } catch (error) {
     return res.send(null);
   }
-}
+};
 
 exports.sortProducts = async (req, res) => {
   try {
     const page = req.query.page;
     const groupId = req.params['groupId'];
     let productsRes;
-    if(!req.query.type) {
-      productsRes = await commonApi.getProductByType(groupId, 1, parseInt(page) * 12)
+    if (!req.query.type) {
+      productsRes = await commonApi.getProductByType(
+        groupId,
+        1,
+        parseInt(page) * 12
+      );
     } else {
-      productsRes = await commonApi.getProductsByGroupType(req.query.type, page, parseInt(page) * 12);
+      productsRes = await commonApi.getProductsByGroupType(
+        req.query.type,
+        page,
+        parseInt(page) * 12
+      );
     }
-    if(productsRes) {
+    if (productsRes) {
       let products = productsRes.data;
       products.sort((item1, item2) => {
-        if(req.query.order === '0') {
+        if (req.query.order === '0') {
           return item2.unitPrice - item1.unitPrice;
         }
         return item1.unitPrice - item2.unitPrice;
-      })
+      });
       for (let item of products) {
         item.unitPrice = formatCurrency(item.unitPrice);
       }
@@ -246,8 +256,7 @@ exports.sortProducts = async (req, res) => {
   } catch (error) {
     return res.send(null);
   }
-}
-
+};
 
 exports.searchProducts = async (req, res) => {
   try {
@@ -267,20 +276,17 @@ exports.searchProducts = async (req, res) => {
       pageSize: 12,
       page,
       keyword,
-
     });
-  } catch (error) {
-    
-  }
-}
+  } catch (error) {}
+};
 
 exports.viewMoreProductsSearch = async (req, res) => {
   try {
     const page = req.query.page;
     const keyword = req.query.keyword;
     let productsRes = await commonApi.getProductsBySeach(keyword, page, 12);
-    
-    if(productsRes) {
+
+    if (productsRes) {
       let products = productsRes.data;
       for (let item of products) {
         item.unitPrice = formatCurrency(item.unitPrice);
@@ -292,5 +298,13 @@ exports.viewMoreProductsSearch = async (req, res) => {
   } catch (error) {
     return res.send(null);
   }
-}
+};
 
+exports.getStoreInfo = async (req, res) => {
+  try {
+    return res.render('./common/store-info.pug');
+  } catch (error) {
+    console.error('Function getStoreInfo Error: ', error);
+    return res.render('404');
+  }
+};
