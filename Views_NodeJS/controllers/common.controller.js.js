@@ -4,6 +4,7 @@ const {
   formatCurrency,
   cloudinaryOptimize,
   formatDate,
+  convertStoreStatus,
 } = require('../helpers/index.helper');
 
 exports.getProvince = async (req, res) => {
@@ -301,8 +302,18 @@ exports.viewMoreProductsSearch = async (req, res) => {
 };
 
 exports.getStoreInfo = async (req, res) => {
+  const { storeId } = req.params;
+
   try {
-    return res.render('./common/store-info.pug');
+    const storeInfo = (await commonApi.getStoreInfo(storeId))?.data;
+    return res.render('./common/store-info.pug', {
+      storeInfo,
+      helpers: {
+        convertStoreStatus,
+        formatDate,
+        formatCurrency,
+      },
+    });
   } catch (error) {
     console.error('Function getStoreInfo Error: ', error);
     return res.render('404');

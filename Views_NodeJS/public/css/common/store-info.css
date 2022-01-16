@@ -26,7 +26,7 @@ body {
 
 .store-label {
   flex-shrink: 0;
-  flex-basis: 120px;
+  flex-basis: 100px;
 }
 
 .store-status {

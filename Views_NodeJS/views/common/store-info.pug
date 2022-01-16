@@ -19,6 +19,8 @@ block content
     section.content-wrap
       +navbar
       .navbar-break
+
+      - const { storeName, avatar, status, address, phone, categories, createDate, products = [], feedbacks = [] } = storeInfo;
       
       //- Store Information
       .bg-white.py-4(style="border-bottom: solid 1px #ddd;")
@@ -26,51 +28,51 @@ block content
           .row
             .col-12.col-md-4.mb-md-0.mb-3.d-flex.flex-column.justify-content-center
               .basic-info.d-flex.p-3
-                img.store-avt(src="https://picsum.photos/50/50", alt="Avatar")
+                img.store-avt(src=avatar, alt="Avatar", onerror="this.onerror=null;this.src='https://res.cloudinary.com/tuan-cloudinary/image/upload/w_64,h_64/v1607750466/defaults/default-avatar_amkff5.jpg'")
                 .ml-3.d-flex.flex-column.justify-content-center 
-                  h2.store-name Cửa hàng 1
-                  p.store-status Đang mở
+                  h2.store-name= storeName
+                  p.store-status= helpers.convertStoreStatus(status)
 
             .col-12.col-md-4.d-flex.flex-column.justify-content-around
-              .d-flex.mb-2 #[i.bi.bi-shop] #[span.mx-2.store-label Sản phẩm:] #[span.text-danger 8]
-              .d-flex.mb-2 #[i.bi.bi-star] #[span.mx-2.store-label Đánh giá:] #[span.text-danger 5.0 (8 lượt)]
-              .d-flex.mb-2 #[i.bi.bi-list-columns] #[span.mx-2.store-label Danh mục:] #[span.text-danger Nhu yếu phầm, hải sản, rau củ]
+              .d-flex.mb-2 #[i.bi.bi-shop] #[span.mx-2.store-label Sản phẩm:] #[span.text-danger= products.length]
+              .d-flex.mb-2 #[i.bi.bi-star] #[span.mx-2.store-label Đánh giá:] #[span.text-danger 5.0 (#{feedbacks.length} lượt)]
+              .d-flex.mb-2 #[i.bi.bi-list-columns] #[span.mx-2.store-label Danh mục:] #[span.text-danger= categories]
 
             .col-12.col-md-4.d-flex.flex-column.justify-content-around
-              .d-flex.mb-2 #[i.bi.bi-telephone] #[span.mx-2.store-label Số điện thoại:] #[span.text-danger 091 819 2281]
-              .d-flex.mb-2 #[i.bi.bi-geo-alt] #[span.mx-2.store-label Địa chỉ:] #[span.text-danger 189, Town 6, Linh Trung Ward, Thu Duc District, HCM City]
-              .d-flex.mb-2 #[i.bi.bi-person-check] #[span.mx-2.store-label Tham gia:] #[span.text-danger 3 tháng trước]
+              .d-flex.mb-2 #[i.bi.bi-person-check] #[span.mx-2.store-label Tham gia:] #[span.text-danger= helpers.formatDate(createDate)]
+              .d-flex.mb-2 #[i.bi.bi-telephone] #[span.mx-2.store-label SĐT:] #[span.text-danger= phone]
+              .d-flex.mb-2 #[i.bi.bi-geo-alt] #[span.mx-2.store-label Địa chỉ:] #[span.text-danger= address]
 
       //- Store's products
       .container.box.py-3.my-4
         .product-list
           h2.product-list__title Tất cả sản phẩm
-          .products-slider
-            each i,p in new Array(10).fill(1)
-              .px-2 
-                +productCard(p, "Sản phẩm " + p, 'https://picsum.photos/200/200', "100.000đ", "cái")
+          if products.length > 0
+            .products-slider
+              each product in products
+                .px-2 
+                  +productCard(product.productId, product.productName, product.thumbnail, helpers.formatCurrency(product.unitPrice), product.quantitativeUnit)
 
       .container.box.py-3.mb-4
         h2.product-list__title Đánh giá cửa hàng
         .review-summary.mb-3
-          .mb-1 #[span.rating 5] trên 5
+          .mb-1 #[span.rating= feedbacks.length > 0 ? 5 : 0] trên 5
           .d-flex
             each s in new Array(5).fill(1)
               i.bi.bi-star-fill.star-icon
 
         ul.review-list
-          each r,i in new Array(10).fill(1)
-            li.review-item.d-flex
-              i.review-avt.bi.bi-person-circle.mr-3
-              .flex-grow-1
-                .review-author user #{i}
-                .review-rating
-                  each s in new Array(5).fill(1)
-                    i.bi.bi-star-fill.review-star
-                .review-date.mb-2 12-10-2021
-                .review-content Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea, aspernatur 
-
-          
+          if feedbacks.length > 0
+            each feedback in feedbacks
+              li.review-item.d-flex
+                i.review-avt.bi.bi-person-circle.mr-3
+                .flex-grow-1
+                  .review-author Anonymous
+                  .review-rating
+                    each s in new Array(5).fill(1)
+                      i.bi.bi-star-fill.review-star
+                  .review-date.mb-2= helpers.formatDate(feedback.time)
+                  .review-content= feedback.content
 
       +footer
       +scrollTop
