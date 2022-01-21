@@ -59,6 +59,7 @@ module.exports = {
     'Đã giao hàng': 4,
     'Đã thanh toán': 5,
     'Đã hoàn trả': 6,
+    'Đã huỷ': 7,
   },
 
   AREAS: {

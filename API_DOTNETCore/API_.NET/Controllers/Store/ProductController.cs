@@ -11,6 +11,6 @@ namespace API_.NET.Controllers.Store
     [ApiController]
     public class ProductController : ControllerBase
     {
-        
+
     }
 }

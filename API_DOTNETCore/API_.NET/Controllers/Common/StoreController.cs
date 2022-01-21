@@ -56,7 +56,6 @@ namespace API_.NET.Controllers.Customer
         [HttpGet("info/{storeId}")]
         public DTO_StoreInfo GetStoreInfoByStoreId(int storeId)
         {
-            System.Console.WriteLine(storeId);
             return DAO_Store.GetStoreInfoByStoreId(storeId);
         }
     }
