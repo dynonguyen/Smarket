@@ -3,6 +3,7 @@ const {
   USER_TYPES,
   AREAS,
   STORE_STATUS,
+  SHIPPER_STATUS,
 } = require('../constants/index.constant');
 
 exports.formatCurrency = (money) => {
@@ -32,7 +33,13 @@ exports.convertOrderStatus = (status = 1) => {
     }
   }
 };
-
+exports.convertShipperStatus = (status = 1) => {
+  for (let key in SHIPPER_STATUS) {
+    if (SHIPPER_STATUS[key] === status) {
+      return key;
+    }
+  }
+};
 exports.convertAccountType = (type) => {
   for (let key in USER_TYPES) {
     if (USER_TYPES[key] === type) {

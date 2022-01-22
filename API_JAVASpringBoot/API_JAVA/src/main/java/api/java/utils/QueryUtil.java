@@ -69,6 +69,11 @@ public class QueryUtil {
 				+ " Group by t.productTypeId,t.groupType, t.productTypeName";
 	}
 
+	public static String GetShipperAndStoreNeedAccepting(String table, int type) {
+		return "select a.accountId, a.accountType, a.username, a.password, a.email, a.createTime" 
+						+ String.format(" from Account a, AppUser ap, %s s", table)
+						+ String.format(" where a.accountId = ap.accountId and ap.userId = s.userId and s.status = 0 and a.accountType = %d Order By a.accountId", type);		
+	}
 	// ----------- Shipper ----------- //
 	public static String getOrderHistoryWithShipper(int shipperId) {
 		return "SELECT o.orderId, o.orderCode, o.orderTotal, o.orderStatus, u.name as cusName, o.createDate, o.deliveryAddress"

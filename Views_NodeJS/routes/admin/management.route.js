@@ -7,6 +7,9 @@ managementRoute.get('/order-detail', managementController.getOrderDetail);
 managementRoute.get('/account', managementController.getAccount);
 managementRoute.get('/account/detail', managementController.getUserInfo);
 
+managementRoute.get('/approve', managementController.getAccountWaiting);
+
 managementRoute.get('/store', managementController.getStore);
+
 
 module.exports = managementRoute;

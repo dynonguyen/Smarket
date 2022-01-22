@@ -77,4 +77,10 @@ module.exports = {
     'Đóng cửa': 4,
     'Bị chặn': 5,
   },
+  SHIPPER_STATUS: {
+    'Chưa duyệt': 0,
+    'Đang nghỉ': 1,
+    'Đang chờ': 2,
+    'Đang giao': 3,
+  }
 };

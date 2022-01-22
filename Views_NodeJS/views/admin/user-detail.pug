@@ -12,7 +12,7 @@ block addStyle
 block addContent 
   .container
     .main-body
-      a.btn.btn-success.mb-3(href="/admin/management/account") &lt Quản lý tài khoản
+      .btn.btn-success.mb-3#back #[i.bi.bi-arrow-return-left] Quay lại
       .row.gutters-sm
         .col-md-4.mb-3
           .card
@@ -39,7 +39,7 @@ block addContent
                         span.fa.fa-star.mx-2
                   p.text-secondary.mb-1 Username: #{account.username}
                   if account.accountType != 1
-                    p.text-secondary.mb-1 Trạng thái: #{status}
+                    p.text-secondary.mb-1#status Trạng thái: #{status}
                     if user.status == 0
                       button#accept.btn.btn-primary Duyệt
         .col-md-8
@@ -123,5 +123,8 @@ block addScript
     const page = parseInt("#{page}");
     const total = parseInt("#{total}");
     const pageSize = parseInt("#{pageSize}");
-
+    const id = parseInt("#{user.accountId}");
+    const type = parseInt("#{account.accountType}");
+  script(src="/vendors/selectize/selectize.min.js")
+  +getServerVarScript
   script(src="/js/admin/user-detail.js") 

@@ -2,6 +2,7 @@ package api.java.apis.admin;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import api.java.constants.AppConstants;
+import api.java.dto.AccountDto;
 import api.java.dto.OrderDetailDto;
 import api.java.dto.OrderDetailInfoDto;
 import api.java.dto.PaginationDto;
@@ -21,6 +23,7 @@ import api.java.repositories.AccountRepository;
 import api.java.repositories.AppUserRepository;
 import api.java.repositories.CusOrderRepository;
 import api.java.repositories.ShipperRepository;
+import api.java.repositories.StoreRepository;
 import api.java.services.admin.ManageService;
 import api.java.utils.Pagination;
 
@@ -41,6 +44,12 @@ public class ManageApi {
 
     @Autowired
     private AccountRepository accountRepository;
+
+    @Autowired
+    private StoreRepository storeRepository;
+
+    @Autowired
+    private ShipperRepository shipperRepository;
 
     @GetMapping(path = "/order")
     public PaginationDto<CusOrder> getOrderInfor(@RequestParam(name = "p", defaultValue = "1") int page) {
@@ -109,4 +118,25 @@ public class ManageApi {
         return (Any) manageService.getUserInfo(accountId);
     }
     
+    @GetMapping(path="/account/accept")
+    public PaginationDto<AccountDto> getAccountNeedAccepting(@RequestParam(defaultValue = "2") int type,
+             @RequestParam(defaultValue = "1") int page) {
+        return manageService.getAccountNeedAccepting(type, page);
+    }
+
+    @GetMapping(path="/account/accept/accepted")
+    public int changeStatus(@RequestParam int status, @RequestParam int id, @RequestParam int type) {
+        try {
+            if(type == 2) {
+                shipperRepository.updateStatus(status, id);
+                return 1;
+            } else {
+                storeRepository.updateStatus(status, id);
+                return 1;
+            }
+        } catch (Exception e) {
+            System.out.println("----------" + e);
+            return 0;
+        }
+    }
 }

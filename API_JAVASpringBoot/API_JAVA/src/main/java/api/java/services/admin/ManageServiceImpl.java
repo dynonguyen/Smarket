@@ -8,8 +8,10 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import api.java.constants.AppConstants;
 import api.java.dto.*;
 import api.java.utils.EntityManagerUtil;
+import api.java.utils.Pagination;
 import api.java.utils.QueryUtil;
 import api.java.entities.*;
 import api.java.repositories.*;
@@ -34,6 +36,9 @@ public class ManageServiceImpl implements ManageService {
 
     @Autowired
     private EntityManagerUtil<ShipperDto> shipperDto;
+
+    @Autowired
+    private EntityManagerUtil<AccountDto> accountDto;
 
     @Override
     public List<ManageOrderDto> getOrder() {
@@ -94,5 +99,24 @@ public class ManageServiceImpl implements ManageService {
             return null;
         }
         return null;      
+    }
+
+    @Override
+    public PaginationDto<AccountDto> getAccountNeedAccepting(int type, int page) {
+        try {
+            String table = "";
+            if(type == 2) {
+                table = "Shipper";
+            } else {
+                table = "Store";
+            }
+            Pagination<AccountDto> accountPage = new Pagination<>();
+            String query = QueryUtil.GetShipperAndStoreNeedAccepting(table, type);
+            List<AccountDto> result =  accountDto.getResultList(AccountDto.class, query);
+            PaginationDto<AccountDto> resultPagination = accountPage.paging(result, AppConstants.PAGE_SIZE, page);
+            return resultPagination;
+        } catch (Exception e) {
+            return (PaginationDto<AccountDto>) List.of();
+        }
     }
 }

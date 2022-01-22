@@ -28,6 +28,10 @@ const managementApi = {
       `common/Store/all?page=${page}&pageSize=${pageSize}`
     );
   },
+
+  getStoreAndShipperAccept: (type, page) => {
+    return axiosJava.get(`${BASE_URL}/account/accept?type=${type}&page=${page}`);
+  }
 };
 
 module.exports = managementApi;

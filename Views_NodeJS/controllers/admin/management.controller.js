@@ -144,6 +144,30 @@ exports.getOrderDetail = async (req, res) => {
   }
 };
 
+exports.getAccountWaiting = async (req, res) => {
+  try {
+    const page = req.query.page || 1;
+    const type = req.query.type || 2;
+    const accountsRes = await managementApi.getStoreAndShipperAccept(type, page);
+    const accounts = accountsRes.data;
+    const total = accounts.total;
+    const pageSize = accounts.pageSize;
+    return res.render('admin/approve', {
+      accountList: accounts.data,
+      total,
+      page,
+      type,
+      pageSize,
+      helpers: {
+        convertAccountType,
+        formatDate,
+      },
+    });
+  } catch (error) {
+    return res.render('404')
+  }
+}
+
 exports.getStore = async (req, res) => {
   try {
     let { page = 1, pageSize = 8 } = req.query;
