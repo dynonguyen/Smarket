@@ -44,5 +44,19 @@
             REFUNDED = 7,
             CANCELED = 8
         }
+
+        public enum COMMISSION_LEVEL_MONEY
+        {
+            WARD = 20000,
+            DISTRICT = 50000,
+            PROVINCE = 100000,
+            COUNTRY = 300000
+        }
+
+        public enum SHIPPER_STATUS
+        {
+            BUSY = 0,
+            READY = 1
+        }
     }
 }
