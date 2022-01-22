@@ -156,5 +156,19 @@
                     FROM Ward w, District d, Province p
                     WHERE w.District = d.DistrictId AND d.Province = p.ProvinceId AND WardId = {wardId}";
         }
+
+        public static string GetStoreAddressById(int storeId)
+        {
+            return $@"SELECT w.WardName AS Ward, d.DistrictName AS District, p.ProvinceName as Province
+                    FROM Store s, AppUser u, Ward w, District d, Province p
+                    WHERE s.StoreId = {storeId} AND s.UserId = u.UserId AND u.Ward = w.WardId AND w.District = d.DistrictId AND d.Province = p.ProvinceId";
+        }
+
+        public static string GetCustomerAddressById(int customerId)
+        {
+            return $@"SELECT w.WardName AS Ward, d.DistrictName AS District, p.ProvinceName as Province
+                    FROM Customer c, AppUser u, Ward w, District d, Province p
+                    WHERE c.CustomerId = {customerId} AND c.UserId = u.UserId AND u.Ward = w.WardId AND w.District = d.DistrictId AND d.Province = p.ProvinceId";
+        }
     }
 }
