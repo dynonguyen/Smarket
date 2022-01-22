@@ -1,0 +1,28 @@
+.breadcrumb-nav {
+  margin-left: 10%;
+}
+.form-check-input {
+  height: 40px;
+  width: auto;
+}
+.productname {
+  word-break:keep-all;
+  line-height: 25px;
+}
+#minus, #plus{
+  border-radius: 0px;
+  width: 100%;
+}
+
+.quantity {
+  text-indent: 25%;
+  border-radius: 0px;
+  width: 50px;
+  border: 1px solid #10941b;
+}
+.remove {
+  cursor: pointer;
+}
+.del-icon, .del-text {
+  cursor: pointer;
+}
