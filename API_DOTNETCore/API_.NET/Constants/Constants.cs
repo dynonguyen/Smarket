@@ -32,5 +32,17 @@
         public static int PAGE_SIZE = 8;
 
         public static int PW_SALT = 10;
+
+        public enum ORDER_STATUS
+        {
+            RECEIVED = 1,
+            PREPARE = 2,
+            SHIPPING = 3,
+            DELIVERED = 4,
+            PAYMENTED = 5,
+            PAID = 6,
+            REFUNDED = 7,
+            CANCELED = 8
+        }
     }
 }
