@@ -1,3 +1,4 @@
+const { axiosCSharp } = require('../apis/axiosClient');
 const commonApi = require('../apis/common.api');
 const constants = require('../constants/index.constant');
 const {
@@ -318,3 +319,18 @@ exports.getStoreInfo = async (req, res) => {
     return res.render('404');
   }
 };
+
+exports.getCartPage = (req, res) => {
+  return res.render('common/cart', {
+    title: 'Smarket | Giỏ hàng'
+  })
+}
+
+exports.getProductForCart = async (req, res) => {
+  try {
+    const product = (await commonApi.getProductForCart(req.query.id))?.data;
+    return res.send(product);
+  } catch (error) {
+    return null;
+  }
+}

@@ -1,0 +1,34 @@
+extends ../templates/general.template.pug
+include ../mixins/navbar.mixin.pug
+include ../mixins/footer.mixin.pug
+include ../mixins/scroll-top.mixin.pug
+
+block append style
+  link(rel="stylesheet", href="/vendors/selectize/selectize.min.css")
+  link(rel="stylesheet", href="/css/home.css")
+  link(rel="stylesheet", href="/css/common/cart.css")
+
+
+
+block content
+  .page-container
+    section.content-wrap
+      +navbar
+      .navbar-break
+      nav.breadcrumb-nav(aria-label='breadcrumb')
+        ol.breadcrumb
+          li.breadcrumb-item
+            a(href='/') Trang chủ
+          li.breadcrumb-item Giỏ hàng
+      .row.justify-content-md-center#products
+      .row.justify-content-md-center.my-3#action
+        #get-order.col-md-4.btn.btn-primary Đặt hàng
+        
+        
+block append script 
+
+  script(src="/vendors/selectize/selectize.min.js")
+  script(src="/vendors/pagination.min.js") 
+  script(src="/js/navbar.js") 
+  script(type="text/javascript", src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js")
+  script(src="/js/common/cart.js") 

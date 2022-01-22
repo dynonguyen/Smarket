@@ -1,24 +1,12 @@
 
-function checkCart() {
-  const productId = window.location.href.slice(window.location.href.indexOf('product/') + 8);
-  const products = JSON.parse(localStorage.getItem('cart'));
-  if(products) {
-    for (const product of products) {
-      if(product.productId === productId) {
-        const quantity = product.quantity;
-        $('#quantity').val(quantity);
-        $('#add-cart').html(`
-          Cập nhật giỏ hàng
-          <i class="bi bi-cart-plus"/>
-        `)
-      }
-      
-    }
-  }
+function loadCart(){
+  const cart = JSON.parse(localStorage.getItem('cart'));
+  $('#cart').append(`
+    <span class="cart-total">${cart.length}</span>
+  `)
 }
 
 $(document).ready(function(){
-  checkCart();
 
   $('.img-thumbnail').each(function(){
     $(this).click(function(){
@@ -28,7 +16,7 @@ $(document).ready(function(){
 
   $('#plus').click(function(){
     let quantity = parseInt($('#quantity').val());
-    if(quantity < 20) {
+    if(quantity < 100) {
       $('#quantity').val(quantity + 1);
     }
   })
@@ -45,34 +33,35 @@ $(document).ready(function(){
     if(products) {
       for (let item of products) {
         if(item.productId === productId) {
-          item.quantity = $('#quantity').val();
+          item.quantity = parseInt(item.quantity) + parseInt($('#quantity').val());
           localStorage.setItem('cart', JSON.stringify(products));
+          alert('Thêm giỏ hàng thành công!');
+          $('#quantity').val('1');
+          loadCart();
           return;
         }
       }
       const product = {
         productId: productId,
-        quantity: $('#quantity').val()
+        quantity: $('#quantity').val(),
+        checked: 0
       }
       products.push(product);
       localStorage.setItem('cart', JSON.stringify(products));
-      $('#add-cart').html(`
-        Cập nhật giỏ hàng
-        <i class="bi bi-cart-plus"/>
-      `)
     } else {
       products = [];
       const product = {
         productId: productId,
-        quantity: $('#quantity').val()
+        quantity: $('#quantity').val(),
+        checked: 0
       }
       products.push(product);
       localStorage.setItem('cart', JSON.stringify(products));
-      $('#add-cart').html(`
-        Cập nhật giỏ hàng
-        <i class="bi bi-cart-plus"/>
-      `)
-    }  
+      alert('Thêm giỏ hàng thành công!');
+      $('#quantity').val('1');
+      loadCart();
+    }
+    
   })
 
     

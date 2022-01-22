@@ -86,6 +86,21 @@ namespace API_.NET.DAO
                 return new List<DTO_ProductCard>();
             }
         }
+
+        public static DTO_ProductCard GetProductForCart(int productId) 
+        {
+            try
+            {
+                using(var context = new SmarketContext())
+                {
+                    return context.ProductCard.FromSql(Utils_Queries.GetProductForCart(productId)).FirstOrDefault();
+                }
+            } 
+            catch
+            {
+                return null;
+            }
+        }
     }
 
 }

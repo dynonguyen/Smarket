@@ -82,8 +82,16 @@ function onDistrictChange(jqSelector) {
 function searchProduct() {
   window.location.href = `${window.location.origin}/common/search?keyword=${$('#search-input').val()}`
 }
+
+function loadCart(){
+  const cart = JSON.parse(localStorage.getItem('cart'));
+  $('#cart').append(`
+    <span class="cart-total">${cart.length}</span>
+  `)
+}
 $(document).ready(async function () {
   await getProvincesAjax();
+  loadCart();
   renderProvinceToSelect('#province');
   $('#locationModal select').selectize();
   $('#search').click(function(){

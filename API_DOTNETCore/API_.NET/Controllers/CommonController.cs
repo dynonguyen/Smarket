@@ -30,5 +30,11 @@ namespace API_.NET.Controllers
         {
             return DAO_Common.GetProductsByGroupType(groupType, page, pageSize);
         }
+
+        [HttpGet("product-for-cart")]
+        public DTO_ProductCard GetProductForCart([FromQuery] int productId)
+        {
+            return DAO_Common.GetProductForCart(productId);
+        }
     }
 }

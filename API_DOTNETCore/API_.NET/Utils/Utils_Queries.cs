@@ -156,5 +156,12 @@
                     FROM Ward w, District d, Province p
                     WHERE w.District = d.DistrictId AND d.Province = p.ProvinceId AND WardId = {wardId}";
         }
+
+        // Get product for cart
+        public static string GetProductForCart(int productId) {
+            return $@"select  p.ProductId, p.ProductName, p.UnitPrice, p.QuantitativeUnit, i.Source AS Thumbnail
+                    from Product p, ProductImage i
+                    where p.ProductId = i.ProductId and i.IsThumbnail = 1 and p.ProductId = {productId}";
+        }
     }
 }

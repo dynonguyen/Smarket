@@ -93,6 +93,10 @@ const commonApi = {
   getStoreInfo: (storeId) => {
     return axiosCSharp.get(`${BASE_URL}/store/info/${storeId}`);
   },
+
+  getProductForCart: (productId) => {
+    return axiosCSharp.get(`${BASE_URL}/product-for-cart?productId=${productId}`);
+  }
 };
 
 module.exports = commonApi;
