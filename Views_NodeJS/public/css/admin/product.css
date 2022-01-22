@@ -62,3 +62,6 @@ thead, tbody tr {
   width: 100%;
   table-layout: fixed; 
 }
+.container {
+	width: 75%;
+}

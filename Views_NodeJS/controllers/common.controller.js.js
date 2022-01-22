@@ -126,7 +126,6 @@ exports.getProductPage = async (req, res) => {
     const store = storeRes.data;
     const rating = parseFloat(product.productRating).toFixed(1);
     const reRating = Math.round(rating);
-    console.log(store);
     return res.render('common/product', {
       helpers: {
         formatCurrency,
@@ -199,10 +198,10 @@ exports.viewMoreProducts = async (req, res) => {
     const groupId = req.params['groupId'];
     let productsRes;
     if (req.query.type) {
-      productsRes = await commonApi.getProductByType(groupId, page, 12);
+      productsRes = await commonApi.getProductByType(req.query.type, page, 12);
     } else {
       productsRes = await commonApi.getProductsByGroupType(
-        req.query.type,
+        groupId,
         page,
         12
       );

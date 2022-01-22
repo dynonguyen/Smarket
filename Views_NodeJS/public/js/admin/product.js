@@ -40,7 +40,7 @@ const typeChartOption = (data = [], labels = [], title ) => ({
   data: {
     labels: labels,
     datasets: [{
-      label: labels[0],
+      label: 'Số lượng sản phẩm',
       data: data,
       backgroundColor: ['#CB4335', '#1F618D', '#F1C40F', '#7d77a6', '#27AE60', '#884EA0', '#D35400', '#00eeff'],
       borderColor: 'tranparent',

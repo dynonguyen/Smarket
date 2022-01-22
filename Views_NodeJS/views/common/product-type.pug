@@ -42,8 +42,14 @@ block content
             - const { productId, productName, unitPrice, quantitativeUnit, thumbnail } = product;
             .my-2.mx-2
               +productCard(productId, productName, helpers.cloudinaryOptimize(thumbnail), helpers.formatCurrency(unitPrice), quantitativeUnit)
-      .row.justify-content-md-center.my-3
-        #view-more.btn.btn-primary Xem thêm sản phẩm
+      if products && products.length > 0
+        .row.justify-content-md-center.my-3
+          #view-more.btn.btn-primary Xem thêm sản phẩm
+      else
+        .row.justify-content-md-center 
+          img#no-result(src="https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg//assets/a60759ad1dabe909c46a817ecbf71878.png")
+        .row.justify-content-md-center
+          .alert.alert-success Không có sản phẩm
 
         
           
