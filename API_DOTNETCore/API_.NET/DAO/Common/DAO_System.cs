@@ -17,6 +17,22 @@ namespace API_.NET.DAO.Common
                 return sqlResult;
             }
         }
+        public static int GetNearestShipperByDistrict(int wardId)
+        {
+            try
+            {
+                using (var context = new SmarketContext())
+                {
+                    int districtId = context.Number.FromSql(Utils_Queries.GetDistrictByWardId(wardId)).First().Number;
+                    int sqlResult = context.Number.FromSql(Utils_Queries.GetNearestShipperByDistrictId(districtId)).First().Number;
+                    return sqlResult;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
         public static DTO_Address GetStoreAddressById(int storeId)
         {
             try
@@ -47,19 +63,6 @@ namespace API_.NET.DAO.Common
                 System.Console.WriteLine($"GetCustomerAddressById ERROR: {ex.ToString()}");
                 throw ex;
             }
-        }
-
-        public static int GetNearestShipperByDistrict(int wardId)
-        {
-            using (var context = new SmarketContext())
-            {
-                int districtId = context.Number.FromSql(Utils_Queries.GetDistrictByWardId(wardId)).First().Number;
-                System.Console.WriteLine("districtId " + districtId);
-                int sqlResult = context.Number.FromSql(Utils_Queries.GetNearestShipperByDistrictId(districtId)).First().Number;
-                System.Console.WriteLine("sqlResult " + sqlResult);
-                return sqlResult;
-            }
-
         }
         public static void UpdateOrderShipper(int orderId, int shipperId)
         {

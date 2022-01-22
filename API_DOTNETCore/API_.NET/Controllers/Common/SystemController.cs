@@ -11,21 +11,28 @@ namespace API_.NET.Controllers.Common
 
     public class SystemController : ControllerBase
     {
-
         [HttpGet("shipper-nearest/{wardId}")]
         public IActionResult GetNearestShipper(int wardId)
         {
             try
             {
-                if (DAO_System.GetNearestShipperByWard(wardId) != null)
-                    return Ok(DAO_System.GetNearestShipperByWard(wardId));
-                return Ok(DAO_System.GetNearestShipperByDistrict(wardId));
+                // Shipper gần nhất trong Ward
+                return Ok(DAO_System.GetNearestShipperByWard(wardId));
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                return BadRequest("Không tìm thấy shipper gần nhất");
+                try
+                {
+                    // Shipper gần nhất trong District
+                    return Ok(DAO_System.GetNearestShipperByDistrict(wardId));
+                }
+                catch (Exception)
+                {
+                    return BadRequest("Không tìm thấy shipper gần nhất");
+                }
             }
         }
+
         /*
             Tiền hoa hồng được tính dựa trên địa lý của khách hàng và cửa hàng
             Cùng phường (ward) => 20.000đ

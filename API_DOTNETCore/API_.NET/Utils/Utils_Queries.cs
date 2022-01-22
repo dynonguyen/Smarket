@@ -161,21 +161,21 @@
         {
             return $@"SELECT TOP(1) s.ShipperId Number
                     FROM Shipper s, AppUser au
-                    WHERE s.UserId = au.UserId and au.Ward = {wardId};";
+                    WHERE s.UserId = au.UserId and au.Ward = {wardId}";
         }
 
         public static string GetDistrictByWardId(int wardId)
         {
-            return $@"SELECT DISTINCT d.DistrictId
+            return $@"SELECT DISTINCT d.DistrictId Number
                     FROM Ward w, District d
-                    WHERE w.District = d.DistrictId AND w.WardId = {wardId};";
+                    WHERE w.District = d.DistrictId AND w.WardId = {wardId}";
         }
 
         public static string GetNearestShipperByDistrictId(int districtId)
         {
             return $@"SELECT TOP(1) ShipperId Number
                     FROM Shipper s, AppUser au, Ward w
-                    WHERE s.UserId = au.UserId and au.Ward = w.WardId and w.District = {districtId};";
+                    WHERE s.UserId = au.UserId and au.Ward = w.WardId and w.District = {districtId}";
         }
         public static string GetStoreAddressById(int storeId)
         {
