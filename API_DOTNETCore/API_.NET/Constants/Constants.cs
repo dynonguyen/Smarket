@@ -52,5 +52,11 @@
             PROVINCE = 100000,
             COUNTRY = 300000
         }
+
+        public enum SHIPPER_STATUS
+        {
+            BUSY = 0,
+            READY = 1
+        }
     }
 }

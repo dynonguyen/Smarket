@@ -40,6 +40,37 @@ namespace API_.NET.DAO.Common
             }
         }
 
-
+        public static void UpdateOrderShipper(int orderId, int shipperId)
+        {
+            try
+            {
+                using (var context = new SmarketContext())
+                {
+                    CusOrder order = context.CusOrder.Where(o => o.OrderId == orderId).First();
+                    order.ShipperId = shipperId;
+                    context.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        public static void UpdateShipperStatus(int shipperId, int status)
+        {
+            try
+            {
+                using (var context = new SmarketContext())
+                {
+                    Shipper shipper = context.Shipper.Where(s => s.ShipperId == shipperId).First();
+                    shipper.Status = status;
+                    context.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

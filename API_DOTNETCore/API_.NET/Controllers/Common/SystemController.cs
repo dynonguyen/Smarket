@@ -47,5 +47,23 @@ namespace API_.NET.Controllers.Common
                 return -1;
             }
         }
+
+        [HttpPost("shipping-request")]
+        public bool PostSendShippingRequest([FromBody] int orderId)
+        {
+            try
+            {
+                // Find nearest shipper, watting API ...
+                int shipperId = 1;
+                DAO_System.UpdateOrderShipper(orderId, shipperId);
+                DAO_System.UpdateShipperStatus(shipperId, (int)Constants.Constants.SHIPPER_STATUS.BUSY);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                System.Console.WriteLine($"PostSendShippingRequest ERROR: {ex.ToString()}");
+                return false;
+            }
+        }
     }
 }
