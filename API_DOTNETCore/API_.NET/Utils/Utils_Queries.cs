@@ -158,10 +158,44 @@
         }
 
         // Get product for cart
-        public static string GetProductForCart(int productId) {
+        public static string GetProductForCart(int productId) 
+        {
             return $@"select  p.ProductId, p.ProductName, p.UnitPrice, p.QuantitativeUnit, i.Source AS Thumbnail
                     from Product p, ProductImage i
                     where p.ProductId = i.ProductId and i.IsThumbnail = 1 and p.ProductId = {productId}";
+        }
+        public static string GetNearestShipperByWard(int wardId)
+        {
+            return $@"SELECT TOP(1) s.ShipperId Number
+                    FROM Shipper s, AppUser au
+                    WHERE s.UserId = au.UserId and au.Ward = {wardId};";
+        }
+
+        public static string GetDistrictByWardId(int wardId)
+        {
+            return $@"SELECT DISTINCT d.DistrictId
+                    FROM Ward w, District d
+                    WHERE w.District = d.DistrictId AND w.WardId = {wardId};";
+        }
+
+        public static string GetNearestShipperByDistrictId(int districtId)
+        {
+            return $@"SELECT TOP(1) ShipperId Number
+                    FROM Shipper s, AppUser au, Ward w
+                    WHERE s.UserId = au.UserId and au.Ward = w.WardId and w.District = {districtId};";
+        }
+        public static string GetStoreAddressById(int storeId)
+        {
+            return $@"SELECT w.WardName AS Ward, d.DistrictName AS District, p.ProvinceName as Province
+                    FROM Store s, AppUser u, Ward w, District d, Province p
+                    WHERE s.StoreId = {storeId} AND s.UserId = u.UserId AND u.Ward = w.WardId AND w.District = d.DistrictId AND d.Province = p.ProvinceId";
+        }
+
+        public static string GetCustomerAddressById(int customerId)
+        {
+            return $@"SELECT w.WardName AS Ward, d.DistrictName AS District, p.ProvinceName as Province
+                    FROM Customer c, AppUser u, Ward w, District d, Province p
+                    WHERE c.CustomerId = {customerId} AND c.UserId = u.UserId AND u.Ward = w.WardId AND w.District = d.DistrictId AND d.Province = p.ProvinceId";
         }
     }
 }
