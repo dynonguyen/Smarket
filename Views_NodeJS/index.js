@@ -20,6 +20,7 @@ const redirectorMiddleware = require('./middleware/redirector.middleware');
 /* ============== Import route =============== */
 const adminRoute = require('./routes/admin');
 const shipperRoute = require('./routes/shipper.route');
+const storeRoute = require('./routes/store.route');
 const authRoute = require('./routes/auth.route');
 const commonRoute = require('./routes/common.route');
 const { getHomeGuest } = require('./controllers/common.controller.js');
@@ -51,6 +52,7 @@ app.use(unlessRouteMiddleware([], passVariableToClientMiddleware));
 /* ============== Routes =============== */
 app.use('/admin', authorizationMiddleware([ROLES.ADMIN]), adminRoute);
 app.use('/shipper', authorizationMiddleware([ROLES.SHIPPER]), shipperRoute);
+app.use('/store', authorizationMiddleware([ROLES.STORE]), storeRoute);
 app.use('/auth', authRoute);
 app.use('/common', commonRoute);
 app.get('/redirector', redirectorMiddleware);

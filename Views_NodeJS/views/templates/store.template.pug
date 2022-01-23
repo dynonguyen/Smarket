@@ -1,0 +1,27 @@
+extends ./management.template.pug
+
+block append style 
+  style.
+    :root{
+      --primary: #fd7e14 !important; 
+    }
+
+block addParam
+  - const rootPath = '/store'
+  -
+    const menuList = [
+                    {
+                      menuTitle: 'Cửa hàng',
+                      icon: 'bi bi-bag-fill',
+                      list: [
+                        { title: 'Danh sách sản phẩm', to: '/product-list' },
+                        { title: 'Lịch sử giao hàng', to: '/' },
+                        { title: 'Đăng sản phẩm', to: '/' },
+                        { title: 'Thông tin cửa hàng', to: '/' },
+                        { title: 'Phản hồi từ nhà cung cấp', to: '/' },
+                      ],
+                    },
+                  ];
+
+block prepend searchInNavbar
+  - const searchPlaceholder = 'Tìm kiếm đơn hàng theo Mã ĐH';
