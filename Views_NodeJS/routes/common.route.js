@@ -23,4 +23,6 @@ commonRoute.get('/store/:storeId', commonController.getStoreInfo);
 
 commonRoute.get('/cart', commonController.getCartPage);
 commonRoute.get('/cart/product', commonController.getProductForCart);
+commonRoute.get('/purchase', commonController.getCartPurchase);
+
 module.exports = commonRoute;

@@ -46,7 +46,7 @@ async function renderCartItems() {
           <div class="col col-sm-3 btn btn-primary col-4 plus" id="plus${item.productId}">+ </div>
         </div>
         <div class="col col-md-2 d-flex align-items-center justify-content-end text-danger">
-          <h7 class="total-price">${item.total.toLocaleString('it-IT', { style: 'currency', currency: 'VND' })}</h7>
+          <h7 class="total-price" id="total-price-${item.productId}">${item.total.toLocaleString('it-IT', { style: 'currency', currency: 'VND' })}</h7>
         </div>
       </div>
     `)
@@ -63,8 +63,8 @@ async function renderCartItems() {
     $(this).click(function(){
       const id = $(this).attr('id').slice(5);
       let quantity = parseInt($(`#quantity${id}`).val());
-      updateQuantityItemCart(id, quantity - 1);
       if(quantity > 1) {
+        updateQuantityItemCart(id, quantity - 1);
         $(`#quantity${id}`).val(quantity - 1);
       }
     })
@@ -73,8 +73,8 @@ async function renderCartItems() {
     $(this).click(function(){
       const id = $(this).attr('id').slice(4);
       let quantity = parseInt($(`#quantity${id}`).val());
-      updateQuantityItemCart(id, quantity + 1);
       if(quantity < 99 ) {
+        updateQuantityItemCart(id, quantity + 1);
         $(`#quantity${id}`).val(quantity + 1);
       }
     })
@@ -142,6 +142,9 @@ async function updateQuantityItemCart(productId, quantity) {
   })
   localStorage.setItem('cart', JSON.stringify(cart));
   await countTotal();
+  const product = await $.get(`/common/cart/product?id=${parseInt(productId)}`);
+  const totalPrice = product.unitPrice * quantity;
+  $(`#total-price-${productId}`).text(totalPrice.toLocaleString('it-IT', { style: 'currency', currency: 'VND' }));
 }
 function loadCart(){
   const cart = JSON.parse(localStorage.getItem('cart')) || [];
@@ -149,17 +152,7 @@ function loadCart(){
     <span class="cart-total">${cart.length}</span>
   `)
 }
-function resetCheck(){
-  let cart = JSON.parse(localStorage.getItem('cart')) || [];
-  cart = cart.map(item => {
-    return {
-      productId: item.productId,
-      quantity: item.quantity,
-      checked: 0
-    }
-  })
-  localStorage.setItem('cart',JSON.stringify(cart));
-}
+
 async function countTotal() {
   const cart = JSON.parse(localStorage.getItem('cart')) || [];
   let cartItems = [];

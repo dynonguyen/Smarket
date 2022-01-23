@@ -7,6 +7,7 @@ const {
   formatDate,
   convertStoreStatus,
 } = require('../helpers/index.helper');
+const {ROLES} = require('../constants/index.constant')
 
 exports.getProvince = async (req, res) => {
   try {
@@ -332,5 +333,20 @@ exports.getProductForCart = async (req, res) => {
     return res.send(product);
   } catch (error) {
     return null;
+  }
+}
+
+exports.getCartPurchase = async (req, res) => {
+  try {
+    
+    if(!req.session.user || (req.session.user && req.session.user.role !== ROLES.CUSTOMER)) {
+      req.session.destinationRoute = '/user/purchase';
+      return res.redirect('/auth/login');
+    } 
+    if(req.session.user && req.session.user.role === ROLES.CUSTOMER) {
+      return res.redirect('/user/purchase')
+    }
+  } catch (error) {
+    return res.render('404');
   }
 }
