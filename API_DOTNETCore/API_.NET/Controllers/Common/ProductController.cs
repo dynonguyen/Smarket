@@ -20,28 +20,28 @@ namespace API_.NET.Controllers.Common
 
         // Get Quantity product sold
         [HttpGet("sold")]
-        public List<OrderDetail> GetQuantityProductSold([FromQuery] int productId) 
+        public List<OrderDetail> GetQuantityProductSold([FromQuery] int productId)
         {
-            try 
+            try
             {
-                using(var context = new SmarketContext()) 
+                using (var context = new SmarketContext())
                 {
                     return context.OrderDetail.Where(s => s.ProductId == productId).ToList();
                 }
-            } 
-            catch 
+            }
+            catch
             {
                 return null;
             }
         }
 
         // Get feedbacks of product
-        [HttpGet("feedback")] 
+        [HttpGet("feedback")]
         public List<OrderDetailFeedback> GetProductFeedback([FromQuery] int productId)
         {
             return DAO_Product.GetAllFeedbackOfProduct(productId);
         }
-        
+
         // Get product by search
         [HttpGet("search")]
         public List<DTO_ProductCard> GetSearchProduct([FromQuery] string keyword, [FromQuery] int page, [FromQuery] int pageSize)
@@ -95,7 +95,7 @@ namespace API_.NET.Controllers.Common
 
         // Get product types by search
         [HttpGet("type/search")]
-        public List<ProductType> GetSearchProductType([FromQuery]  string typeName)
+        public List<ProductType> GetSearchProductType([FromQuery] string typeName)
         {
             return DAO_ProductType.GetSearchProductType(typeName);
         }
@@ -112,17 +112,17 @@ namespace API_.NET.Controllers.Common
 
         // Get all product of store by store id
         [HttpGet("store")]
-        public List<Product> GetAllProductOfStore([FromQuery] int storeId)
+        public DTO_Pagination<DTO.DTO_Products> GetAllProductOfStore([FromQuery] int storeId, [FromQuery] int page = 1, [FromQuery] int pageSize = 8)
         {
-            return DAO_Product.GetAllProductOfStore(storeId);
+            return DAO_Product.GetAllProductOfStore(storeId, page, pageSize);
         }
 
         [HttpGet("type-by-group")]
         public List<ProductType> getTypeByGroup([FromQuery] int groupId)
         {
-            try 
+            try
             {
-                using(var context = new SmarketContext()) 
+                using (var context = new SmarketContext())
                 {
                     return context.ProductType.Where(s => s.GroupType == groupId).ToList();
                 }
@@ -132,9 +132,9 @@ namespace API_.NET.Controllers.Common
                 return null;
             }
         }
-        
+
         [HttpGet("product-by-type")]
-        public List<DTO.DTO_ProductCard> geProductByType([FromQuery] int typeId, [FromQuery] int page, [FromQuery] int pageSize) 
+        public List<DTO.DTO_ProductCard> geProductByType([FromQuery] int typeId, [FromQuery] int page, [FromQuery] int pageSize)
         {
             return DAO.DAO_Common.GetProductsByType(typeId, page, pageSize);
         }
