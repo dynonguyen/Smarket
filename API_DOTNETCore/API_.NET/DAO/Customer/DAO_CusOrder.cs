@@ -1,7 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using API_.NET.DTO;
 using API_.NET.Models;
+using API_.NET.Utils;
+using Microsoft.EntityFrameworkCore;
 
 namespace API_.NET.DAO.Customer
 {
@@ -58,19 +61,19 @@ namespace API_.NET.DAO.Customer
             }
         }
 
-        public static List<CusOrder> GetCusOrderHistory(int customerId)
+        public static List<DTO_OrderHistory> GetCusOrderHistory(int customerId)
         {
             try
             {
                 using (var context = new SmarketContext())
                 {
-                    return context.CusOrder.Where(o => o.CustomerId == customerId).ToList();
+                    return context.OrderHistory.FromSql(Utils_Queries.GetCustomerOrderHistory(customerId)).ToList();
                 }
             }
             catch (Exception ex)
             {
                 System.Console.WriteLine($"GetCusOrderHistory ERROR: {ex.ToString()}");
-                return new List<CusOrder>();
+                return new List<DTO_OrderHistory>();
             }
         }
     }

@@ -211,5 +211,17 @@
                     FROM Customer c, AppUser a
                     WHERE c.UserId = a.UserId AND c.CustomerId = {customerId}";
         }
+
+        public static string GetCustomerOrderHistory(int customerId)
+        {
+            return $@"SELECT o.CustomerId, o.OrderId, o.OrderCode, o.ShipperId, 
+                            o.StoreId, o.OrderStatus, o.OrderTotal, 
+                            o.DeliveryAddress, o.DeliveryDate,
+                            o.CreateDate, o.ReceiverName, o.ReceiverPhone,
+                            a1.Name AS ShipperName,
+                            a2.Name AS StoreName
+            FROM CusOrder o, AppUser a1, AppUser a2, Shipper sh, Store s 
+            WHERE o.CustomerId = {customerId} AND sh.ShipperId = o.ShipperId AND s.StoreId = o.StoreId AND sh.UserId = a1.UserId AND s.UserId = a2.UserId";
+        }
     }
 }
