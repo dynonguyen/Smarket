@@ -11,10 +11,17 @@ namespace API_.NET.DAO.Common
     {
         public static int GetNearestShipperByWard(int wardId)
         {
-            using (var context = new SmarketContext())
+            try
             {
-                int sqlResult = context.Number.FromSql(Utils_Queries.GetNearestShipperByWard(wardId)).First().Number;
-                return sqlResult;
+                using (var context = new SmarketContext())
+                {
+                    int sqlResult = context.Number.FromSql(Utils_Queries.GetNearestShipperByWard(wardId)).First().Number;
+                    return sqlResult;
+                }
+            }
+            catch (Exception)
+            {
+                return -1;
             }
         }
         public static int GetNearestShipperByDistrict(int wardId)
@@ -44,8 +51,6 @@ namespace API_.NET.DAO.Common
             }
             catch (Exception ex)
             {
-                System.Console.WriteLine($"GetNearestShipperByWard {ex.ToString()}");
-                System.Console.WriteLine($"GetStoreAddressById ERROR: {ex.ToString()}");
                 throw ex;
             }
         }

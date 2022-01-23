@@ -9,8 +9,6 @@ namespace API_.NET.Controllers.Common
 {
     [Route("api/common/[controller]")]
     [ApiController]
-
-
     public class SystemController : ControllerBase
     {
         [HttpGet("shipper-nearest/{wardId}")]
@@ -19,19 +17,14 @@ namespace API_.NET.Controllers.Common
             try
             {
                 // Shipper gần nhất trong Ward
-                return Ok(DAO_System.GetNearestShipperByWard(wardId));
+                if (DAO_System.GetNearestShipperByWard(wardId) != -1)
+                    return Ok(DAO_System.GetNearestShipperByWard(wardId));
+                // Shipper gần nhất trong District
+                return Ok(DAO_System.GetNearestShipperByDistrict(wardId));
             }
             catch (Exception)
             {
-                try
-                {
-                    // Shipper gần nhất trong District
-                    return Ok(DAO_System.GetNearestShipperByDistrict(wardId));
-                }
-                catch (Exception)
-                {
-                    return BadRequest("Không tìm thấy shipper gần nhất");
-                }
+                return BadRequest("Không tìm thấy shipper gần nhất");
             }
         }
 

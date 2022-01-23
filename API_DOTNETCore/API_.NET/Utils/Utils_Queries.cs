@@ -168,7 +168,7 @@
         {
             return $@"SELECT TOP(1) s.ShipperId Number
                     FROM Shipper s, AppUser au
-                    WHERE s.UserId = au.UserId and au.Ward = {wardId}";
+                    WHERE s.UserId = au.UserId AND au.Ward = {wardId} AND s.Status = 1";
         }
 
         public static string GetDistrictByWardId(int wardId)
@@ -182,7 +182,7 @@
         {
             return $@"SELECT TOP(1) ShipperId Number
                     FROM Shipper s, AppUser au, Ward w
-                    WHERE s.UserId = au.UserId and au.Ward = w.WardId and w.District = {districtId}";
+                    WHERE s.UserId = au.UserId and au.Ward = w.WardId and w.District = {districtId} AND s.Status = 1";
         }
         public static string GetStoreAddressById(int storeId)
         {
