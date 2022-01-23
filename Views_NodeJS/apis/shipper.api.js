@@ -12,6 +12,10 @@ const shipperApi = {
   getOrderInfo: (orderId) => {
     return axiosJava.get(`${BASE_URL}/order-info/${orderId}`);
   },
+
+  updateOrderStatus: (status, orderId) => {
+    return axiosJava.get(`${BASE_URL}/order/change-status?status=${status}&orderId=${orderId}`);
+  }
 };
 
 module.exports = shipperApi;
