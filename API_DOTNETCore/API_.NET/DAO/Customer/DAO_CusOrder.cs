@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using API_.NET.Models;
 
@@ -54,6 +55,22 @@ namespace API_.NET.DAO.Customer
             catch (Exception ex)
             {
                 throw ex;
+            }
+        }
+
+        public static List<CusOrder> GetCusOrderHistory(int customerId)
+        {
+            try
+            {
+                using (var context = new SmarketContext())
+                {
+                    return context.CusOrder.Where(o => o.CustomerId == customerId).ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Console.WriteLine($"GetCusOrderHistory ERROR: {ex.ToString()}");
+                return new List<CusOrder>();
             }
         }
     }

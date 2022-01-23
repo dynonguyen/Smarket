@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using API_.NET.DAO.Customer;
+using API_.NET.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -26,6 +28,12 @@ namespace API_.NET.Controllers.Customer
             }
 
             return BadRequest("Huỷ đơn hàng không thành công");
+        }
+
+        [HttpGet("history/{customerId}")]
+        public List<CusOrder> GetOrderHistory(int customerId)
+        {
+            return DAO_CusOrder.GetCusOrderHistory(customerId);
         }
     }
 }
