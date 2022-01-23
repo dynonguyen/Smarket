@@ -49,7 +49,8 @@ public class ShipperApi {
     }
 
     @GetMapping(path = "/order/change-status")
-    public String updateOrderStatus(@RequestParam(defaultValue = "1") int status, @RequestParam(defaultValue = "1") int orderId) {
+    public String updateOrderStatus(@RequestParam(defaultValue = "0") int status, 
+            @RequestParam(defaultValue = "0") int orderId) {
         return shipperService.updateOrderStatus(status, orderId);
     }
 }

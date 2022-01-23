@@ -1,25 +1,13 @@
-$('#plus').click(function(){
-  let quantity = parseInt($('#quantity').val());
-  if(quantity < 100) {
-    $('#quantity').val(quantity + 1);
-  }
-})
-$('#minus').click(function(){
-  let quantity = parseInt($('#quantity').val());
-  if(quantity > 1) {
-    $('#quantity').val(quantity - 1);
-  }
-})
 
 async function renderCartItems() {
-  const cart = JSON.parse(localStorage.getItem('cart'));
+  const cart = JSON.parse(localStorage.getItem('cart')) || [];
   if(cart.length === 0) {
     $('#products').append(`
-      .col-md-6.alert.alert-danger Không có sản phẩm trong giỏ hàng 
+      <div class="col-md-6 alert alert-danger">Không có sản phẩm trong giỏ hàng</div> 
     `)
     $('#get-order').remove();
     $('#action').append(`
-      <a href="/" class="btn btn-primary> Xem hàng hóa trên hệ thống </a>
+      <a href="/" class="col-md-4 btn btn-primary" > Xem hàng hóa trên hệ thống </a>
     `)
     return;
   }
@@ -28,13 +16,14 @@ async function renderCartItems() {
     let product = await $.get(`/common/cart/product?id=${item.productId}`);
     product.quantity = item.quantity;
     product.total = parseInt(item.quantity) * parseInt(product.unitPrice);
+    product.checked = item.checked;
     cartItems.push(product);
   }
   for (const item of cartItems) {
     $('#products').append(`
       <div class="col col-md-9 row bg-light w-100 py-2 rounded my-2" id="${item.productId}">
         <div class="col col-md-2 d-flex flex-row align-items-center">
-          <input class="form-check-input check" id="check${item.productId}" type="checkbox" />
+          <input class="form-check-input check" ${item.checked === 1 ? "checked" : ""} id="check${item.productId}" type="checkbox" />
           <a href="/common/product/${item.productId}">
             <img class="img-thumbnail" src="${item.thumbnail}" />
           </a>
@@ -62,12 +51,20 @@ async function renderCartItems() {
       </div>
     `)
   }
+
+  $('#products').append(`
+    <div class="col col-md-9 row bg-light w-100 pt-2 rounded my-2" >
+      <h5 class="col col-md-7 text-left" >Tổng tiền</h5>
+      <h5 class="col col-md-5 text-right text-danger" id="total-cash"></h5>
+    </div>
+  `)
+  await countTotal();
   $.each($('.minus'),function(){
     $(this).click(function(){
       const id = $(this).attr('id').slice(5);
       let quantity = parseInt($(`#quantity${id}`).val());
       updateQuantityItemCart(id, quantity - 1);
-      if(quantity < 100) {
+      if(quantity > 1) {
         $(`#quantity${id}`).val(quantity - 1);
       }
     })
@@ -77,7 +74,7 @@ async function renderCartItems() {
       const id = $(this).attr('id').slice(4);
       let quantity = parseInt($(`#quantity${id}`).val());
       updateQuantityItemCart(id, quantity + 1);
-      if(quantity > 1) {
+      if(quantity < 99 ) {
         $(`#quantity${id}`).val(quantity + 1);
       }
     })
@@ -97,8 +94,8 @@ async function renderCartItems() {
     })
   })
   $.each($('.check'), function(){
-    $(this).click(function(){
-      const id = $(this).attr('id').slice(5);
+    $(this).click( async function(){
+      const id = parseInt($(this).attr('id').slice(5));
       let cart = JSON.parse(localStorage.getItem('cart'));
       let status = null;
       if($(this).is(':checked')) {
@@ -117,23 +114,26 @@ async function renderCartItems() {
         return item;
       })
       localStorage.setItem('cart', JSON.stringify(cart));
+      await countTotal();
     })
   })
 }
-function deleteItemInCart(productId) {
-  let cart = JSON.parse(localStorage.getItem('cart'));
+async function deleteItemInCart(productId) {
+  let cart = JSON.parse(localStorage.getItem('cart')) || [];
   cart = cart.filter(item => {
-    return item.productId === productId ? false : true;
+    return item.productId === parseInt(productId) ? false : true;
   })
   localStorage.setItem('cart', JSON.stringify(cart));
+  loadCart();
+  await countTotal();
 }
 
-function updateQuantityItemCart(productId, quantity) {
+async function updateQuantityItemCart(productId, quantity) {
   let cart = JSON.parse(localStorage.getItem('cart'));
   cart = cart.map(item => {
-    if(item.productId === productId) {
+    if(item.productId === parseInt(productId)) {
       return  {
-        productId: productId,
+        productId: parseInt(productId),
         quantity: quantity,
         checked: item.checked || 0
       }
@@ -141,6 +141,42 @@ function updateQuantityItemCart(productId, quantity) {
     return item;
   })
   localStorage.setItem('cart', JSON.stringify(cart));
+  await countTotal();
+}
+function loadCart(){
+  const cart = JSON.parse(localStorage.getItem('cart')) || [];
+  $('#cart').append(`
+    <span class="cart-total">${cart.length}</span>
+  `)
+}
+function resetCheck(){
+  let cart = JSON.parse(localStorage.getItem('cart')) || [];
+  cart = cart.map(item => {
+    return {
+      productId: item.productId,
+      quantity: item.quantity,
+      checked: 0
+    }
+  })
+  localStorage.setItem('cart',JSON.stringify(cart));
+}
+async function countTotal() {
+  const cart = JSON.parse(localStorage.getItem('cart')) || [];
+  let cartItems = [];
+  for (const item of cart) {
+    let product = await $.get(`/common/cart/product?id=${item.productId}`);
+    product.quantity = item.quantity;
+    product.total = parseInt(item.quantity) * parseInt(product.unitPrice);
+    product.checked = item.checked;
+    cartItems.push(product);
+  }
+  const total = cartItems.reduce((item1, item2) => {
+    if(item2.checked === 1) {
+      return item1 + item2.total;
+    }
+    return item1 + 0;
+  }, 0);
+  $('#total-cash').text(total.toLocaleString('it-IT', { style: 'currency', currency: 'VND' }));
 }
 $(document).ready(function(){
   renderCartItems();

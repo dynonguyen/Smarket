@@ -86,8 +86,6 @@ namespace API_.NET.Controllers.Common
                     return false;
                 }
 
-                System.Console.WriteLine("SHIPPERID: " + shipperId);
-
                 DAO_System.UpdateOrderShipper(orderId, shipperId);
                 DAO_System.UpdateShipperStatus(shipperId, (int)Constants.Constants.SHIPPER_STATUS.BUSY);
                 return true;
