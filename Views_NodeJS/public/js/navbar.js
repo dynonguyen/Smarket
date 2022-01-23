@@ -84,15 +84,15 @@ function searchProduct() {
 }
 
 function loadCart(){
-  const cart = JSON.parse(localStorage.getItem('cart'));
+  const cart = JSON.parse(localStorage.getItem('cart')) || [];
   $('#cart').append(`
     <span class="cart-total">${cart.length}</span>
   `)
 }
 function addCartForProductCard(id){
-  let cart = JSON.parse(localStorage.getItem('cart'));
+  let cart = JSON.parse(localStorage.getItem('cart')) || [];
   let status = 0;
-  cart = cart.filter(item => {
+  cart = cart.map(item => {
     if(item.productId === id) {
       status = 1;
       return {

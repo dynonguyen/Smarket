@@ -1,6 +1,6 @@
 
 function loadCart(){
-  const cart = JSON.parse(localStorage.getItem('cart'));
+  const cart = JSON.parse(localStorage.getItem('cart')) || [];
   $('#cart').append(`
     <span class="cart-total">${cart.length}</span>
   `)
@@ -28,7 +28,7 @@ $(document).ready(function(){
   })
 
   $('#add-cart').click(function(){
-    const productId = window.location.href.slice(window.location.href.indexOf('product/') + 8);
+    const productId = parseInt(window.location.href.slice(window.location.href.indexOf('product/') + 8));
     let products = JSON.parse(localStorage.getItem('cart'));
     if(products) {
       for (let item of products) {
@@ -43,7 +43,7 @@ $(document).ready(function(){
       }
       const product = {
         productId: productId,
-        quantity: $('#quantity').val(),
+        quantity: parseInt($('#quantity').val()),
         checked: 0
       }
       products.push(product);
@@ -52,7 +52,7 @@ $(document).ready(function(){
       products = [];
       const product = {
         productId: productId,
-        quantity: $('#quantity').val(),
+        quantity: parseInt($('#quantity').val()),
         checked: 0
       }
       products.push(product);
