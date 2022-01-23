@@ -158,7 +158,7 @@
         }
 
         // Get product for cart
-        public static string GetProductForCart(int productId) 
+        public static string GetProductForCart(int productId)
         {
             return $@"select  p.ProductId, p.ProductName, p.UnitPrice, p.QuantitativeUnit, i.Source AS Thumbnail
                     from Product p, ProductImage i
@@ -196,6 +196,20 @@
             return $@"SELECT w.WardName AS Ward, d.DistrictName AS District, p.ProvinceName as Province
                     FROM Customer c, AppUser u, Ward w, District d, Province p
                     WHERE c.CustomerId = {customerId} AND c.UserId = u.UserId AND u.Ward = w.WardId AND w.District = d.DistrictId AND d.Province = p.ProvinceId";
+        }
+
+        public static string GetWardIdOfStore(int storeId)
+        {
+            return $@"SELECT a.Ward AS Number
+                    FROM Store s, AppUser a
+                    WHERE s.UserId = a.UserId AND s.StoreId = {storeId}";
+        }
+
+        public static string GetWardIdOfCustomer(int customerId)
+        {
+            return $@"SELECT a.Ward AS Number
+                    FROM Customer c, AppUser a
+                    WHERE c.UserId = a.UserId AND c.CustomerId = {customerId}";
         }
     }
 }

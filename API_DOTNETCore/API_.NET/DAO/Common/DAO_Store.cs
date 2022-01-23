@@ -164,5 +164,21 @@ namespace API_.NET.DAO.Common
                 return null;
             }
         }
+
+        public static int GetWardIdByStoreId(int storeId)
+        {
+            try
+            {
+                using (var context = new SmarketContext())
+                {
+                    return context.Number.FromSql(Utils_Queries.GetWardIdOfStore(storeId)).First().Number;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
+
 }

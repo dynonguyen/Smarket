@@ -41,5 +41,20 @@ namespace API_.NET.DAO.Customer
                 return false;
             }
         }
+
+        public static CusOrder GetCusOrderById(int orderId)
+        {
+            try
+            {
+                using (var context = new SmarketContext())
+                {
+                    return context.CusOrder.Where(o => o.OrderId == orderId).First();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

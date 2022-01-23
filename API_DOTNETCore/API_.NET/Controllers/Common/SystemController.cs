@@ -1,6 +1,8 @@
 using System;
 using API_.NET.DAO.Common;
+using API_.NET.DAO.Customer;
 using API_.NET.DTO;
+using API_.NET.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API_.NET.Controllers.Common
@@ -72,13 +74,27 @@ namespace API_.NET.Controllers.Common
             }
         }
 
-        [HttpPost("shipping-request")]
-        public bool PostSendShippingRequest([FromBody] int orderId)
+        [HttpPost("shipping-request/{orderId}")]
+        public bool PostSendShippingRequest(int orderId)
         {
             try
             {
-                // Find nearest shipper, watting API ...
-                int shipperId = 1;
+                CusOrder order = DAO_CusOrder.GetCusOrderById(orderId);
+                int cusWarId = DAO_Customer.GetWardIdByCustomerId(order.CustomerId);
+
+                int shipperId = DAO_System.GetNearestShipperByWard(cusWarId);
+                if (shipperId == -1)
+                {
+                    shipperId = DAO_System.GetNearestShipperByDistrict(cusWarId);
+                }
+
+                if (shipperId < 0)
+                {
+                    return false;
+                }
+
+                System.Console.WriteLine("SHIPPERID: " + shipperId);
+
                 DAO_System.UpdateOrderShipper(orderId, shipperId);
                 DAO_System.UpdateShipperStatus(shipperId, (int)Constants.Constants.SHIPPER_STATUS.BUSY);
                 return true;
