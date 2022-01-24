@@ -2,6 +2,10 @@ package api.java.services.admin;
 
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Query;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -9,8 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
 import api.java.constants.AppConstants;
 import api.java.dto.EmptyDto;
 import api.java.dto.GreenRegionRatioDto;
-import api.java.dto.RevenueAndIncomeDto;
 import api.java.dto.ProductAmountDto;
+import api.java.dto.RevenueAndIncomeDto;
 import api.java.dto.TypeInGroupDto;
 import api.java.utils.EntityManagerUtil;
 import api.java.utils.QueryUtil;
@@ -32,6 +36,9 @@ public class StatisticServiceImpl implements StatisticService {
 
     @Autowired
     private EntityManagerUtil<TypeInGroupDto> typeInGroupDto;
+
+    @Autowired
+    private EntityManagerFactory emf;
 
     @Override
     public int getRegionStatistic(int userType, int provinceId, int regionLevel) {
@@ -101,6 +108,19 @@ public class StatisticServiceImpl implements StatisticService {
             return result;
         } catch (Exception e) {
             System.out.println("----------" + e);
+            return List.of();
+        }
+    }
+
+    @Override
+    public List<Object[]> getProductDemandStats() {
+        try {
+            EntityManager em = emf.createEntityManager();
+            Query query = em.createQuery(QueryUtil.getProductDemand());
+
+            return query.getResultList();
+        } catch (Exception e) {
+            System.out.println("Function getProductDemandStats Error " + e.toString());
             return List.of();
         }
     }
