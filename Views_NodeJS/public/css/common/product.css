@@ -19,7 +19,8 @@ img .d-block {
   height: 100%;
   border: 1px solid #10941b;
 }
-#minus, #plus{
+#minus,
+#plus {
   border-radius: 0px;
 }
 #add-cart {
@@ -31,7 +32,7 @@ img .d-block {
   width: 100%;
 }
 .img-thumbnail {
-  height: 100%
+  height: 100%;
 }
 .img-thumbnail {
   cursor: pointer;
@@ -51,12 +52,14 @@ img .d-block {
 }
 
 .zoom {
-  transition: transform .2s; /* Animation */
+  transition: transform 0.2s; /* Animation */
   margin: 0 auto;
 }
 
 .zoom:hover {
-  transform: scale(1.5); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+  transform: scale(
+    1.5
+  ); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
 }
 
 #description {
@@ -65,7 +68,7 @@ img .d-block {
 .detail-info {
   width: 100%;
   padding-right: 50px;
-  background-color: #EFEFEF;
+  background-color: #efefef;
   display: inline;
   text-indent: 30px;
 }
@@ -83,7 +86,6 @@ img .d-block {
   text-indent: 30px;
 }
 #block-fb {
-
   width: 95%;
 }
 
@@ -93,4 +95,8 @@ img .d-block {
 .suggest {
   height: 900px;
   overflow-y: auto;
+}
+
+#cert {
+  word-break: break-all;
 }

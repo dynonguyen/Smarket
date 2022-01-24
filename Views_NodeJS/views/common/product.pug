@@ -106,14 +106,20 @@ block content
                   .row.detail Mã sản phẩm
                   .row.detail Giá
                   .row.detail Đơn vị tính 
-                  .row.detail Xuất xứ
                 .col.col-md-9
                   .row.detail= group
                   .row.detail= product.productName 
                   .row.detail= product.productId 
                   .row.detail= helpers.formatCurrency(product.unitPrice)
                   .row.detail= product.quantitativeUnit? product.quantitativeUnit : 'Cái'
+              h3.detail-info.py-1 Truy xuất nguồn gỗc
+              .row.w-100
+                .col.col-md-3
+                  .row.detail Nguồn gốc
+                  .row.detail Chứng chỉ
+                .col.col-md-8
                   .row.detail= product.source
+                  #cert.row.detail= product.certificate
               .row.my-2.mx-2.w-100
                 h3.detail-info.py-1 Mô tả sản phẩm
                 .row.w-100#des.mx-3

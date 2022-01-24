@@ -5,7 +5,9 @@ const BASE_URL = '/common';
 
 const userApi = {
   getUserByUsername: (username) => {
-    return axiosCSharp.get(`/customer/self/info-by-username?username=${username}`);
+    return axiosCSharp.get(
+      `/customer/self/info-by-username?username=${username}`
+    );
   },
 
   getStoreByProductId: (productId) => {
@@ -13,7 +15,9 @@ const userApi = {
   },
 
   getCommission: (storeId, customerId) => {
-    return axiosCSharp.get(`${BASE_URL}/system/calculate-commisssion?storeId=${storeId}&customerId=${customerId}`);
+    return axiosCSharp.get(
+      `${BASE_URL}/system/calculate-commisssion?storeId=${storeId}&customerId=${customerId}`
+    );
   },
 
   getShipperForOrder: (wardId) => {
@@ -25,7 +29,7 @@ const userApi = {
   },
 
   createOrder: (order) => {
-    return axiosCSharp.post(`/customer/order/create`, order)
+    return axiosCSharp.post(`/customer/order/create`, order);
   },
 
   getShipperRequest: (orderId) => {
@@ -33,13 +37,21 @@ const userApi = {
   },
 
   getCustomerInfo: (userId) => {
-    return axiosCSharp.get(`/customer/self/customer-info?userId=${userId}`)
+    return axiosCSharp.get(`/customer/self/customer-info?userId=${userId}`);
   },
 
   getStoreInfo: (userId) => {
-    return axiosCSharp.get(`/customer/self/store-info?userId=${userId}`)
-  }
-}
+    return axiosCSharp.get(`/customer/self/store-info?userId=${userId}`);
+  },
+  getOrderDetail: (customerId, orderId) => {
+    return axiosCSharp.get(`/customer/order/detail/${customerId}/${orderId}`);
+  },
 
+  getOrderDetailProducts: (orderId) => {
+    return axiosCSharp.get(
+      `/customer/order/detail/products-of-order/${orderId}`
+    );
+  },
+};
 
 module.exports = userApi;

@@ -12,8 +12,8 @@ const { ROLES } = require('./constants/index.constant');
 const passVariableToClientMiddleware = require('./middleware/pass-variable.middleware');
 const unlessRouteMiddleware = require('./middleware/unless-route.middleware');
 const {
-    authenticationMiddleware,
-    authorizationMiddleware,
+  authenticationMiddleware,
+  authorizationMiddleware,
 } = require('./middleware/authentication.middleware');
 const redirectorMiddleware = require('./middleware/redirector.middleware');
 
@@ -21,7 +21,7 @@ const redirectorMiddleware = require('./middleware/redirector.middleware');
 const adminRoute = require('./routes/admin');
 const shipperRoute = require('./routes/shipper.route');
 const storeRoute = require('./routes/store.route');
-const customerRoute = require('./routes/customer.route');
+const userRoute = require('./routes/user.route');
 const authRoute = require('./routes/auth.route');
 const commonRoute = require('./routes/common.route');
 const { getHomeGuest } = require('./controllers/common.controller.js');
@@ -31,11 +31,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json({}));
 app.use(express.urlencoded({ extended: true }));
 app.use(
-    session({
-        secret: process.env.SESSION_SECRET || 'secret',
-        resave: false,
-        saveUninitialized: true,
-    })
+  session({
+    secret: process.env.SESSION_SECRET || 'secret',
+    resave: false,
+    saveUninitialized: true,
+  })
 );
 app.use(cookieParser(process.env.SIGNED_COOKIE || 'signed_cookie'));
 
@@ -54,14 +54,14 @@ app.use(unlessRouteMiddleware([], passVariableToClientMiddleware));
 app.use('/admin', authorizationMiddleware([ROLES.ADMIN]), adminRoute);
 app.use('/shipper', authorizationMiddleware([ROLES.SHIPPER]), shipperRoute);
 app.use('/store', authorizationMiddleware([ROLES.STORE]), storeRoute);
-app.use('/customer', authorizationMiddleware([ROLES.CUSTOMER]), customerRoute);
+app.use('/user', authorizationMiddleware([ROLES.CUSTOMER]), userRoute);
 app.use('/auth', authRoute);
 app.use('/common', commonRoute);
 app.get('/redirector', redirectorMiddleware);
 app.get(
-    '/',
-    authorizationMiddleware([ROLES.GUEST, ROLES.CUSTOMER]),
-    getHomeGuest
+  '/',
+  authorizationMiddleware([ROLES.GUEST, ROLES.CUSTOMER]),
+  getHomeGuest
 );
 // 404 Not found redirect
 app.use((req, res) => res.status(404).render('404.pug'));
@@ -71,5 +71,5 @@ const normalizePort = (port) => parseInt(port, 10);
 const PORT = normalizePort(process.env.PORT || 3000);
 
 app.listen(PORT, () => {
-    console.log(`Server is listening on port ${PORT}`);
+  console.log(`Server is listening on port ${PORT}`);
 });
