@@ -1,0 +1,23 @@
+extends ../templates/admin.template.pug
+include ../mixins/get-server-variables.pug
+include ../mixins/chartjs-script.mixin.pug
+
+block title 
+  title Smarket | Thống kê nhu cầu nhu yếu phẩm
+
+block addContent 
+  .p-4.flex-grow-1.container
+    h3.text-center.text-uppercase.mb-4 Thống kê nhu cầu thực phẩm
+    #userBox.p-3.sm-box-shadow.bg-white.border-rad.sm-border-radius.chart-box
+      canvas.chart#chart
+
+block addScript
+  +chartjsScript
+  +getServerVarScript
+  script.
+    const productsRaw = "#{products}";
+    const products = productsRaw ? JSON.parse(productsRaw.replace(/(&quot;)/g, `"`)) : []
+    const quantitiesRaw = "#{quantities}";
+    const quantities = quantitiesRaw ? quantitiesRaw.split(",").map(Number) : []
+    
+  script(src="/js/admin/product-demand.js") 
