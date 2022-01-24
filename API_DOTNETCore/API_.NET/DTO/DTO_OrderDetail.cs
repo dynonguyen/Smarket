@@ -1,15 +1,15 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
 
 namespace API_.NET.DTO
 {
-    public class DTO_OrderHistory
+    public class DTO_OrderDetail
     {
 
 
         [Key]
         public int OrderId { get; set; }
-        public int CustomerId { get; set; }
         public int ShipperId { get; set; }
         public int StoreId { get; set; }
         public string OrderCode { get; set; }
@@ -23,12 +23,10 @@ namespace API_.NET.DTO
         public string ShipperName { get; set; }
         public string StoreName { get; set; }
 
-        public DTO_OrderHistory() { }
-
-        public DTO_OrderHistory(int orderId, int customerId, int shipperId, int storeId, string orderCode, int orderStatus, int orderTotal, string deliveryAddress, DateTime deliveryDate, string receiverName, string receiverPhone, DateTime createDate, string shipperName, string storeName)
+        public DTO_OrderDetail() { }
+        public DTO_OrderDetail(int orderId, int shipperId, int storeId, string orderCode, int orderStatus, int orderTotal, string deliveryAddress, DateTime deliveryDate, string receiverName, string receiverPhone, DateTime createDate, string shipperName, string storeName)
         {
             OrderId = orderId;
-            CustomerId = customerId;
             ShipperId = shipperId;
             StoreId = storeId;
             OrderCode = orderCode;

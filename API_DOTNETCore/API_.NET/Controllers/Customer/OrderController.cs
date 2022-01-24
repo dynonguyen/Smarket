@@ -36,5 +36,19 @@ namespace API_.NET.Controllers.Customer
         {
             return DAO_CusOrder.GetCusOrderHistory(customerId);
         }
+
+        [HttpGet("detail/{customerId}/{orderId}")]
+        public DTO_OrderHistory GetOrderDetail(int customerId, int orderId)
+        {
+
+            return DAO_CusOrder.GetOrderDetail(customerId, orderId);
+        }
+
+        [HttpGet("detail/products-of-order/{orderId}")]
+        public List<DTO_OrderDetailProducts> GetOrderDetailProducts(int orderId)
+        {
+            return DAO_CusOrder.GetOrderDetailProducts(orderId);
+        }
+
     }
 }

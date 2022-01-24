@@ -76,5 +76,39 @@ namespace API_.NET.DAO.Customer
                 return new List<DTO_OrderHistory>();
             }
         }
+
+        public static List<DTO_OrderDetailProducts> GetOrderDetailProducts(int orderId)
+        {
+            try
+            {
+
+                using (var context = new SmarketContext())
+                {
+                    return context.OrderDetailProducts.FromSql(Utils_Queries.GetOrderDetailProduct(orderId)).ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Console.WriteLine($"GetOrderDetailProducts ERROR: {ex.ToString()}");
+                return new List<DTO_OrderDetailProducts>();
+            }
+        }
+
+        public static DTO_OrderHistory GetOrderDetail(int customerId, int orderId)
+        {
+            try
+            {
+                using (var context = new SmarketContext())
+                {
+                    return context.OrderHistory.FromSql(Utils_Queries.GetOrderDetail(customerId, orderId)).FirstOrDefault();
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Console.WriteLine($"GetCusOrderHistory ERROR: {ex.ToString()}");
+                return new DTO_OrderHistory();
+            }
+        }
+
     }
 }

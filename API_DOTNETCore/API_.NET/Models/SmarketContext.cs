@@ -43,6 +43,7 @@ namespace API_.NET.Models
         public DbSet<DTO_ProductCard> ProductCard { get; set; }
         public DbSet<DTO_Address> Address { get; set; }
         public DbSet<DTO_OrderHistory> OrderHistory { get; set; }
+        public DbSet<DTO_OrderDetailProducts> OrderDetailProducts { get; set; }
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

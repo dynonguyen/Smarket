@@ -38,7 +38,6 @@ block addContent
             br
             |  #{helpers.convertOrderStatus(status)}
       .track
-
         .step(class={active: status>=1})
           span.icon
             i.bi.bi-check
@@ -91,7 +90,6 @@ block addContent
                 span.fw-bold.me-4 Phí vận chuyển: 
                 |  Free   
       hr
-      
       a.btn.btn-warning(href='order?page=2' data-abc='true')
         i.fa.fa-chevron-left
         |  Quay lại quản lý đơn hàng
