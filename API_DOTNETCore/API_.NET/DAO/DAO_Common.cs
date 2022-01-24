@@ -87,20 +87,77 @@ namespace API_.NET.DAO
             }
         }
 
-        public static DTO_ProductCard GetProductForCart(int productId) 
+        public static DTO_ProductCard GetProductForCart(int productId)
         {
             try
             {
-                using(var context = new SmarketContext())
+                using (var context = new SmarketContext())
                 {
                     return context.ProductCard.FromSql(Utils_Queries.GetProductForCart(productId)).FirstOrDefault();
                 }
-            } 
+            }
             catch
             {
                 return null;
             }
         }
-    }
 
+        public static List<DTO_ProductCard> GetProductsByNearestStore(int storeId)
+        {
+            try
+            {
+                using (var context = new SmarketContext())
+                {
+                    var sqlResult = context.ProductCard.FromSql(Utils_Queries.GetProductsByStoreId(storeId));
+                    return sqlResult.ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Console.WriteLine(ex.ToString());
+                return new List<DTO_ProductCard>();
+            }
+
+        }
+        public static List<Store> GetNearestStore(int provinceId, int districtId, int wardId)
+        {
+            try
+            {
+                using (var context = new SmarketContext())
+                {
+                    var sqlResult = context.Store.FromSql(Utils_Queries.GetStoreIdByWardId(wardId));
+                    System.Console.WriteLine(sqlResult.ToList());
+                    if (sqlResult.ToList().Any())
+                    {
+                        return sqlResult.ToList();
+                    }
+                    else
+                    {
+                        sqlResult = context.Store.FromSql(Utils_Queries.GetStoreIdByDistrictId(districtId));
+                        if (sqlResult.ToList().Any())
+                        {
+                            return sqlResult.ToList();
+                        }
+                        else
+                        {
+                            sqlResult = context.Store.FromSql(Utils_Queries.GetStoreIdByProvinceId(provinceId));
+                            if (!sqlResult.ToList().Any())
+                            {
+                                System.Console.WriteLine("Error ");
+                                return new List<Store>();
+                            }
+                            return sqlResult.ToList();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Console.WriteLine(ex.ToString());
+                return new List<Store>();
+            }
+        }
+
+    }
 }
+

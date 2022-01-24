@@ -11,8 +11,8 @@ commonRoute.get('/product/:productId', commonController.getProductPage);
 
 commonRoute.get('/categories/:groupId', commonController.productEachType);
 commonRoute.get(
-  '/categories/:groupId/view-more',
-  commonController.viewMoreProducts
+    '/categories/:groupId/view-more',
+    commonController.viewMoreProducts
 );
 commonRoute.get('/categories/:groupId/sort', commonController.sortProducts);
 
@@ -24,5 +24,11 @@ commonRoute.get('/store/:storeId', commonController.getStoreInfo);
 commonRoute.get('/cart', commonController.getCartPage);
 commonRoute.get('/cart/product', commonController.getProductForCart);
 commonRoute.get('/purchase', commonController.getCartPurchase);
+
+commonRoute.get('/product-by-region', commonController.getProductsByRegion);
+commonRoute.get(
+    '/product-by-region/more',
+    commonController.moreProductsByRegion
+);
 
 module.exports = commonRoute;

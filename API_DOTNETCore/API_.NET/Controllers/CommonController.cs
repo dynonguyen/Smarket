@@ -36,5 +36,11 @@ namespace API_.NET.Controllers
         {
             return DAO_Common.GetProductForCart(productId);
         }
+
+        [HttpGet("storeId-by-region")]
+        public List<Models.Store> GetStoreIdByRegion([FromQuery] int provinceId, [FromQuery] int districtId, int wardId)
+        {
+            return DAO_Common.GetNearestStore(provinceId, districtId, wardId);
+        }
     }
 }
