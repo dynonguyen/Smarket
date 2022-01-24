@@ -20,10 +20,10 @@ block addContent
             tr
               td= productId
               td= productName
-              td= productRating
-              td= unitPrice
+              td= Math.round(productRating)
+              td= helpers.formatCurrency(unitPrice)
               td
-                a.btn.btn-success(href=``) Chi tiết
+                a.btn.btn-success(href=`/store/product-list/${productId}`) Chi tiết
         else 
           tr 
             td.text-center.py-4.text-gray(colspan="6") Không tìm thấy sản phẩm nào 

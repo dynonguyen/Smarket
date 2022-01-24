@@ -224,6 +224,22 @@
             WHERE o.CustomerId = {customerId} AND sh.ShipperId = o.ShipperId AND s.StoreId = o.StoreId AND sh.UserId = a1.UserId AND s.UserId = a2.UserId";
         }
 
+
+        public static string GetBasicStoreInformation(int storeId)
+        {
+            return $@"SELECT a.AccountId, a.UserId, a.Name, a.Phone, a.Address, s.StoreId, s.StoreType, 
+                     s.Area, s.Status, s.Categories, s.Certificate
+                     FROM AppUser a, Store s
+                     WHERE a.UserId = s.UserId and s.Status != 0 and s.StoreId = {storeId} ";
+        }
+
+        public static string GetUserInfoByUsername(string username) 
+        {
+            return $@"SELECT ap.*
+                    FROM Account a, AppUser ap
+                    WHERE a.AccountId = ap.AccountId AND a.Username = '{username}'";
+        }
+    
         public static string GetStoreIdByWardId(int wardId)
         {
             return $@"SELECT u.userId,s.StoreId,s.StoreType,s.Status,s.Area,s.Categories,s.Certificate

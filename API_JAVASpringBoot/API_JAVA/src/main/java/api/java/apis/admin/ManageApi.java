@@ -2,7 +2,6 @@ package api.java.apis.admin;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -104,9 +103,10 @@ public class ManageApi {
         PaginationDto<Account> result = accountPage.paging(accounts, AppConstants.PAGE_SIZE, page);
         return result;
     }
+
     @GetMapping(path = "/account/info")
     public Account getAccountInfo(@RequestParam(defaultValue = "1") int accountId) {
-        try {      
+        try {
             return accountRepository.findByAccountId(accountId);
         } catch (Exception e) {
             return new Account();
@@ -117,17 +117,17 @@ public class ManageApi {
     public <Any> Any getUserInfo(@RequestParam(defaultValue = "1") int accountId) {
         return (Any) manageService.getUserInfo(accountId);
     }
-    
-    @GetMapping(path="/account/accept")
+
+    @GetMapping(path = "/account/accept")
     public PaginationDto<AccountDto> getAccountNeedAccepting(@RequestParam(defaultValue = "2") int type,
-             @RequestParam(defaultValue = "1") int page) {
+            @RequestParam(defaultValue = "1") int page) {
         return manageService.getAccountNeedAccepting(type, page);
     }
 
-    @GetMapping(path="/account/accept/accepted")
+    @GetMapping(path = "/account/accept/accepted")
     public int changeStatus(@RequestParam int status, @RequestParam int id, @RequestParam int type) {
         try {
-            if(type == 2) {
+            if (type == 2) {
                 shipperRepository.updateStatus(status, id);
                 return 1;
             } else {

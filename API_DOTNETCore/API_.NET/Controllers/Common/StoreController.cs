@@ -58,5 +58,12 @@ namespace API_.NET.Controllers.Customer
         {
             return DAO_Store.GetStoreInfoByStoreId(storeId);
         }
+
+        // Get basic store information by store id
+        [HttpGet("info/basic")]
+        public DTO_Stores GetBasicStoreByStoreId([FromQuery] int storeId) 
+        {
+            return DAO_Store.GetBasicStoreInfo(storeId);
+        }
     }
 }

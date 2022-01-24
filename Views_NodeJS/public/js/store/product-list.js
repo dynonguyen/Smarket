@@ -1,5 +1,5 @@
-function onPageItemClick(storeId, page) {
-  location.href = `/store/product-list?storeId=${storeId}&page=${page}`;
+function onPageItemClick(page) {
+  location.href = `/store/product-list?&page=${page}`;
 }
 
 $(document).ready(function () {

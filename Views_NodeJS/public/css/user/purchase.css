@@ -1,0 +1,22 @@
+.breadcrumb-nav {
+  margin-left: 10%;
+}
+
+.addition {
+  text-indent: 10px;
+}
+#receive-name {
+  width: 30%;
+}
+#receive-phone {
+  width: 20%;
+}
+#receive-address {
+  width: 40%;
+}
+.product-name {
+  text-overflow: ellipsis;
+}
+#head-table {
+  color: #929292
+}
