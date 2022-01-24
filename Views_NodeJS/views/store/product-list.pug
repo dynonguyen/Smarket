@@ -20,8 +20,8 @@ block addContent
             tr
               td= productId
               td= productName
-              td= productRating
-              td= unitPrice
+              td= Math.round(productRating)
+              td= helpers.formatCurrency(unitPrice)
               td
                 a.btn.btn-success(href=``) Chi tiết
         else 

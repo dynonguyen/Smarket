@@ -1,5 +1,6 @@
 const storeApi = require('../apis/store.api');
 const { PAGE_SIZE } = require('../constants/index.constant');
+const { formatCurrency } = require('../helpers/index.helper');
 
 exports.getProductByStore = async (req, res) => {
   const { page = 1 } = req.query;
@@ -17,6 +18,9 @@ exports.getProductByStore = async (req, res) => {
       page,
       pageSize,
       productList: data,
+      helpers: {
+        formatCurrency,
+      },
     });
   } catch (error) {
     console.error('Function getProductByStore Error: ', error);
