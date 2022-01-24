@@ -27,3 +27,22 @@ exports.getProductByStore = async (req, res) => {
     return res.render('404');
   }
 };
+
+exports.getProductDetailById = async (req, res) => {
+  const { productId } = req.params;
+  try {
+    const productDetailRes = await storeApi.getProductDetailById(productId);
+    const productImageRes = await storeApi.getProductImageById(productId);
+
+    return res.render('./store/product-detail.pug', {
+      productDetailData: productDetailRes.data,
+      productImageData: productImageRes.data,
+      helpers: {
+        formatCurrency,
+      },
+    });
+  } catch (error) {
+    console.log('Function getProductDetailById Error', error);
+    return res.render('404');
+  }
+};
