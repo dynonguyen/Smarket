@@ -36,5 +36,11 @@ namespace API_.NET.Controllers.Customer
         {
             return DAO_CusOrder.GetCusOrderHistory(customerId);
         }
+
+        [HttpPost("create")]
+        public CusOrder CreateOrder([FromBody] CusOrder order)
+        {
+            return DAO_CusOrder.CreateOrder(order);
+        }
     }
 }

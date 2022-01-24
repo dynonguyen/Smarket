@@ -76,5 +76,24 @@ namespace API_.NET.DAO.Customer
                 return new List<DTO_OrderHistory>();
             }
         }
+
+        public static CusOrder CreateOrder(CusOrder order)
+        {
+            try
+            {
+                using(var context = new SmarketContext()) 
+                {
+                    context.CusOrder.Add(order);
+                    context.SaveChanges();
+                    return context.CusOrder.Where(s => s.OrderCode == order.OrderCode).FirstOrDefault();
+
+                }
+            }
+            catch(Exception ex)
+            {
+                Console.Write(ex);
+                return null;
+            }
+        }
     }
 }
