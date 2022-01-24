@@ -112,9 +112,9 @@ namespace API_.NET.Controllers.Common
 
         // Get all product of store by store id
         [HttpGet("store")]
-        public List<Product> GetAllProductOfStore([FromQuery] int storeId)
+        public DTO_Pagination<DTO.DTO_Products> GetAllProductOfStore([FromQuery] int storeId, [FromQuery] int page = 1, [FromQuery] int pageSize = 8)
         {
-            return DAO_Product.GetAllProductOfStore(storeId);
+            return DAO_Product.GetAllProductOfStore(storeId, page, pageSize);
         }
 
         [HttpGet("type-by-group")]

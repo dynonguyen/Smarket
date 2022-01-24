@@ -5,6 +5,7 @@ using System.Linq;
 using API_.NET.Utils;
 using API_.NET.DTO;
 using System;
+
 namespace API_.NET.DAO.Common
 {
     public class DAO_Product
@@ -28,31 +29,43 @@ namespace API_.NET.DAO.Common
         }
 
         // Get products of a store
-        public static List<Product> GetAllProductOfStore(int storeId)
+        public static DTO_Pagination<DTO.DTO_Products> GetAllProductOfStore(int storeId, int page, int pageSize)
         {
+            if (page < 1)
+            {
+                page = 1;
+            }
+
+            int skipRows = (page - 1) * pageSize;
+
             try
             {
-                using(var context  = new SmarketContext())
+                using (var context = new SmarketContext())
                 {
-                    return context.Product.FromSql(Utils_Queries.GetAllProductOfStore(storeId)).ToList();
+                    var sqlResult = context.Products.FromSql(Utils_Queries.GetAllProductOfStore(storeId)).ToList();
+
+                    List<DTO.DTO_Products> data = sqlResult.Skip(skipRows).Take(pageSize).ToList();
+                    return new DTO_Pagination<DTO_Products>(sqlResult.Count(), page, pageSize, data);
                 }
-            } catch
+            }
+            catch (Exception ex)
             {
-                return null;
+                System.Console.WriteLine(ex.ToString());
+                return new DTO_Pagination<DTO.DTO_Products>();
             }
         }
 
         // Get all feedback of a product
         public static List<OrderDetailFeedback> GetAllFeedbackOfProduct(int productId)
         {
-            try 
+            try
             {
-                using(var context = new SmarketContext())
+                using (var context = new SmarketContext())
                 {
                     return context.OrderDetailFeedback.FromSql(Utils_Queries.GetAllProductFeedback(productId)).ToList();
                 }
             }
-            catch 
+            catch
             {
                 return null;
             }
