@@ -37,7 +37,6 @@ exports.getOrderInfo = async (req, res) => {
   try {
     const apiRes = (await shipperApi.getOrderInfo(orderId))?.data;
 
-    console.log('data order info: ', apiRes);
     return res.render('./shipper/order-info.pug', {
       orderInfoData: apiRes,
     });

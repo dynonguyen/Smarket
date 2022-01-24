@@ -25,13 +25,15 @@ const managementApi = {
 
   getStore: (page, pageSize) => {
     return axiosCSharp.get(
-      `common/Store/all?page=${page}&pageSize=${pageSize}`
+      `common/store/all?page=${page}&pageSize=${pageSize}`
     );
   },
 
   getStoreAndShipperAccept: (type, page) => {
-    return axiosJava.get(`${BASE_URL}/account/accept?type=${type}&page=${page}`);
-  }
+    return axiosJava.get(
+      `${BASE_URL}/account/accept?type=${type}&page=${page}`
+    );
+  },
 };
 
 module.exports = managementApi;

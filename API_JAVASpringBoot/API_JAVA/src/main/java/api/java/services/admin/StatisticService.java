@@ -3,8 +3,8 @@ package api.java.services.admin;
 import java.util.List;
 
 import api.java.dto.GreenRegionRatioDto;
-import api.java.dto.RevenueAndIncomeDto;
 import api.java.dto.ProductAmountDto;
+import api.java.dto.RevenueAndIncomeDto;
 import api.java.dto.TypeInGroupDto;
 
 public interface StatisticService {
@@ -18,4 +18,5 @@ public interface StatisticService {
 
     List<TypeInGroupDto> getTypeInGroup(int group);
 
+    List<Object[]> getProductDemandStats();
 }

@@ -4,7 +4,39 @@ block title
   title Danh sách sản phẩm | Smarket
 
 block addContent 
-  h1 Danh sách sản phẩm của cửa hàng
+  .p-4.flex-grow-1
+    table.table.table-striped.bg-white
+      thead.thead-dark
+        tr
+          th(scope="col") Mã sản phẩm
+          th(scope="col") Tên sản phẩm
+          th(scope="col") Đánh giá
+          th(scope="col") Giá
+          th(scope="col") Xem chi tiết
+      tbody
+        if productList && productList.length > 0
+          each product in productList 
+            - const { productId, productName, productRating, unitPrice } = product;
+            tr
+              td= productId
+              td= productName
+              td= Math.round(productRating)
+              td= helpers.formatCurrency(unitPrice)
+              td
+                a.btn.btn-success(href=`/store/product-list/${productId}`) Chi tiết
+        else 
+          tr 
+            td.text-center.py-4.text-gray(colspan="6") Không tìm thấy sản phẩm nào 
+
+    if productList && productList.length > 0
+      #pagination
 
 block addScript
-  
+  script.
+    const page = parseInt("#{page}");
+    const total = parseInt("#{total}");
+    const pageSize = parseInt("#{pageSize}");
+    
+  script(src="/vendors/pagination.min.js") 
+  script(src="/js/pagination.js") 
+  script(src="/js/store/product-list.js")

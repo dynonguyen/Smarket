@@ -35,6 +35,7 @@ namespace API_.NET.Models
         public virtual DbSet<StoreFeedback> StoreFeedback { get; set; }
         public virtual DbSet<Ward> Ward { get; set; }
         public DbSet<DTO_Stores> Stores { get; set; }
+        public DbSet<DTO_Products> Products { get; set; }
         public DbSet<DTO_Empty> Empty { get; set; }
         public DbSet<DTO_Number> Number { get; set; }
         public DbSet<DTO_ProductEachType> ProductEachType { get; set; }
@@ -42,6 +43,7 @@ namespace API_.NET.Models
         public DbSet<DTO_ProductCard> ProductCard { get; set; }
         public DbSet<DTO_Address> Address { get; set; }
         public DbSet<DTO_OrderHistory> OrderHistory { get; set; }
+
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

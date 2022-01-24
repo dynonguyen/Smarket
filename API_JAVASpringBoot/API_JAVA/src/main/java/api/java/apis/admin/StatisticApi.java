@@ -1,6 +1,5 @@
 package api.java.apis.admin;
 
-import java.time.Year;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,9 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import api.java.constants.AppConstants;
 import api.java.dto.GreenRegionRatioDto;
-
-import api.java.dto.RevenueAndIncomeDto;
 import api.java.dto.ProductAmountDto;
+import api.java.dto.RevenueAndIncomeDto;
 import api.java.dto.TypeInGroupDto;
 import api.java.services.admin.StatisticService;
 
@@ -56,4 +54,8 @@ public class StatisticApi {
 		return statisticService.getTypeInGroup(group);
 	}
 
+	@GetMapping(path = "/product-demand")
+	public List<Object[]> getProductDemand() {
+		return statisticService.getProductDemandStats();
+	}
 }

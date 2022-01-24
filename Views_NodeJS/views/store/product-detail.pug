@@ -1,0 +1,78 @@
+extends ../templates/store.template.pug
+
+block title 
+  title Smarket | Thông tin sản phẩm
+
+block addStyle
+  link(rel="stylesheet", href="/vendors/selectize/selectize.min.css")
+  link(rel="stylesheet", href="/css/admin/user-detail.css")
+  link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css")
+
+block addContent 
+  .container
+    .main-body
+      .btn.btn-success.mb-3.mt-3#back #[i.bi.bi-arrow-return-left] Quay lại
+      .row.gutters-sm
+        .col-md-4.mb-3
+            .card
+              .card-body
+                .d-flex.flex-column.align-items-center.text-center
+                  img(src=`${productImageData.source}` alt='avatar', width='200', height='200')
+                  .mt-3
+                    h4= productDetailData.productName
+                    each x in [1, 2, 3, 4, 5]
+                      if productDetailData.productRating >= x 
+                        span.fa.fa-star.mx-2.checked 
+                      else 
+                        span.fa.fa-star.mx-2
+
+        .col-md-8
+          .card.mb-3
+            .card-body             
+              .row
+                .col-sm-3
+                  h6.mb-0 Mã sản phẩm
+                .col-sm-9.text-secondary= productDetailData.productId
+              hr
+              .row
+                .col-sm-3
+                  h6.mb-0 Tên sản phẩm
+                .col-sm-9.text-secondary= productDetailData.productName
+              hr
+              .row
+                .col-sm-3
+                  h6.mb-0 Mô tả sản phẩm
+                .col-sm-9.text-secondary= productDetailData.productDes
+              hr
+              .row
+                .col-sm-3
+                  h6.mb-0 Đánh giá chất lượng
+                .col-sm-9.text-secondary= Math.round(productDetailData.productRating)
+              hr
+              .row
+                .col-sm-3
+                  h6.mb-0 Giá sản phẩm
+                .col-sm-9.text-secondary= helpers.formatCurrency(productDetailData.unitPrice)
+              hr
+              .row
+                .col-sm-3
+                  h6.mb-0 Số lượng
+                .col-sm-9.text-secondary= productDetailData.unit
+              hr
+              .row
+                .col-sm-3
+                  h6.mb-0 Đơn vị tính
+                .col-sm-9.text-secondary= productDetailData.quantitativeUnit
+              hr
+              .row
+                .col-sm-3
+                  h6.mb-0 Nguồn gốc sản phẩm
+                .col-sm-9.text-secondary= productDetailData.source
+                  
+      .row.gutters-sm.mt-2
+        .card.text-center
+          h6.mx-4.my-4.font-weight-bold Chứng nhận sản phẩm
+          img(src=`${productDetailData.certificate}` alt="certificate")
+
+block addScript
+  script(src="/js/store/product-detail.js") 

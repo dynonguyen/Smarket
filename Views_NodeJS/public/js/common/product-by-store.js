@@ -1,10 +1,15 @@
 var urlParams = new URLSearchParams(window.location.search);
+var page = 2;
 
-async function viewMoreProduct() {
+async function viewMoreProducts() {
+    const provinceId = urlParams.get('provinceId');
+    const districtId = urlParams.get('districtId');
+    const wardId = urlParams.get('wardId');
+
     const products = await $.get(
         `${
       window.location.origin
-    }/common/search/more/?keyword=${keyword}&page=${page++}`
+    }/common/product-by-region/more?provinceId=${provinceId}&districtId=${districtId}&wardId=${wardId}&page=${page++}`
     );
     if (products.length > 0) {
         if (products.length < 12) {
@@ -31,6 +36,6 @@ async function viewMoreProduct() {
 
 $(document).ready(function() {
     $('#view-more').click(function() {
-        viewMoreProduct();
+        viewMoreProducts();
     });
 });

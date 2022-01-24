@@ -34,6 +34,12 @@ public class QueryUtil {
 				+ String.format(" WHERE o.orderId = p.orderId and orderStatus = 6 and YEAR(p.paymentTime) = %d", year);
 	}
 
+	public static String getProductDemand() {
+		return "SELECT pt.groupType, COUNT(pt.groupType)" +
+				" FROM OrderDetail AS o, Product AS p, ProductType AS pt" +
+				" WHERE o.productId = p.productId AND p.productTypeId = pt.productTypeId" +
+				" GROUP BY pt.groupType";
+	}
 	// ---------- Admin account, user -----------------//
 
 	public static String getCustomerInfo(int accountId) {
@@ -70,10 +76,13 @@ public class QueryUtil {
 	}
 
 	public static String GetShipperAndStoreNeedAccepting(String table, int type) {
-		return "select a.accountId, a.accountType, a.username, a.password, a.email, a.createTime" 
-						+ String.format(" from Account a, AppUser ap, %s s", table)
-						+ String.format(" where a.accountId = ap.accountId and ap.userId = s.userId and s.status = 0 and a.accountType = %d Order By a.accountId", type);		
+		return "select a.accountId, a.accountType, a.username, a.password, a.email, a.createTime"
+				+ String.format(" from Account a, AppUser ap, %s s", table)
+				+ String.format(
+						" where a.accountId = ap.accountId and ap.userId = s.userId and s.status = 0 and a.accountType = %d Order By a.accountId",
+						type);
 	}
+
 	// ----------- Shipper ----------- //
 	public static String getOrderHistoryWithShipper(int shipperId) {
 		return "SELECT o.orderId, o.orderCode, o.orderTotal, o.orderStatus, u.name as cusName, o.createDate, o.deliveryAddress"
@@ -98,6 +107,5 @@ public class QueryUtil {
 	public static String updateOrderStatus(int status, int orderId) {
 		return String.format("Update CusOrder Set orderStatus = %d Where orderId = %d", status, orderId);
 	}
-
 
 }

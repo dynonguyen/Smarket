@@ -224,6 +224,7 @@
             WHERE o.CustomerId = {customerId} AND sh.ShipperId = o.ShipperId AND s.StoreId = o.StoreId AND sh.UserId = a1.UserId AND s.UserId = a2.UserId";
         }
 
+
         public static string GetBasicStoreInformation(int storeId)
         {
             return $@"SELECT a.AccountId, a.UserId, a.Name, a.Phone, a.Address, s.StoreId, s.StoreType, 
@@ -237,6 +238,34 @@
             return $@"SELECT ap.*
                     FROM Account a, AppUser ap
                     WHERE a.AccountId = ap.AccountId AND a.Username = '{username}'";
+        }
+    
+        public static string GetStoreIdByWardId(int wardId)
+        {
+            return $@"SELECT u.userId,s.StoreId,s.StoreType,s.Status,s.Area,s.Categories,s.Certificate
+                      FROM dbo.AppUser u,dbo.Store s 
+                      WHERE u.UserId = s.UserId and  u.Ward = {wardId};";
+        }
+
+        public static string GetStoreIdByDistrictId(int districtId)
+        {
+            return $@"SELECT u.userId,s.StoreId,s.StoreType,s.Status,s.Area,s.Categories,s.Certificate 
+                      FROM dbo.Store s, dbo.AppUser u,dbo.Ward w 
+                      WHERE u.Ward = w.WardId and u.UserId = s.UserId and w.District = {districtId}";
+        }
+
+        public static string GetStoreIdByProvinceId(int provinceId)
+        {
+            return $@"SELECT u.userId,s.StoreId,s.StoreType,s.Status,s.Area,s.Categories,s.Certificate
+                      FROM dbo.Store s, dbo.AppUser u,dbo.Ward w,District d 
+                      WHERE u.UserId = s.UserId and u.Ward = w.WardId and w.District = d.DistrictId and d.Province = {provinceId}";
+        }
+
+        public static string GetProductsByStoreId(int storeId)
+        {
+            return $@"SELECT p.ProductId, p.ProductName, p.UnitPrice, p.QuantitativeUnit, pi.Source AS Thumbnail
+                        FROM Product p, ProductImage pi
+                        WHERE p.StoreId = {storeId} AND pi.ProductId = p.ProductId AND pi.IsThumbnail = 1";
         }
     }
 }
