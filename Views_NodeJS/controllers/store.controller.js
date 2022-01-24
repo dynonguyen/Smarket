@@ -2,23 +2,21 @@ const storeApi = require('../apis/store.api');
 const { PAGE_SIZE } = require('../constants/index.constant');
 
 exports.getProductByStore = async (req, res) => {
-  try {
-    let { storeId = 1, page = 1, pageSize = 8 } = req.query;
-    const productRes = await storeApi.getProductByStore(
-      storeId,
-      page,
-      pageSize
-    );
-    const productData = productRes.data;
-    const total = productData.total;
+  const { page = 1 } = req.query;
+  const storeId = 1;
 
-    console.log('productData', productData);
+  try {
+    const productRes = (
+      await storeApi.getProductByStore(storeId, page, PAGE_SIZE)
+    )?.data;
+
+    const { total, pageSize = PAGE_SIZE, data = [] } = productRes;
 
     return res.render('./store/product-list.pug', {
       total,
       page,
       pageSize,
-      productList: productData.data,
+      productList: data,
     });
   } catch (error) {
     console.error('Function getProductByStore Error: ', error);
