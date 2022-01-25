@@ -31,8 +31,8 @@ const shipperApi = {
     return axiosJava.get(`${BASE_URL}/shipper?userId=${userId}`);
   },
 
-  getShippingRequest: (userId) => {
-    return axiosJava.get(`${BASE_URL}/request/${userId}`);
+  getShippingRequest: (shipperId) => {
+    return axiosJava.get(`${BASE_URL}/request/${shipperId}`);
   },
 };
 

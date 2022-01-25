@@ -9,7 +9,10 @@ const {
 
 exports.getOrderHistory = async (req, res) => {
   const { page = 1 } = req.query;
-  const shipperId = 1;
+  const account = await shipperApi.getAccount(req.session.user.username);
+  const user = await shipperApi.getUser(account?.data?.accountId || -1);
+  const shipper = await shipperApi.getShipper(user.data?.userId);
+  const shipperId = shipper.data?.shipperId || 0;
 
   try {
     const apiRes = (await shipperApi.getOrderHistory(shipperId, page))?.data;
