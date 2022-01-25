@@ -67,7 +67,6 @@ exports.postOrder = async (req, res) => {
 
     return res.send(orders);
   } catch (error) {
-    console.log(error);
     return res.send([]);
   }
 };
