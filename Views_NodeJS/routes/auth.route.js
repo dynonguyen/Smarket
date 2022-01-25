@@ -4,9 +4,6 @@ const upload = require('../configs/multer.config');
 const authController = require('../controllers/auth.controller');
 const cpUpload = upload.fields([
   {
-    name: 'avatar',
-  },
-  {
     name: 'certificate',
   },
 ]);

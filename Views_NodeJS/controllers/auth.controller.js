@@ -48,7 +48,7 @@ exports.postLogin = async (req, res) => {
     store.set(JWT_STORE_KEY, jwt);
 
     //check redirect destination route for customer
-    if(role === 'ROLE_CUSTOMER' && req.session.destinationRoute) {
+    if (role === 'ROLE_CUSTOMER' && req.session.destinationRoute) {
       const desRoute = req.session.destinationRoute;
       req.session.destinationRoute = null;
       return res.redirect(desRoute);
