@@ -128,5 +128,22 @@ namespace API_.NET.DAO.Customer
                 return null;
             }
         }
+
+        public static bool CreatePayment(Payment payment) 
+        {
+            try 
+            {
+                using(var context = new SmarketContext())
+                {
+                    context.Payment.Add(payment);
+                    context.SaveChanges();
+                    return true;
+                }
+            } 
+            catch 
+            {
+                return false;
+            }
+        }
     }
 }

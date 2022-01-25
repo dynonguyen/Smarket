@@ -1,4 +1,4 @@
-extends ./management.template.pug
+extends ./store.root.template.pug
 
 block append style 
   style.
@@ -15,10 +15,10 @@ block addParam
                       icon: 'bi bi-bag-fill',
                       list: [
                         { title: 'Danh sách sản phẩm', to: '/product-list' },
-                        { title: 'Lịch sử giao hàng', to: '/' },
+                        { title: 'Quản lý đơn hàng', to: '/order' },
                         { title: 'Đăng sản phẩm', to: '/product-add' },
-                        { title: 'Thông tin cửa hàng', to: '/' },
-                        { title: 'Phản hồi từ nhà cung cấp', to: '/' },
+                        { title: 'Thông tin cửa hàng', to: '/profile' },
+                        { title: 'Phản hồi từ nhà cung cấp', to: '/feedback' },
                       ],
                     },
                   ];

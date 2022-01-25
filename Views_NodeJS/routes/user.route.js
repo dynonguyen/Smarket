@@ -9,4 +9,7 @@ userRoute.get(
   userController.getOrderDetail
 );
 
+userRoute.get('/profile', userController.getProfile);
+
+userRoute.get('/history', userController.getHistory);
 module.exports = userRoute;

@@ -34,5 +34,11 @@ namespace API_.NET.Controllers.Customer
                 return context.Store.Where(s => s.UserId == userId).FirstOrDefault();
             }
         }
+
+        [HttpGet("account")]
+        public Account GetAccount([FromQuery] string username)
+        {
+            return DAO_Customer.GetAccount(username);
+        }
     }
 }

@@ -37,5 +37,20 @@ namespace API_.NET.DAO.Customer
                 return null;
             }
         }
+
+        public static Account GetAccount(string username)
+        {
+            try 
+            {
+                using(var context = new SmarketContext())
+                {
+                    return context.Account.Where(s => s.Username == username).FirstOrDefault();
+                }
+            }
+            catch 
+            {
+                return null;
+            }
+        }
     }
 }

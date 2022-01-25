@@ -1,0 +1,35 @@
+extends ../templates/store.template.pug
+
+block title 
+  title Quản lý đơn hàng
+  link(rel="stylesheet", href="/css/store/orders.css")
+block addContent 
+  .p-4.flex-grow-1
+    table.table.table-striped.bg-white.text-center.rounded
+      thead.thead-dark
+        tr
+          th(scope="col") Mã đơn hàng
+          th(scope="col") Thời gian đặt
+          th(scope="col") Thời gian nhận
+          th(scope="col") Tổng tiền
+          th(scope="col") Trạng thái
+          th(scope="col") Xem chi tiết
+      tbody
+        if orders && orders.length > 0
+          each order in orders 
+            - const { orderId, orderCode, createTime, deliveryDate, orderTotal, status } = order;
+            tr
+              td(style="word-break: break-all;")= orderCode
+              td= helpers.formatDate(createTime)
+              td= helpers.formatDate(deliveryDate)
+              td= helpers.formatCurrency(orderTotal)
+              td= status
+              td
+                a.btn.btn-success(href=`/store/order/${orderId}`) Chi tiết
+        else 
+          tr 
+            td.text-center.py-4.text-gray(colspan="6") Không tìm thấy đơn hàng nào 
+    .btn.btn-success#export Xuất file
+block addScript
+
+  script(src="/js/store/orders.js") 

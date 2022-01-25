@@ -78,6 +78,7 @@ namespace API_.NET.DAO.Common
 
                     CusOrder order = context.CusOrder.Where(o => o.OrderId == orderId).First();
                     order.ShipperId = shipperId;
+                    order.OrderStatus = (int)Constants.Constants.ORDER_STATUS.RECEIVED;
                     context.SaveChanges();
                 }
             }

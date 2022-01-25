@@ -67,7 +67,7 @@ namespace API_.NET.Controllers.Customer
         }
 
         [HttpGet("getId")]
-        public Store GetStoreByUsername([FromQuery] string username) 
+        public Models.Store GetStoreByUsername([FromQuery] string username) 
         {
             return DAO_Store.GetStoreByUsername(username);
         }

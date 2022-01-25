@@ -18,9 +18,13 @@ public interface CusOrderRepository extends JpaRepository<CusOrder, Integer> {
     int countByShipperId(int shipperId);
 
     CusOrder findById(int orderId);
+
     List<CusOrder> findAll();
 
     @Modifying
     @Query("UPDATE CusOrder SET orderStatus=:orderStatus WHERE orderId=:orderId")
     public void updateOrderStatus(@Param("orderStatus") int orderStatus, @Param("orderId") int orderId);
+
+    @Query(value = "SELECT * FROM CusOrder c WHERE c.shipperId=:shipperId AND c.orderStatus=1 ORDER BY c.createDate", nativeQuery = true)
+    public List<CusOrder> findByShipperId(@Param("shipperId") int shipperId);
 }

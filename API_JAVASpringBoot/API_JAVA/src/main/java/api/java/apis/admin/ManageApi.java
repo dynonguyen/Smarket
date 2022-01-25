@@ -17,10 +17,12 @@ import api.java.dto.PaginationDto;
 import api.java.entities.Account;
 import api.java.entities.AppUser;
 import api.java.entities.CusOrder;
+import api.java.entities.ProductImage;
 import api.java.entities.Shipper;
 import api.java.repositories.AccountRepository;
 import api.java.repositories.AppUserRepository;
 import api.java.repositories.CusOrderRepository;
+import api.java.repositories.ProductImageRepository;
 import api.java.repositories.ShipperRepository;
 import api.java.repositories.StoreRepository;
 import api.java.services.admin.ManageService;
@@ -49,6 +51,9 @@ public class ManageApi {
 
     @Autowired
     private ShipperRepository shipperRepository;
+
+    @Autowired
+    private ProductImageRepository productImageRepository;
 
     @GetMapping(path = "/order")
     public PaginationDto<CusOrder> getOrderInfor(@RequestParam(name = "p", defaultValue = "1") int page) {
@@ -137,6 +142,21 @@ public class ManageApi {
         } catch (Exception e) {
             System.out.println("----------" + e);
             return 0;
+        }
+    }
+
+    @GetMapping(path = "/order/detail/image")
+    public ProductImage getProductThumbnail(@RequestParam int productId) {
+        try {
+            List<ProductImage> images = productImageRepository.findAllByProductId(productId);
+            for (ProductImage productImage : images) {
+                if(productImage.getIsThumbnail() == true) {
+                    return productImage;
+                }
+            }
+            return null;
+        } catch (Exception e) {
+            return null;
         }
     }
 }

@@ -1,0 +1,30 @@
+extends ../templates/shipper.template.pug
+
+block title 
+  title Yêu cầu vận chuyển | Smarket
+
+block addContent 
+  .p-4.flex-grow-1
+    table.table.table-striped.bg-white
+      thead.thead-dark
+        tr
+          th(scope="col") Mã ĐH
+          th(scope="col") Tổng giá
+          th(scope="col") Trạng thái
+          th(scope="col") Tên KH
+          th(scope="col") Ngày đặt
+          th(scope="col") Địa chỉ nhận
+      tbody
+        if order
+          - const { orderId, orderCode, orderTotal, orderStatus, receiverName, createDate, deliveryAddress } = order;
+          tr
+            td 
+              a(href=`/shipper/order-info/${orderId}`) #[b= orderCode]
+            td= helpers.formatCurrency(orderTotal)
+            td= helpers.convertOrderStatus(orderStatus)
+            td= receiverName
+            td= helpers.formatDate(createDate)
+            td= deliveryAddress
+        else 
+          tr 
+            td.text-center.py-4.text-gray(colspan="6") Không tìm thấy đơn hàng nào 

@@ -25,15 +25,15 @@ block content
       .row.justify-content-md-center.mb-3
         .col.col-md-4.bg-light.py-1.pt-2.rounded-top
           div THÔNG TIN NHẬN HÀNG
-        .col-md-4.bg-light.pt-2
-          input#delivery-date.border.rounded.w-100(type="text", placeholder="Thời gian nhận hàng", required)
-        .col-md-1.bg-light
+        .col-md-5.bg-light.pt-2.text-center
+          lable.mr-3(for="deliery-date") Thời gian nhận hàng
+          input#delivery-date.border.rounded(type="datetime-local",  required)
         .col.col-md-9.bg-light.py-4
           div.address-group.mb-2
             input#original(type="radio", name="address", checked)
             label#original-address.ml-3(for="original")= `${user.name} (${user.phone}) ${user.address}`
           div.address-group
-            input(type="radio", name="address")
+            input#new-address(type="radio", name="address")
             input#receive-name.border.rounded.ml-3.addition(type="text", placeholder="Họ tên")
             input#receive-phone.border.rounded.ml-3.addition(type="text", placeholder="Số điện thoại")
             input#receive-address.border.rounded.ml-3.addition(type="text", placeholder="Địa chỉ")
@@ -52,13 +52,16 @@ block content
         .col.col-md-9.bg-light.py-1.pt-2.rounded-top
           div PHƯƠNG THỨC THANH TOÁN
         .col-md-5
-        .col.col-md-9.bg-light.d-flex.justify-content-around.pt-2
+        .col.col-md-9.bg-light.d-flex.justify-content-around.pt-2#payment-method
           .form-group
             input#online(type="radio", name="payment", checked)
             label.ml-3(for="online") Thanh toán online
           .form-group
             input#cod(type="radio", name="payment")
             label.ml-3(for="cod") Thanh toán khi nhận hàng
+        .col.col-md-9.bg-light.d-flex.py-2#bank-account-area
+          label.mr-2(for="bank-account") Thông tin thẻ thanh toán
+          input#bank-account.mb-2.border(type="text")
       .row.justify-content-md-center.my-2
         .col-md-5
         .col-md-4.group.row.bg-light

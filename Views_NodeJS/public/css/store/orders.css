@@ -1,0 +1,26 @@
+tr {
+  text-align: center;
+  vertical-align: middle;
+}
+table {
+  display: block;
+  overflow: auto;
+}
+
+tbody {
+  display: block;
+  max-height: 65vh;
+  overflow: auto;
+}
+thead, tbody tr {
+  display: table;
+  width: 100%;
+  table-layout: fixed; 
+}
+tbody::-webkit-scrollbar {
+  width: 6px;
+}
+
+tbody::-webkit-scrollbar-thumb {
+background: var(--gray);
+}

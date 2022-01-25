@@ -34,6 +34,10 @@ const managementApi = {
       `${BASE_URL}/account/accept?type=${type}&page=${page}`
     );
   },
+
+  getThumbnail: (productId) => {
+    return axiosJava.get(`${BASE_URL}/order/detail/image?productId=${productId}`);
+  }
 };
 
 module.exports = managementApi;

@@ -1,4 +1,5 @@
 extends ../templates/shipper.template.pug
+include ../mixins/get-server-variables.pug
 
 block title 
   title Lịch sử đơn hàng | Smarket
@@ -14,6 +15,7 @@ block addContent
           th(scope="col") Tên KH
           th(scope="col") Ngày đặt
           th(scope="col") Địa chỉ nhận
+          th(scope="col") Cập nhật trạng thái
       tbody
         if orderList && orderList.length > 0
           each order in orderList 
@@ -22,10 +24,12 @@ block addContent
               td 
                 a(href=`/shipper/order-info/${orderId}`) #[b= orderCode]
               td= helpers.formatCurrency(orderTotal)
-              td= helpers.convertOrderStatus(orderStatus)
+              td(id=`order-status${orderId}`)= helpers.convertOrderStatus(orderStatus)
               td= cusName
               td= helpers.formatDate(createDate)
               td= deliveryAddress
+              td
+                .btn.btn-success.change-status(id=`change-status${orderId}`) Chuyển trạng thái
         else 
           tr 
             td.text-center.py-4.text-gray(colspan="6") Không tìm thấy đơn hàng nào 
@@ -40,5 +44,7 @@ block addScript
     const pageSize = parseInt("#{pageSize}");
 
   script(src="/vendors/pagination.min.js") 
-  script(src="/js/pagination.js") 
+  script(src="/js/pagination.js")
+  +getServerVarScript
   script(src="/js/shipper/order-history.js") 
+  

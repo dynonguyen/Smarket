@@ -7,9 +7,9 @@ $.each($('.btn-accept'), function(){
     )
     .then(async (response) => {
         const user = await response.json();
-        const type = urlParams.get('type') || 2;
+        const type = parseInt(urlParams.get('type')) || 2;
         myFetch(
-        `${constant.JAVA_API_BASE_URL}/admin/management/account/accept/accepted?status=1&id=${type === "2" ? user.shipperId : user.storeId}&type=${type}`,
+        `${constant.JAVA_API_BASE_URL}/admin/management/account/accept/accepted?status=1&id=${type === 2 ? user.shipperId : user.storeId}&type=${type}`,
         )
         .then(async (response) => {
             const res = await response.json();

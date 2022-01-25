@@ -233,6 +233,14 @@
                      WHERE a.UserId = s.UserId and s.Status != 0 and s.StoreId = {storeId} ";
         }
 
+        public static string GetBasicStoreInformationByUserId(int userId)
+        {
+            return $@"SELECT a.AccountId, a.UserId, a.Name, a.Phone, a.Address, s.StoreId, s.StoreType, 
+                     s.Area, s.Status, s.Categories, s.Certificate
+                     FROM AppUser a, Store s
+                     WHERE a.UserId = s.UserId and s.UserId = {userId} ";
+        }
+
         public static string GetUserInfoByUsername(string username) 
         {
             return $@"SELECT ap.*

@@ -117,9 +117,9 @@ exports.getOrderDetail = async (req, res) => {
     const shipperPhone = resApi.shipperPhone;
     const status = resApi.status;
     const orderCode = resApi.orderCode;
-    const data = resApi.data;
+    let data = resApi.data;
     var orderTotal = 0;
-    for (i of data) {
+    for (let i of data) {
       orderTotal += i.unitPrice * i.quantity;
     }
     res.render('./admin/order-detail', {

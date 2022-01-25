@@ -1,0 +1,26 @@
+extends ./templates/general.template.pug
+
+block title 
+  title Điều khoản | Smarket
+
+block append style 
+  link(rel="stylesheet", href="/css/auth-form.css")
+
+block content
+  .row.flex-center.vh-100
+    .col-lg-3.col-md-2
+    .col-lg-6.col-md-8.form-box(style="max-width: 800px")     
+      .col-lg-12.form-title CÁC ĐIỀU KHOẢN CAM KẾT
+      .col-lg-12.form-form
+        ul 
+          li.text-light Các bên có quyền thỏa thuận về các cam đoan và bảo đảm trong hợp đồng. Thỏa thuận này phù hợp với hai nguyên tắc cơ bản của pháp luật về hợp đồng là nguyên tắc tự do thỏa thuận và nguyên tắc thiện chí, trung thực.
+          li.text-light Theo nguyên tắc tự do thỏa thuận: "Các bên liên quan phải thực hiện đầy đủ các cam kết trong hợp đồng"
+          li.text-light Các cửa hàng cung cấp các mặt hàng đã đăng ký trước.
+          li.text-light Những người vận chuyển cup cấp các dịch vụ vận chuyển hàng hóa theo yêu cầu 
+          li.text-light Khách hàng mua hàng và thanh toán đầy đủ các mặt hàng đã mua 
+          li.text-light Trên đây là một số kiến thức cơ bản về các điều khoản cam đoan và đảm bảo trong hợp đồng. Trường hợp cần hỗ trợ chi tiết về vấn đề trên, bạn có thể liên hệ trực tiếp với chúng tôi để nhận được tư vấn.
+
+    .col-lg-3.col-md-2
+
+block append script 
+  script(src="/js/signup.js") 

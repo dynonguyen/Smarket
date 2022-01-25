@@ -53,6 +53,7 @@ module.exports = {
   PAGE_SIZE: 8,
 
   ORDER_STATUS: {
+    'Đang tìm shipper': 0,
     'Shipper đã nhận': 1,
     'Cửa hàng chuẩn bị': 2,
     'Đang giao hàng': 3,
