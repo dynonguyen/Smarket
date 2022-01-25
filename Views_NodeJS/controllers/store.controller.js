@@ -5,17 +5,19 @@ const {
   formatDate,
   convertOrderStatus,
 } = require('../helpers/index.helper');
+const constants = require('../constants/index.constant');
+const cloudinary = require('../configs/cloudinary.config');
 
 exports.getProductByStore = async (req, res) => {
   const { page = 1 } = req.query;
 
   try {
-    const account = (await storeApi.getAccount(req.session.user.username))?.data
-      .username;
+    const account = (await storeApi.getAccount(req.session.user.username)).data
+      ?.username;
 
-    const userId = (await storeApi.getStoreByUsername(account))?.data.userId;
+    const userId = (await storeApi.getStoreByUsername(account)).data?.userId;
 
-    const storeId = (await storeApi.getBasicInfo(userId))?.data.storeId;
+    const storeId = (await storeApi.getBasicInfo(userId)).data?.storeId;
 
     const productRes = (
       await storeApi.getProductByStore(storeId, page, PAGE_SIZE)
@@ -60,6 +62,19 @@ exports.getProductDetailById = async (req, res) => {
   }
 };
 
+exports.getAddProductPage = async (req, res) => {
+  try {
+    const CATEGORIES = constants.GROUP_TYPES;
+    const account = await storeApi.getAccount(req.session.user.username);
+    return res.render('./store/product-add.pug', {
+      CATEGORIES,
+      account,
+    });
+  } catch (error) {
+    console.log('Function getAddProductPage Error', error);
+  }
+};
+
 exports.getProfile = async (req, res) => {
   try {
     const user = (await storeApi.getStoreByUsername(req.session.user.username))
@@ -73,6 +88,42 @@ exports.getProfile = async (req, res) => {
       store: user,
     });
   } catch (error) {
+    return res.render('404');
+  }
+};
+
+exports.addProduct = async (req, res) => {
+  try {
+    const data = req.body;
+    const username = req.session.user.username;
+    const resApi = (await storeApi.getCurrentStoreId(username)).data || [];
+    const storeId = resApi.storeId;
+    const uploader = async (path) =>
+      await cloudinary.uploads(path, 'Certificate');
+    let certificate;
+    if (req.files.certificate) {
+      certificate = await uploader(req.files.certificate[0].path);
+    } else {
+      certificate = {
+        url: ' ',
+      };
+    }
+    const product = {
+      StoreId: storeId,
+      ProductName: data.name,
+      ProductTypeId: parseInt(data.category),
+      ProductDes: data.description,
+      ProductRating: 5,
+      UnitPrice: parseInt(data.unitPrice),
+      Unit: parseInt(data.unit),
+      QuantitativeUnit: data.quantitative,
+      Source: data.source,
+      Certificate: certificate.url,
+    };
+    const productId = (await storeApi.addProduct(product)).data || [];
+    return res.redirect('/store/product-list');
+  } catch (error) {
+    console.log('Function addProduct Error', error);
     return res.render('404');
   }
 };

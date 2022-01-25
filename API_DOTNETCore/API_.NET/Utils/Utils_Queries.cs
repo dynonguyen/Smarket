@@ -295,5 +295,12 @@
             FROM CusOrder o, AppUser a1, AppUser a2, Shipper sh, Store s 
             WHERE o.CustomerId = {customerId} AND sh.ShipperId = o.ShipperId AND s.StoreId = o.StoreId AND sh.UserId = a1.UserId AND s.UserId = a2.UserId AND o.OrderId={orderId}";
         }
+
+        public static string GetStoreByUsername(string username)
+        {
+            return $@"SELECT StoreId,StoreType,Status,Area,Categories,Certificate,u.UserId
+                      FROM dbo.Account a, dbo.AppUser u,dbo.Store s 
+                      WHERE a.AccountId = u.AccountId and u.UserId = s.UserId and Username = {username}";
+        }
     }
 }

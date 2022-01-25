@@ -17,16 +17,25 @@ const storeApi = {
     return axiosCSharp.get(`common/Product/thumbnail?productId=${productId}`);
   },
 
+  getCurrentStoreId: (username) => {
+    return axiosCSharp.get(`common/store/getId?username='${username}'`);
+  },
+
+  addProduct: (data) => {
+    return axiosCSharp.post(`${BASE_URL}/product/add`, data);
+  },
   getStoreByUsername: (username) => {
-    return axiosCSharp.get(`${BASE_URL}/self/info-by-username?username=${username}`);
+    return axiosCSharp.get(
+      `${BASE_URL}/self/info-by-username?username=${username}`
+    );
   },
 
   getAccount: (username) => {
-    return axiosCSharp.get(`${BASE_URL}/self/account?username=${username}`); 
+    return axiosCSharp.get(`${BASE_URL}/self/account?username=${username}`);
   },
 
   getBasicInfo: (userId) => {
-    return axiosCSharp.get(`${BASE_URL}/self/info?userId=${userId}`); 
+    return axiosCSharp.get(`${BASE_URL}/self/info?userId=${userId}`);
   },
 
   getOrders: (storeId) => {
@@ -39,7 +48,7 @@ const storeApi = {
 
   postFeedback: (feedback) => {
     return axiosCSharp.post(`/common/feedback/store`, feedback);
-  }
+  },
 };
 
 module.exports = storeApi;

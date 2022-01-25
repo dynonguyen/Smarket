@@ -10,7 +10,7 @@ namespace API_.NET.Controllers.Customer
     [ApiController]
     public class StoreController : ControllerBase
     {
-        // Get all Store with AccountType = 3 in Account table
+        // Get all Store     with AccountType = 3 in Account table
         [HttpGet("all")]
         public DTO_Pagination<DTO.DTO_Stores> GetAllStore([FromQuery] int page = 1, [FromQuery] int pageSize = 8)
         {
@@ -64,6 +64,12 @@ namespace API_.NET.Controllers.Customer
         public DTO_Stores GetBasicStoreByStoreId([FromQuery] int storeId) 
         {
             return DAO_Store.GetBasicStoreInfo(storeId);
+        }
+
+        [HttpGet("getId")]
+        public Models.Store GetStoreByUsername([FromQuery] string username) 
+        {
+            return DAO_Store.GetStoreByUsername(username);
         }
     }
 }

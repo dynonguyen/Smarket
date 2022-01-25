@@ -1,0 +1,52 @@
+extends ../templates/store.template.pug
+
+block title 
+  title Smarket | Đăng sản phẩm
+
+block addStyle
+  link(rel="stylesheet", href="/vendors/selectize/selectize.min.css")
+  link(rel="stylesheet", href="/css/store/product-add.css")
+  link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css")
+
+block addContent
+ .container
+    .basic-info 
+     h5.font-weight-bold Thông tin cơ bản
+     form(action="/store/product-add", enctype="multipart/form-data",method="POST" ).basic-info-form
+      .form-group.item
+        label(for="name") * Tên sản phẩm
+        input#name(type="text", name="name" )
+      .form-group.item
+        label(for="description") * Mô tả sản phấm
+        textarea#description(name="description", cols="20", rows="4") 
+      .form-group.item
+        label(for="category") * Danh mục sản phẩm
+        select#category(name="category")
+         option(value="",disabled,hidden,selected) Lựa chọn danh mục sản phẩm
+         if CATEGORIES && CATEGORIES.length > 0
+          each category in CATEGORIES
+           - const {label,id} = category
+           option(value=`${id}`,)= label
+      .form-group.item
+        label(for="unitPrice") * Đơn giá
+        input#unitPrice(type="text", name="unitPrice")
+      .form-group.item
+        label(for="unit") * Số lượng sản phẩm
+        input#unit(type="text", name="unit")
+      .form-group.item
+        label(for="quantitative") * Định lượng 
+        input#quantitative(type="text", name="quantitative")
+      .form-group.item
+        label(for="source") * Nguồn gốc sản phẩm 
+        input#source(type="text", name="source")
+      .form-group.item
+        label(for="certificate") * Chứng nhận an toàn
+        input#certificate.form-control(type="file", name="certificate")
+      .form-group.submit
+        button(type="submit") Đăng sản phẩm
+    
+     
+
+
+block addScript
+  script(src="/js/store/product-add.js") 

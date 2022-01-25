@@ -88,7 +88,6 @@ exports.getProductPage = async (req, res) => {
     const soldRes = await commonApi.getProductSold(productId);
     const feedbackRes = await commonApi.getProductFeedback(productId);
     const storeRes = await commonApi.getProductStore(productId);
-    console.log(response);
 
     const product = response.data;
     const typeRes = await commonApi.getProductType(product.productTypeId);
