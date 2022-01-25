@@ -41,6 +41,19 @@ const storeApi = {
   getOrders: (storeId) => {
     return axiosCSharp.get(`${BASE_URL}/order/history/${storeId}`);
   },
+  getOrderDetail: (storeId, orderId) => {
+    return axiosCSharp.get(`${BASE_URL}/order/detail/${storeId}/${orderId}`);
+  },
+
+  getOrderDetailProducts: (orderId) => {
+    return axiosCSharp.get(
+      `${BASE_URL}/order/detail/products-of-order/${orderId}`
+    );
+  },
+
+  getShippingMoney: (orderId) => {
+    return axiosCSharp.get(`${BASE_URL}/order/shipping-money/${orderId}`);
+  },
 
   getFeedback: () => {
     return axiosCSharp.get(`/common/feedback/store`);

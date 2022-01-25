@@ -158,6 +158,41 @@ exports.getOrders = async (req, res) => {
   }
 };
 
+exports.getOrderDetail = async (req, res) => {
+  try {
+    const account = (await storeApi.getAccount(req.session.user.username))
+      ?.data;
+    const username = req.session.user.username;
+    const resApi = (await storeApi.getCurrentStoreId(username)).data || [];
+    const storeId = resApi.storeId;
+    const orderId = req.params.orderId;
+    const resOrderDetail =
+      (await storeApi.getOrderDetail(storeId, orderId)).data || [];
+    const resProducts =
+      (await storeApi.getOrderDetailProducts(orderId)).data || [];
+    const shippingMoney = (await storeApi.getShippingMoney(orderId)).data || 0;
+    var orderTotal = 0;
+    for (var x in resProducts) {
+      orderTotal +=
+        parseInt(resProducts[x].unitPrice) * parseInt(resProducts[x].quantity);
+    }
+    res.render('store/order-detail', {
+      resOrderDetail,
+      resProducts,
+      orderTotal,
+      shippingMoney,
+      account,
+      helpers: {
+        formatCurrency,
+        convertOrderStatus,
+        formatDate,
+      },
+    });
+  } catch (error) {
+    return res.render('404');
+  }
+};
+
 exports.sendOrders = async (req, res) => {
   try {
     const user = (await storeApi.getStoreByUsername(req.session.user.username))
