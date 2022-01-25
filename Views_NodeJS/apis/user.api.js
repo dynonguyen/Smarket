@@ -55,6 +55,14 @@ const userApi = {
 
   createPayment: (payment) => {
     return axiosCSharp.post(`/customer/order/payment-create`, payment)
+  },
+
+  getAccount: (username) => {
+    return axiosCSharp.get(`/customer/self/account?username=${username}`);
+  },
+
+  getOrders: (customerId) => {
+    return axiosCSharp.get(`/customer/order/history/${customerId}`)
   }
 };
 

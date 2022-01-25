@@ -1,0 +1,55 @@
+extends ../templates/general.template.pug
+include ../mixins/get-server-variables.pug
+include ../mixins/navbar.mixin.pug
+include ../mixins/footer.mixin.pug
+include ../mixins/scroll-top.mixin.pug
+
+block append style
+  link(rel="stylesheet", href="/vendors/selectize/selectize.min.css")
+  link(rel="stylesheet", href="/css/home.css")
+  link(rel="stylesheet", href="/css/user/history.css")
+
+block content
+  .page-container
+    section.content-wrap
+      +navbar
+      .navbar-break
+      .row.justify-content-md-center
+        .col-md-4.mt-4
+          a.btn.btn-outline-primary.mr-2(href="/user/profile") Hồ sơ khách hàng 
+          a.btn.btn-primary.border-top(href="/user/history") Đơn mua
+      .row.justify-content-md-center.mt-3
+        .col-md-11
+          table.table.table-striped.bg-white
+            thead.thead-primary
+              tr
+                th(scope="col") Mã đơn hàng
+                th(scope="col") Thời gian đặt
+                th(scope="col") Thời gian nhận
+                th(scope="col") Người nhận
+                th(scope="col") Địa chỉ
+                th(scope="col") Xem chi tiết
+            tbody
+              if orders && orders.length > 0
+                each order in orders 
+                  - const {orderId, orderCode, createTime, deliveryDate, receiverName, deliveryAddress} = order;
+                  tr
+                    td= orderCode             
+                    td= helpers.formatDate(createTime)
+                    td= helpers.formatDate(deliveryDate)
+                    td= receiverName
+                    td= deliveryAddress
+                    td
+                      a.btn.btn-primary(href=`/user/order/detail/${customer.customerId}/${orderId}`) Chi tiết
+              else 
+                tr 
+                  td.text-center.py-4.text-gray(colspan="6") Không tìm thấy đơn hàng nào
+
+block append script 
+
+  script(src="/vendors/selectize/selectize.min.js")
+  +getServerVarScript
+  script(src="/vendors/pagination.min.js") 
+  script(src="/js/navbar.js") 
+  script(type="text/javascript", src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js")
+  script(src="/js/user/history.js") 

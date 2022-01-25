@@ -151,3 +151,42 @@ exports.getOrderDetail = async (req, res) => {
     return res.render('404');
   }
 };
+
+
+exports.getProfile = async (req, res) => {
+  try {
+    const user = (await userApi.getUserByUsername(req.session.user.username))
+    ?.data;
+    const customer = (await userApi.getCustomerInfo(user.userId))?.data;
+    const account = (await userApi.getAccount(req.session.user.username))?.data;
+    return res.render('user/profile', {
+      title: 'Thông tin khách hàng',     
+      user, 
+      account,
+      customer
+
+    });
+  } catch (error) {
+    return res.render('404');
+  }
+}
+
+exports.getHistory = async (req, res) => {
+  try {
+    const user = (await userApi.getUserByUsername(req.session.user.username))
+    ?.data;
+    const customer = (await userApi.getCustomerInfo(user.userId))?.data;
+    const orders = (await userApi.getOrders(customer.customerId))?.data;
+
+    return res.render('user/history',{
+      title: 'Đơn hàng đã mua',
+      helpers: {
+        formatDate,
+      },
+      orders,
+      customer,
+    })
+  } catch (error) {
+    return res.render('404');
+  }
+}

@@ -1,0 +1,70 @@
+extends ../templates/general.template.pug
+include ../mixins/get-server-variables.pug
+include ../mixins/navbar.mixin.pug
+include ../mixins/footer.mixin.pug
+include ../mixins/scroll-top.mixin.pug
+
+block append style
+  link(rel="stylesheet", href="/vendors/selectize/selectize.min.css")
+  link(rel="stylesheet", href="/css/home.css")
+  link(rel="stylesheet", href="/css/user/profile.css")
+
+block content
+  .page-container
+    section.content-wrap
+      +navbar
+      .navbar-break
+      .row.justify-content-md-center
+        .col-md-4.mt-4
+          a.btn.btn-primary.mr-2(href="/user/profile") Hồ sơ khách hàng 
+          a.btn.btn-outline-primary.border-top(href="/user/history") Đơn mua
+        .col-md-9.mt-4.bg-light.row.py-3.px-3
+          .col.col-md-3
+            img.w-100(src=`${user.avatar || "https://bootdey.com/img/Content/avatar/avatar7.png"}`)
+            .mt-3
+              p.text-secondary.mb-1 Username: #{account.username}
+          .col.col-md-9 
+            .form-group 
+              .card.mb-3
+                .card-body             
+                  .row
+                    .col-sm-3
+                      h6.mb-0 Họ tên
+                    .col-sm-9.text-secondary= user.name
+                  hr
+                  .row
+                    .col-sm-3
+                      h6.mb-0 Mã người dùng
+                    #accountId.col-sm-9.text-secondary= user.userId                 
+                  hr
+                  .row
+                    .col-sm-3
+                      h6.mb-0 Email
+                    .col-sm-9.text-secondary= account.email
+                  hr
+                  .row
+                    .col-sm-3
+                      h6.mb-0 Số điện thoại
+                    .col-sm-9.text-secondary= user.phone
+                  hr
+                  .row
+                    .col-sm-3
+                      h6.mb-0 CCCD/CMND 
+                    .col-sm-9.text-secondary= user.peopleId
+                  hr
+                  .row
+                    .col-sm-3
+                      h6.mb-0 Địa chỉ
+                    .col-sm-9.text-secondary= user.address                 
+
+
+
+
+block append script 
+
+  script(src="/vendors/selectize/selectize.min.js")
+  +getServerVarScript
+  script(src="/vendors/pagination.min.js") 
+  script(src="/js/navbar.js") 
+  script(type="text/javascript", src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js")
+  script(src="/js/user/profile.js") 
