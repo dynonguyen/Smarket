@@ -1,0 +1,47 @@
+extends ./general.template.pug
+
+block append style
+  link(rel="stylesheet", href="/css/management/mgmt-template.css")
+  block addStyle
+
+block content
+  block addParam
+  .layout-wrapper
+    //- navbar
+    .navbar-wrap.center-vertical
+      .logo-side.center-vertical
+        h1.logo #[a(href="/management") Smarket]
+        i.mgmt-icon#toggleSidebar.bi.bi-layout-sidebar-inset-reverse
+
+      block searchInNavbar
+        .searchbar-wrap.position-relative
+            input#navbarSearch.field.w-100(type="text", placeholder=searchPlaceholder ? searchPlaceholder : "Tìm kiếm ...")
+            i#navbarSearchIcon.field-end-icon.bi.bi-search
+
+      .account-side.center-vertical
+        img.rounded-circle(src="https://picsum.photos/50/50")
+        .d-flex.flex-column.mx-4
+          .username= account.username || ""
+          .role Cửa hàng
+        a(href="/auth/logout") #[i.mgmt-icon.bi.bi-box-arrow-in-right]
+       
+    .d-flex
+      //- sidebar
+      if menuList
+        .sidebar-wrap#sidebar
+          .menu
+            each menu in menuList
+              h3.menu-title #[i.mr-2(class=menu.icon)] #{menu.menuTitle}
+              ul.menu-list
+                each menuItem in menu.list
+                  li.menu-item(data-path=rootPath+menuItem.to)
+                    a(href=`${rootPath}${menuItem.to}`)= menuItem.title
+
+      //- main content
+      block addContent
+
+block append script
+  script.
+    const ROOT_PATH = "#{rootPath}";
+  script(src="/js/management/mgmt-template.js")
+  block addScript

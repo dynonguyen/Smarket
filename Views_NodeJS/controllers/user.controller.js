@@ -182,6 +182,7 @@ exports.getHistory = async (req, res) => {
       title: 'Đơn hàng đã mua',
       helpers: {
         formatDate,
+        formatCurrency,
       },
       orders,
       customer,

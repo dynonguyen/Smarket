@@ -27,6 +27,10 @@ const storeApi = {
 
   getBasicInfo: (userId) => {
     return axiosCSharp.get(`${BASE_URL}/self/info?userId=${userId}`); 
+  },
+
+  getOrders: (storeId) => {
+    return axiosCSharp.get(`${BASE_URL}/order/history/${storeId}`);
   }
 };
 

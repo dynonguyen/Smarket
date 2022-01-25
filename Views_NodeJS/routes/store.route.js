@@ -10,4 +10,6 @@ storeRoute.get(
 
 storeRoute.get('/profile', storeController.getProfile);
 
+storeRoute.get('/order', storeController.getOrders);
+storeRoute.get('/order/list', storeController.sendOrders);
 module.exports = storeRoute;

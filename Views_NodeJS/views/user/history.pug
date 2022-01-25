@@ -28,17 +28,19 @@ block content
                 th(scope="col") Thời gian nhận
                 th(scope="col") Người nhận
                 th(scope="col") Địa chỉ
+                th(scope="col") Số tiền
                 th(scope="col") Xem chi tiết
             tbody
               if orders && orders.length > 0
                 each order in orders 
-                  - const {orderId, orderCode, createTime, deliveryDate, receiverName, deliveryAddress} = order;
+                  - const {orderId, orderCode, createTime, deliveryDate, receiverName, deliveryAddress, orderTotal} = order;
                   tr
-                    td= orderCode             
+                    td(style="word-break: break-all;")= orderCode             
                     td= helpers.formatDate(createTime)
                     td= helpers.formatDate(deliveryDate)
                     td= receiverName
                     td= deliveryAddress
+                    td= helpers.formatCurrency(orderTotal)
                     td
                       a.btn.btn-primary(href=`/user/order/detail/${customer.customerId}/${orderId}`) Chi tiết
               else 
