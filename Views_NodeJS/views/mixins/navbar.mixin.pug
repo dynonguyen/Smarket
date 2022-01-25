@@ -29,7 +29,7 @@ mixin navbar
             a.header-item(href="/auth/login") Đăng nhập
           else 
             a.header-item(href="/auth/logout") Đăng xuất
-            a.header-item(href="/customer/" + user.username)= user.username
+            a.header-item(href="/user/profile")= user.username
 
       .flex-grow-1.center-vertical.justify-content-between
         //- Logo
