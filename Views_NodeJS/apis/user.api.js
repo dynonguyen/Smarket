@@ -63,6 +63,10 @@ const userApi = {
 
   getOrders: (customerId) => {
     return axiosCSharp.get(`/customer/order/history/${customerId}`)
+  },
+
+  createOrderDetail: (detail) => {
+    return axiosCSharp.post(`/customer/order/detail-create`, detail);
   }
 };
 

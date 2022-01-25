@@ -35,13 +35,12 @@ exports.postOrder = async (req, res) => {
       product.checked = item.checked;
       cartItems.push(product);
     }
-    const user = (await userApi.getUserByUsername(req.session.user.username))
-      ?.data;
+    const user = (await userApi.getUserByUsername(req.session.user.username))?.data;
+     
     const customer = (await userApi.getCustomerInfo(user.userId))?.data;
     const orders = [];
     for (let item of cartItems) {
-      const userStore = (await userApi.getStoreByProductId(item.productId))
-        ?.data;
+      const userStore = (await userApi.getStoreByProductId(item.productId))?.data;    
       const store = (await userApi.getStoreInfo(userStore.userId))?.data;
       let status = 0;
       for (let order of orders) {
@@ -115,6 +114,16 @@ exports.getExecuteOrder = async (req, res) => {
         PaymentTime: createDate,
       }
       const paymentResult = await userApi.createPayment(paymentEntity);
+      for (const product of order.data) {
+        const orderDetail = {
+          OrderId: result.orderId,
+          ProductId: product.productId,
+          UnitPrice: product.unitPrice,
+          Quantity: product.quantity,
+          OrderDetailDes: `Chi tiết đơn hàng số ${result.orderId}`
+        }
+        const detailResult = (await userApi.createOrderDetail(orderDetail))?.data;
+      }
     }
     return res.send('Success');
   } catch (error) {

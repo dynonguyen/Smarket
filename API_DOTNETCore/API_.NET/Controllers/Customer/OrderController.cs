@@ -61,5 +61,23 @@ namespace API_.NET.Controllers.Customer
         {
             return DAO_CusOrder.CreatePayment(payment);
         }
+
+        [HttpPost("detail-create")]
+        public bool CreateOrderDetail ([FromBody] OrderDetail detail)
+        {
+            try
+            {
+                using(var context = new SmarketContext())
+                {
+                    context.OrderDetail.Add(detail);
+                    context.SaveChanges();
+                    return true;
+                }
+            }
+            catch 
+            {
+                return false;
+            }
+        }
     }
 }
