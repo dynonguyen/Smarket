@@ -15,6 +15,8 @@ import api.java.entities.Shipper;
 public interface ShipperRepository extends JpaRepository<Shipper, Integer> {
     Shipper getById(int shipperId);
 
+    Shipper findByUserId(int userId);
+
     @Modifying
     @Query("UPDATE Shipper SET status=:status WHERE shipperId=:shipperId")
     public void updateStatus(@Param("status") int status, @Param("shipperId") int shipperId);

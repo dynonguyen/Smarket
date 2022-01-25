@@ -15,6 +15,18 @@ const shipperApi = {
 
   updateOrderStatus: (status, orderId) => {
     return axiosJava.get(`${BASE_URL}/order/change-status?status=${status}&orderId=${orderId}`);
+  },
+
+  getAccount: (username) => {
+    return axiosJava.get(`${BASE_URL}/account?username=${username}`);
+  },
+
+  getUser: (accountId) => {
+    return axiosJava.get(`${BASE_URL}/user?accountId=${accountId}`); 
+  },
+
+  getShipper: (userId) => {
+    return axiosJava.get(`${BASE_URL}/shipper?userId=${userId}`); 
   }
 };
 

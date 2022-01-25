@@ -7,4 +7,5 @@ shipperRoute.get("/order-history", shipperController.getOrderHistory);
 
 shipperRoute.get("/order-info/:orderId", shipperController.getOrderInfo);
 
+shipperRoute.get('/profile', shipperController.getProfile);
 module.exports = shipperRoute;

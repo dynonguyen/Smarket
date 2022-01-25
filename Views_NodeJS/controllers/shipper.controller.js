@@ -45,3 +45,19 @@ exports.getOrderInfo = async (req, res) => {
     return res.render('404');
   }
 };
+
+
+exports.getProfile = async (req, res) => {
+  try {
+    const account = (await shipperApi.getAccount(req.session.user.username))?.data;
+    const user = (await shipperApi.getUser(account.accountId))?.data;
+    const shipper = (await shipperApi.getShipper(user.userId))?.data;
+    return res.render('shipper/profile', {
+      account,
+      shipper,
+      user
+    })
+  } catch (error) {
+    return res.render('404');
+  }
+}
