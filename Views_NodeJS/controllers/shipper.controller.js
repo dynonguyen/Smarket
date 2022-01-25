@@ -1,4 +1,5 @@
 const shipperApi = require('../apis/shipper.api');
+const userApi = require('../apis/user.api');
 const { PAGE_SIZE } = require('../constants/index.constant');
 const {
   formatCurrency,
@@ -46,18 +47,48 @@ exports.getOrderInfo = async (req, res) => {
   }
 };
 
-
 exports.getProfile = async (req, res) => {
   try {
-    const account = (await shipperApi.getAccount(req.session.user.username))?.data;
+    const account = (await shipperApi.getAccount(req.session.user.username))
+      ?.data;
     const user = (await shipperApi.getUser(account.accountId))?.data;
     const shipper = (await shipperApi.getShipper(user.userId))?.data;
     return res.render('shipper/profile', {
       account,
       shipper,
-      user
-    })
+      user,
+    });
   } catch (error) {
     return res.render('404');
   }
-}
+};
+
+exports.getDeliveryRequest = async (req, res) => {
+  try {
+    const account = await shipperApi.getAccount(req.session.user.username);
+    const user = await shipperApi.getUser(account?.data?.accountId || -1);
+    const shipper = await shipperApi.getShipper(user.data?.userId);
+    const order = (
+      await shipperApi.getShippingRequest(shipper.data?.shipperId || -1)
+    ).data;
+
+    return res.render('./shipper/request.pug', {
+      order,
+      helpers: {
+        formatCurrency,
+        convertOrderStatus,
+        formatDate,
+      },
+    });
+  } catch (error) {
+    console.error('Function getDeliveryRequest Error: ', error);
+    return res.render('./shipper/request.pug', {
+      order: null,
+      helpers: {
+        formatCurrency,
+        convertOrderStatus,
+        formatDate,
+      },
+    });
+  }
+};

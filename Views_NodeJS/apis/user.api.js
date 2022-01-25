@@ -54,7 +54,7 @@ const userApi = {
   },
 
   createPayment: (payment) => {
-    return axiosCSharp.post(`/customer/order/payment-create`, payment)
+    return axiosCSharp.post(`/customer/order/payment-create`, payment);
   },
 
   getAccount: (username) => {
@@ -62,12 +62,12 @@ const userApi = {
   },
 
   getOrders: (customerId) => {
-    return axiosCSharp.get(`/customer/order/history/${customerId}`)
+    return axiosCSharp.get(`/customer/order/history/${customerId}`);
   },
 
   createOrderDetail: (detail) => {
     return axiosCSharp.post(`/customer/order/detail-create`, detail);
-  }
+  },
 };
 
 module.exports = userApi;
