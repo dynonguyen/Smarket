@@ -78,7 +78,7 @@ exports.getExecuteOrder = async (req, res) => {
     const user = (await userApi.getUserByUsername(req.session.user.username))
       ?.data;
     const customer = (await userApi.getCustomerInfo(user.userId))?.data;
-    const { orders, addressStatus, receive, payment, deliveryDate } = req.body;
+    const { orders, addressStatus, receive, payment, deliveryDate, bankAccount } = req.body;
     const createDate = new Date().toLocaleString();
     let DeliveryAddress = user.address;
     let ReceiverName = user.name;
@@ -105,6 +105,16 @@ exports.getExecuteOrder = async (req, res) => {
       };
       const result = (await userApi.createOrder(entity))?.data;
       const requestShipper = await userApi.getShipperRequest(result.orderId);
+      const paymentEntity = {
+        OrderId: result.orderId,
+        CustomerId: customer.customerId,
+        BankAccountNumber: bankAccount.slice(bankAccount.length - 3) || bankAccount,
+        PaymentMethod: payment,
+        ShippingMoney: order.shipCost,
+        TotalMoney: order.total,
+        PaymentTime: createDate,
+      }
+      const paymentResult = await userApi.createPayment(paymentEntity);
     }
     return res.send('Success');
   } catch (error) {

@@ -55,5 +55,11 @@ namespace API_.NET.Controllers.Customer
         {
             return DAO_CusOrder.CreateOrder(order);
         }
+
+        [HttpPost("payment-create")]
+        public bool CreatePayment([FromBody] Payment payment)
+        {
+            return DAO_CusOrder.CreatePayment(payment);
+        }
     }
 }

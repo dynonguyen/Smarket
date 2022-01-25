@@ -92,6 +92,7 @@ async function purchase() {
   let payment = 1;
   let addressStatus;
   let receive = 'abc';
+  let bankAccount = 'cod';
   const deliveryDate = $('#delivery-date').val();
   if($('#original').is(':checked')) {
     addressStatus = 0
@@ -105,6 +106,7 @@ async function purchase() {
   }
   if($('#online').is(':checked')) {
     payment = 0;
+    bankAccount = $('#bank-account').val();
   } 
   $.ajax({
     type: 'POST',
@@ -114,7 +116,8 @@ async function purchase() {
       payment,
       addressStatus,
       receive,
-      deliveryDate
+      deliveryDate,
+      bankAccount
     },
     async: false,
     error: function(error) {
@@ -149,11 +152,48 @@ function redirect(status) {
 $(document).ready(function(){
   getOrders();
   renderPurchase();
+
+  $('#online').on('click', function(){
+    if($('#cod').is(':checked')) {
+      $('#bank-account-area').empty();
+    }
+    if($('#online').is(':checked')) {
+      $('#bank-account-area').html(`
+        <label class="mr-2" for="bank-account">Thông tin thẻ thanh toán</label>
+        <input class="mb-2 border" id="bank-account" type="text" />
+      `)
+    }
+  })
+  $('#cod').on('click', function(){
+    if($('#cod').is(':checked')) {
+      $('#bank-account-area').empty();
+    }
+    if($('#online').is(':checked')) {
+      $('#bank-account-area').html(`
+        <label class="mr-2" for="bank-account">Thông tin thẻ thanh toán</label>
+        <input class="mb-2 border" id="bank-account" type="text" />
+      `)
+    }
+  })
   $('#get-order').click(function(e) {
     if($('#delivery-date').val() === '') {
       alert('Vui lòng điền thời gian nhận hàng');
       e.preventDefault();
       return;
+    }
+    if($('#new-address').is(':checked')) {
+      if($('#receive-name').val() === '' || $('#receive-phone').val() === '' || $('#receive-address').val() === '' ) {
+        alert('Vui lòng điền đầy đủ thông tin nhận hàng');
+        e.preventDefault();
+        return;
+      }
+    }
+    if($('#online').is(':checked')) {
+      if($('#bank-account').val() === '') {
+        alert('Vui lòng điền đầy đủ thông tin thanh toán');
+        e.preventDefault();
+        return;
+      }
     }
     purchase();
     redirect(purchaseStatus);

@@ -52,6 +52,10 @@ const userApi = {
       `/customer/order/detail/products-of-order/${orderId}`
     );
   },
+
+  createPayment: (payment) => {
+    return axiosCSharp.post(`/customer/order/payment-create`, payment)
+  }
 };
 
 module.exports = userApi;
