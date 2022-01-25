@@ -1,5 +1,5 @@
 extends ../templates/admin.template.pug
-include ../mixins/get-server-variables.pug
+
 
 block title 
   title Smarket | Thông tin đơn hàng
@@ -64,12 +64,12 @@ block addContent
           .card-body.p-4
           if data && data.length > 0
           each orderDetail in data 
-            - const { productName, storeName,storeAddress,unitPrice, quantity  } = orderDetail;
+            - const { productName, storeName,storeAddress,unitPrice, quantity, imageSource  } = orderDetail;
             .card.shadow-0.border.mb-4
               .card-body
                 .row
                   .col-md-2
-                    img.img-fluid(src='https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Products/13.webp' alt='Phone')
+                    img.img-fluid(src=`${imageSource}` alt='Phone')
                   .col-md-2.text-center.d-flex.justify-content-center.align-items-center
                     p.text-muted.mb-0 #{productName}
                   .col-md-2.text-center.d-flex.justify-content-center.align-items-center
@@ -90,8 +90,8 @@ block addContent
                 span.fw-bold.me-4 Phí vận chuyển: 
                 |  Free   
       hr
-      a.btn.btn-warning(href='order?page=2' data-abc='true')
+      .btn.btn-warning#back
         i.fa.fa-chevron-left
         |  Quay lại quản lý đơn hàng
 block addScript
-  script(src="/js/admin/order.js") 
+  script(src="/js/admin/order-detail.js") 
