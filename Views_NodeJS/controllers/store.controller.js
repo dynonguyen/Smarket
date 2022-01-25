@@ -128,3 +128,41 @@ exports.sendOrders = async (req, res) => {
     return res.status(400).send([]);
   }
 }
+
+exports.getFeedback = async (req, res) => {
+  try {
+    let feedbacks = (await storeApi.getFeedback())?.data;
+    const account = (await storeApi.getAccount(req.session.user.username))?.data;
+    feedbacks = feedbacks.sort((item1, item2) => {
+      return item2.feedbackId - item1.feedbackId;
+    })
+    return res.render('store/feedback', {
+      helpers: {
+        formatDate,
+      },
+      feedbacks,
+      account,
+
+    })
+  } catch (error) {
+    return res.render('404');
+  }
+}
+
+exports.postFeedback = async (req, res) => {
+  try {
+    const {content} = req.body;
+    const createDate = new Date().toLocaleString();
+    const user = (await storeApi.getStoreByUsername(req.session.user.username))?.data;
+    const store = (await storeApi.getBasicInfo(user.userId))?.data;
+    const feedback = {
+      StoreId: store.storeId,
+      Content: content,
+      FeedbackTime: createDate
+    }
+    const result = (await storeApi.postFeedback(feedback))?.data;
+    return res.status(200).send('Success')
+  } catch (error) {
+    return res.status(400).send('fail');
+  }
+}

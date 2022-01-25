@@ -31,6 +31,14 @@ const storeApi = {
 
   getOrders: (storeId) => {
     return axiosCSharp.get(`${BASE_URL}/order/history/${storeId}`);
+  },
+
+  getFeedback: () => {
+    return axiosCSharp.get(`/common/feedback/store`);
+  },
+
+  postFeedback: (feedback) => {
+    return axiosCSharp.post(`/common/feedback/store`, feedback);
   }
 };
 

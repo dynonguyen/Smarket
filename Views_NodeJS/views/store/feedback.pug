@@ -1,0 +1,31 @@
+extends ../templates/store.template.pug
+
+block title 
+  title Phản hồi hệ thống
+  link(rel="stylesheet", href="/css/store/feedback.css")
+block addContent 
+  .p-4.flex-grow-1
+    input#feedback.my-2.border.rounded(type="text", placeholder="Phản hồi của cửa hàng")
+    #submit.btn.btn-success.ml-3 Gửi phản hồi
+    table.table.table-striped.bg-white.text-center.rounded
+      thead.thead-dark
+        tr
+          th(scope="col") Mã feedback
+          th(scope="col") Thời gian
+          th(scope="col") Nội dung
+          th(scope="col") Cửa hàng
+      tbody
+        if feedbacks && feedbacks.length > 0
+          each feedback in feedbacks 
+            - const { storeId, content, feedbackTime, feedbackId} = feedback;
+            tr
+              td= feedbackId
+              td= helpers.formatDate(feedbackTime)
+              td(style="word-break: break-all;")= content
+              td= storeId
+        else 
+          tr 
+            td.text-center.py-4.text-gray(colspan="6") Không tìm thấy phản hồi nào 
+block addScript
+
+  script(src="/js/store/feedback.js") 
