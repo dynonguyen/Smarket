@@ -10,4 +10,6 @@ import api.java.entities.Payment;
 @Repository
 public interface PaymentRepository extends JpaRepository<Payment, Integer> {
     List<Payment> findAll();
+
+    Payment findByOrderId(int orderId);
 }

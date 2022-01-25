@@ -81,16 +81,20 @@ block addContent
                   .col-md-2.text-center.d-flex.justify-content-center.align-items-center
                     p.text-muted.mb-0.small #{helpers.formatCurrency(unitPrice)}
                 hr.mb-4(style='background-color: #e0e0e0; opacity: 1;')
-          .d-flex.justify-content-between.pt-2
-            p.text-muted.mb-0
-              span.fw-bold.me-4 Tổng tiền: 
-              |  #{helpers.formatCurrency(orderTotal)}
-          .d-flex.justify-content-between.mb-5
-              p.text-muted.mb-0
-                span.fw-bold.me-4 Phí vận chuyển: 
-                |  Free   
+          .item.pt-2
+            p.text-title Tạm tính
+            p #{helpers.formatCurrency(orderTotal)}
+          .item
+            p.text-title Phí vận chuyển
+            if shippingMoney && shippingMoney > 0
+              p #{helpers.formatCurrency(shippingMoney)}
+            else 
+              | 0 VNĐ
+          .item.mb-5
+            p.text-title Tổng tiền
+            p #{helpers.formatCurrency(orderTotal - shippingMoney)}
       hr
-      .btn.btn-warning#back
+      a(href="/admin/management/order").btn.btn-warning#back
         i.fa.fa-chevron-left
         |  Quay lại quản lý đơn hàng
 block addScript

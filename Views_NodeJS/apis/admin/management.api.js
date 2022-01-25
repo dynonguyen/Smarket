@@ -11,6 +11,10 @@ const managementApi = {
     return axiosJava.get(`${BASE_URL}/orderDetail?oid=${oid}`);
   },
 
+  getShippingMoney: (orderId) => {
+    return axiosJava.get(`${BASE_URL}/order/shipping-money?orderId=${orderId}`);
+  },
+
   getAcount: (page, type) => {
     return axiosJava.get(`${BASE_URL}/account?userType=${type}&page=${page}`);
   },
@@ -36,8 +40,10 @@ const managementApi = {
   },
 
   getThumbnail: (productId) => {
-    return axiosJava.get(`${BASE_URL}/order/detail/image?productId=${productId}`);
-  }
+    return axiosJava.get(
+      `${BASE_URL}/order/detail/image?productId=${productId}`
+    );
+  },
 };
 
 module.exports = managementApi;

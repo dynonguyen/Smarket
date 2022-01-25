@@ -110,6 +110,8 @@ exports.getOrderDetail = async (req, res) => {
   try {
     const { oid = 1 } = req.query;
     const resApi = (await managementApi.getOrderDetail(oid)).data;
+    const shippingMoney =
+      (await managementApi.getShippingMoney(oid)).data || [];
     const createDate = resApi.createDate;
     const receiverName = resApi.cusName;
     const receiverPhone = resApi.cusPhone;
@@ -132,6 +134,7 @@ exports.getOrderDetail = async (req, res) => {
       status,
       data,
       orderTotal,
+      shippingMoney,
       helpers: {
         formatCurrency,
         convertOrderStatus,
@@ -139,7 +142,7 @@ exports.getOrderDetail = async (req, res) => {
       },
     });
   } catch (error) {
-    console.error('Function getRegionStatistic Error: ', error);
+    console.error('Function getOrderDetail Error: ', error);
     return res.render('404');
   }
 };
@@ -148,7 +151,10 @@ exports.getAccountWaiting = async (req, res) => {
   try {
     const page = req.query.page || 1;
     const type = req.query.type || 2;
-    const accountsRes = await managementApi.getStoreAndShipperAccept(type, page);
+    const accountsRes = await managementApi.getStoreAndShipperAccept(
+      type,
+      page
+    );
     const accounts = accountsRes.data;
     const total = accounts.total;
     const pageSize = accounts.pageSize;
@@ -164,9 +170,9 @@ exports.getAccountWaiting = async (req, res) => {
       },
     });
   } catch (error) {
-    return res.render('404')
+    return res.render('404');
   }
-}
+};
 
 exports.getStore = async (req, res) => {
   try {

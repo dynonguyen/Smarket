@@ -19,9 +19,11 @@ import api.java.entities.AppUser;
 import api.java.entities.CusOrder;
 import api.java.entities.ProductImage;
 import api.java.entities.Shipper;
+import api.java.entities.Payment;
 import api.java.repositories.AccountRepository;
 import api.java.repositories.AppUserRepository;
 import api.java.repositories.CusOrderRepository;
+import api.java.repositories.PaymentRepository;
 import api.java.repositories.ProductImageRepository;
 import api.java.repositories.ShipperRepository;
 import api.java.repositories.StoreRepository;
@@ -54,6 +56,9 @@ public class ManageApi {
 
     @Autowired
     private ProductImageRepository productImageRepository;
+
+    @Autowired
+    private PaymentRepository cPaymentRepository;
 
     @GetMapping(path = "/order")
     public PaginationDto<CusOrder> getOrderInfor(@RequestParam(name = "p", defaultValue = "1") int page) {
@@ -95,6 +100,12 @@ public class ManageApi {
         result.setData(listOrder);
 
         return result;
+    }
+
+    @GetMapping(path = "/order/shipping-money")
+    public int getShippingMoney(@RequestParam int orderId) {
+        Payment p = cPaymentRepository.findByOrderId(orderId);
+        return p.getShippingMoney();
     }
 
     @GetMapping(path = "/account")
@@ -150,7 +161,7 @@ public class ManageApi {
         try {
             List<ProductImage> images = productImageRepository.findAllByProductId(productId);
             for (ProductImage productImage : images) {
-                if(productImage.getIsThumbnail() == true) {
+                if (productImage.getIsThumbnail() == true) {
                     return productImage;
                 }
             }
