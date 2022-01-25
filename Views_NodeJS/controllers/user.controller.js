@@ -181,11 +181,18 @@ exports.getProfile = async (req, res) => {
 
 exports.getHistory = async (req, res) => {
   try {
-    const user = (await userApi.getUserByUsername(req.session.user.username))
-    ?.data;
+    const user = (await userApi.getUserByUsername(req.session.user.username))?.data;
     const customer = (await userApi.getCustomerInfo(user.userId))?.data;
-    const orders = (await userApi.getOrders(customer.customerId))?.data;
-
+    let orders = (await userApi.getOrders(customer.customerId))?.data;
+    orders = orders.sort((item1, item2) => {
+      return item2.orderId - item1.orderId;
+    })
+    orders = orders.map(item => {
+      return {
+        ...item,
+        status: convertOrderStatus(item.orderStatus),
+      }
+    })
     return res.render('user/history',{
       title: 'Đơn hàng đã mua',
       helpers: {
