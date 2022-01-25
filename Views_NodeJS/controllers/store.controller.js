@@ -59,6 +59,6 @@ exports.getProfile = async (req, res) => {
       store: user,
     })
   } catch (error) {
-    
+    return res.render('404');
   }
 }

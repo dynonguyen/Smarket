@@ -12,7 +12,13 @@ import org.springframework.web.bind.annotation.RestController;
 import api.java.dto.OrderDetailInfoDto;
 import api.java.dto.OrderHistoryDto;
 import api.java.dto.PaginationDto;
+import api.java.entities.Account;
+import api.java.entities.AppUser;
+import api.java.entities.Shipper;
+import api.java.repositories.AccountRepository;
+import api.java.repositories.AppUserRepository;
 import api.java.repositories.CusOrderRepository;
+import api.java.repositories.ShipperRepository;
 import api.java.services.shipper.ShipperService;
 
 @RestController
@@ -23,6 +29,15 @@ public class ShipperApi {
 
     @Autowired
     private CusOrderRepository cOrderRepository;
+
+    @Autowired
+    private AccountRepository accountRepository;
+
+    @Autowired
+    private AppUserRepository appUserRepository;
+
+    @Autowired
+    private ShipperRepository shipperRepository;
 
     @GetMapping(path = "/order-info/{orderId}")
     public List<OrderDetailInfoDto> getOrderInfo(@PathVariable int orderId) {
@@ -52,5 +67,20 @@ public class ShipperApi {
     public String updateOrderStatus(@RequestParam(defaultValue = "0") int status, 
             @RequestParam(defaultValue = "0") int orderId) {
         return shipperService.updateOrderStatus(status, orderId);
+    }
+
+    @GetMapping(path = "/account")
+    public Account getShipperAccount(@RequestParam String username) {
+        return accountRepository.findByUsername(username);
+    }
+
+    @GetMapping(path = "/user")
+    public AppUser getShipperUser(@RequestParam int accountId) {
+        return appUserRepository.findByAccountId(accountId);
+    }
+
+    @GetMapping(path = "/shipper")
+    public Shipper getShipper(@RequestParam int userId) {
+        return shipperRepository.findByUserId(userId);
     }
 }

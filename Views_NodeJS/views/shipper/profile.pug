@@ -1,0 +1,52 @@
+extends ../templates/shipper.template.pug
+
+block title 
+  title Thông tin shipper
+
+block addContent 
+  .row.mt-4.bg-light.py-3.px-2.justify-content-md-center.mx-auto.col-md-9
+    .col.col-md-3
+      img.w-100(src=`${user.avatar || "https://bootdey.com/img/Content/avatar/avatar7.png"}`)
+      .mt-3
+        p.text-secondary.mb-1 Username: #{account.username}
+    .col.col-md-9 
+      .form-group 
+        .card.mb-3
+          .card-body             
+            .row
+              .col-sm-3
+                h6.mb-0 Họ tên
+              .col-sm-9.text-secondary= user.name
+            hr
+            .row
+              .col-sm-3
+                h6.mb-0 Mã tài khoản
+              #accountId.col-sm-9.text-secondary= user.userId                 
+            hr
+            .row
+              .col-sm-3
+                h6.mb-0 Email
+              .col-sm-9.text-secondary= account.email
+            hr
+            .row
+              .col-sm-3
+                h6.mb-0 Số điện thoại
+              .col-sm-9.text-secondary= user.phone
+            hr
+            .row
+              .col-sm-3
+                h6.mb-0 CCCD/CMND
+              .col-sm-9.text-secondary= user.peopleId
+            hr
+            .row
+              .col-sm-3
+                h6.mb-0 Địa chỉ
+              .col-sm-9.text-secondary= user.address     
+
+    .col-md-12.rounded
+      .card.text-center
+        h6.mx-4.my-4.font-weight-bold Chứng nhận tiêm chủng
+        img.rounded.certificate(src=`${shipper.shipperLicense}`, alt="Chứng nhận tiêm chủng")
+block addScript
+  script(src="/vendors/pagination.min.js") 
+  script(src="/js/pagination.js") 
