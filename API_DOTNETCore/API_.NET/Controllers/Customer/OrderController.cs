@@ -9,7 +9,7 @@ namespace API_.NET.Controllers.Customer
 {
     [Route("api/customer/[controller]")]
     [ApiController]
-    [Authorize(Roles = "ROLE_CUSTOMER")]
+    // [Authorize(Roles = "ROLE_CUSTOMER")]
     public class OrderController : ControllerBase
     {
         [HttpPost("cancel/{orderId}")]
@@ -78,6 +78,13 @@ namespace API_.NET.Controllers.Customer
             {
                 return false;
             }
+        }
+
+        [HttpGet("shipping-money/{orderId}")]
+        public int getShippingMoney(int orderId)
+        {
+            Payment paymentInfo = DAO_CusOrder.GetShippingMoney(orderId);
+            return paymentInfo.ShippingMoney;
         }
     }
 }

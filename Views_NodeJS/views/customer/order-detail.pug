@@ -1,109 +1,128 @@
-extends ../templates/admin.template.pug
+extends ../templates/general.template.pug
 include ../mixins/get-server-variables.pug
+include ../mixins/navbar.mixin.pug
+include ../mixins/footer.mixin.pug
+include ../mixins/scroll-top.mixin.pug
 
-block title 
-  title Smarket | Thông tin đơn hàng
-
-block addStyle
+block append style
   link(rel="stylesheet", href="/vendors/selectize/selectize.min.css")
-  link(rel="stylesheet", href="/css/customer/order-detail.css")
+  link(rel="stylesheet", href="/css/home.css")
+  link(rel="stylesheet",href="/css/user/order-detail.css")
+  
 
-block addContent 
- .container
-  article.card
-    header.card-header
-     h2.font-weight-bold Chi tiết đơn hàng
-    .card-body
-     if resOrderDetail
-      - const status = resOrderDetail.orderStatus;    
-      h5 Mã đơn hàng: #{resOrderDetail.orderCode}
-      article.card
-        .card-body.row
-          .col
-            strong Ngày lập
-            br
-            | #{helpers.formatDate(resOrderDetail.createDate)} 
-          .col
-            strong Thông tin người nhận
-            br
-            |  #{resOrderDetail.receiverName}, | 
-            i.bi.bi-telephone-fill
-            |  #{resOrderDetail.receiverPhone}
-          .col
-            strong Tên cửa hàng
-            br
-            |  #{resOrderDetail.storeName}
-          .col
-            strong Tên người vận chuyển
-            br
-            |  #{resOrderDetail.shipperName}
-          .col
-            strong Thời gian nhận hàng 
-            br
-            if resOrderDetail.deliveryDate
-            |  #{helpers.formatDate(resOrderDetail.deliveryDate)}
-      hr
-      h3 Theo dõi đơn hàng
-      .track
-        .step(class={active: status>=1})
-          span.icon
-            i.bi.bi-check
-          span.text Shipper đã nhận
-        .step(class={active: status>=2})
-          span.icon
-            i.bi.bi-person-fill
-          span.text  Đã đóng gói
-        .step(class={active: status>=3})
-          span.icon
-            i.bi.bi-truck 
-          span.text  Đang giao hàng
-        .step(class={active: status>=4})
-          span.icon
-            i.bi.bi-archive-fill
-          span.text Đã giao hàng
-        .step(class={active: status>=5})
-          span.icon
-            i.bi.bi-credit-card-fill
-          span.text Đã thanh toán
-      hr
-      h3 Danh sách sản phẩm
-      table.table
-        thead
-         tr
-            th(scope='col') Hình ảnh
-            th(scope='col') Tên sản phẩm
-            th(scope='col') Đơn giá
-            th(scope='col') Số lượng
-            th(scope='col') Tổng tiền
-        tbody
-         if resProducts && resProducts.length > 0
-         each orderDetail in resProducts
-          - const { source, productName,unitPrice,quantity} = orderDetail;
-          - const { formatCurrency, formatDate } = helpers;
-            tr
-                td
+block content
+  .page-container
+    section.content-wrap
+      +navbar
+      .navbar-break
+      article.card 
+        header.card-header
+         h3.font-weight-bold Chi tiết đơn hàng
+        .card-body 
+         if resOrderDetail 
+          -const status = resOrderDetail.orderStatus;
+          h5 Mã đơn hàng: #{resOrderDetail.orderCode}
+          article.card 
+           .card-body.row 
+            .col 
+             strong Ngày lập 
+             br
+             | #{helpers.formatDate(resOrderDetail.createDate)}
+            .col 
+             strong Thông tin người nhận
+             br
+             |  #{resOrderDetail.receiverName}, |
+             i.bi.bi-telephone-fill
+             |  #{resOrderDetail.receiverPhone}
+            .col 
+             strong Tên cửa hàng 
+             br
+             |  #{resOrderDetail.storeName}
+            .col
+             strong Tên người vận chuyển
+             br
+             |  #{resOrderDetail.shipperName}
+            .col 
+             strong Thời gian nhận hàng
+             br
+             if resOrderDetail.deliveryDate
+             |  #{helpers.formatDate(resOrderDetail.deliveryDate)}
+          hr
+          h3 Theo dõi đơn hàng
+          .track 
+            .step(class={active: status>= 1})
+              span.icon 
+               i.bi.bi-check
+              span.text Shipper đã nhận 
+            .step(class={active: status>= 2}) 
+              span.icon 
+               i.bi.bi-person-fill 
+              span.text Đã đóng gói
+            .step(class={active: status >= 3})
+              span.icon 
+               i.bi.bi-truck 
+              span.text Đang giao hàng
+            .step(class={active: status >= 4})
+              span.icon 
+               i.bi.bi-archive-fill 
+              span.text Đã giao hàng
+            .step(class={active: status >= 5})
+              span.icon 
+               i.bi.bi-credit-card-fill 
+              span.text Đã thanh toán
+          hr
+          h3 Danh sách sản phẩm
+          table.table
+            thead
+             tr
+                th(scope='col') Hình ảnh
+                th(scope='col') Tên sản phẩm
+                th(scope='col') Đơn giá
+                th(scope='col') Số lượng
+                th(scope='col') Tổng tiền
+            tbody 
+             if resProducts && resProducts.length > 0
+             each orderDetail in resProducts 
+              - const { source, productName,unitPrice,quantity} = orderDetail;
+              - const { formatCurrency, formatDate } = helpers;
+                tr 
+                  td 
                     img(src=source, alt="imageProduct",width="100")
-                td= productName
-                td= formatCurrency(unitPrice)
-                td= quantity
-                td= formatCurrency(unitPrice * quantity)
-      hr
-      .bill-container.text-gray.font-weight-bold
-       div.item
-        div Tạm tính:
-        div.item-fee #{helpers.formatCurrency(orderTotal)} 
-       div.item
-        div Phí vận chuyển:
-        if shipFee && shipFee >0
-         div.item-fee #{helpers.formatCurrency(shipFee)}
-        else
-         div.item-fee 0 VNĐ
-       div.item
-        div Tổng tiền:
-        if shipFee && shipFee > 0 
-         div.item-fee #{helpers.formatCurrency(orderTotal-shipFee)}
-        else 
-         div.item-fee #{helpers.formatCurrency(orderTotal)}
+                  td= productName
+                  td= formatCurrency(unitPrice)
+                  td= quantity
+                  td= formatCurrency(unitPrice * quantity)
+          hr
+          .bill-container.text-gray.font-weight-bold
+            .item 
+              div Tạm tính: 
+              div.item-fee #{helpers.formatCurrency(orderTotal)}
+            .item 
+              div Phí vận chuyển 
+              if shippingMoney && shippingMoney > 0
+                div.item-fee #{helpers.formatCurrency(shippingMoney)}
+              else 
+                div.item-fee 0 VNĐ
+            .item 
+              div Tổng tiền
+              if shippingMoney && shippingMoney > 0
+                div.item-fee #{helpers.formatCurrency(orderTotal-shippingMoney)}
+              else
+                div.item-fee #{helpers.formatCurrency(orderTotal)}
+          a(href="/user/history")
+            button.btn.btn-primary 
+              span.mr-3 <i class="bi bi-arrow-left-circle-fill"></i>
+              span Quản lý đơn hàng              
+               
 
-block addScript
-  script(src="/js/admin/order.js") 
+            
+
+block append script 
+
+
+  script(src="/vendors/selectize/selectize.min.js")
+  +getServerVarScript
+  script(src="/vendors/pagination.min.js") 
+  script(src="/js/navbar.js") 
+  script(type="text/javascript", src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js")
+  script(src="/js/user/history.js") 

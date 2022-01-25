@@ -68,6 +68,9 @@ const userApi = {
   createOrderDetail: (detail) => {
     return axiosCSharp.post(`/customer/order/detail-create`, detail);
   },
+  getShippingMoney: (orderId) => {
+    return axiosCSharp.get(`/customer/order/shipping-money/${orderId}`);
+  },
 };
 
 module.exports = userApi;

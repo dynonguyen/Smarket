@@ -145,5 +145,22 @@ namespace API_.NET.DAO.Customer
                 return false;
             }
         }
+
+        public static Payment GetShippingMoney(int orderId)
+        {
+            try
+            {
+                using (var context = new SmarketContext())
+                {
+                    return context.Payment.Where(p => p.OrderId == orderId).FirstOrDefault();
+
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex);
+                return null;
+            }
+        }
     }
 }
