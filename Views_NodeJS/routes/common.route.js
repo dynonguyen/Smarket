@@ -11,8 +11,8 @@ commonRoute.get('/product/:productId', commonController.getProductPage);
 
 commonRoute.get('/categories/:groupId', commonController.productEachType);
 commonRoute.get(
-    '/categories/:groupId/view-more',
-    commonController.viewMoreProducts
+  '/categories/:groupId/view-more',
+  commonController.viewMoreProducts
 );
 commonRoute.get('/categories/:groupId/sort', commonController.sortProducts);
 
@@ -27,8 +27,10 @@ commonRoute.get('/purchase', commonController.getCartPurchase);
 
 commonRoute.get('/product-by-region', commonController.getProductsByRegion);
 commonRoute.get(
-    '/product-by-region/more',
-    commonController.moreProductsByRegion
+  '/product-by-region/more',
+  commonController.moreProductsByRegion
 );
+
+commonRoute.get('/contract', (req, res) => res.render('contract'));
 
 module.exports = commonRoute;

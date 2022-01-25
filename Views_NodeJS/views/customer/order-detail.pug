@@ -34,6 +34,10 @@ block addContent
             br
             |  #{resOrderDetail.storeName}
           .col
+            strong Tên người vận chuyển
+            br
+            |  #{resOrderDetail.shipperName}
+          .col
             strong Thời gian nhận hàng 
             br
             if resOrderDetail.deliveryDate

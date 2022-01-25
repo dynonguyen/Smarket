@@ -10,12 +10,12 @@ exports.getProductByStore = async (req, res) => {
   const { page = 1 } = req.query;
 
   try {
-    const account = (await storeApi.getAccount(req.session.user.username))?.data
-      .username;
+    const account = (await storeApi.getAccount(req.session.user.username)).data
+      ?.username;
 
-    const userId = (await storeApi.getStoreByUsername(account))?.data.userId;
+    const userId = (await storeApi.getStoreByUsername(account)).data?.userId;
 
-    const storeId = (await storeApi.getBasicInfo(userId))?.data.storeId;
+    const storeId = (await storeApi.getBasicInfo(userId)).data?.storeId;
 
     const productRes = (
       await storeApi.getProductByStore(storeId, page, PAGE_SIZE)

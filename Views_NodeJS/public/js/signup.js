@@ -105,7 +105,7 @@ $(document).ready(async function () {
 						<div class="form-group"> <label class="form-control-label" for="ward">PHƯỜNG/XÃ</label><select class="custom-select form-select" id="ward" name="ward">
 								<option id="option-clear" value="1">Phường/Xã</option>
 							</select></div>
-						<div><a id="contract" href="#">Nội dung cam kết</a></div>
+						<div><a id="contract" href="/common/contract" target="_blank">Nội dung cam kết</a></div>
 						<div class="form-check constract mt-3"><input class="form-check-input mt-2"  id="check" type="checkbox" /><label class="form-check-label form-control-label" for="check">Đồng ý với cam kết trên </label></div>
 					</div>
 				`);
@@ -131,7 +131,7 @@ $(document).ready(async function () {
 					<div class="form-group"><label class="form-control-label" for="ward">PHƯỜNG?XÃ</label><select class="custom-select form-select" id="ward" name="ward">
 							<option id="option-clear" value="1">Phường/Xã</option>
 						</select></div>
-					<div class="text-center"><a id="contract" href="#">Nội dung cam kết</a></div>
+					<div class="text-center"><a id="contract" href="/common/contract" target="_blank>Nội dung cam kết</a></div>
 					<div class="form-check constract mt-3"><input class="form-check-input mt-2" id="check" type="checkbox" /><label class="form-check-label form-control-label" for="check">Đồng ý với cam kết</label></div>
 				</div>
 				`);
@@ -162,7 +162,7 @@ $(document).ready(async function () {
 							<option id="option-clear" value="0">Phường/Xã</option>
 						</select></div>
 					<div class="form-group"><label class="form-control-label" for="address">ĐỊA CHỈ CỤ THỂ</label><input class="form-control" id="address" type="text" name="address" maxlength="1000" /></div>
-					<div><a id="contract" href="#">Nội dung cam kết</a></div>
+					<div><a id="contract" href="/common/contract" target="_blank>Nội dung cam kết</a></div>
 					<div class="form-check constract mt-3"><input class="form-check-input mt-2" id="check" type="checkbox" /><label class="form-check-label form-control-label" for="check">Đồng ý với cam kết</label></div>
 				</div>
 				`);
