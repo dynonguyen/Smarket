@@ -107,5 +107,4 @@ public class QueryUtil {
 	public static String updateOrderStatus(int status, int orderId) {
 		return String.format("Update CusOrder Set orderStatus = %d Where orderId = %d", status, orderId);
 	}
-
 }

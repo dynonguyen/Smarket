@@ -20,4 +20,5 @@ public interface ShipperRepository extends JpaRepository<Shipper, Integer> {
     @Modifying
     @Query("UPDATE Shipper SET status=:status WHERE shipperId=:shipperId")
     public void updateStatus(@Param("status") int status, @Param("shipperId") int shipperId);
+
 }

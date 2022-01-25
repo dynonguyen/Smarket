@@ -14,6 +14,7 @@ import api.java.dto.OrderHistoryDto;
 import api.java.dto.PaginationDto;
 import api.java.entities.Account;
 import api.java.entities.AppUser;
+import api.java.entities.CusOrder;
 import api.java.entities.Shipper;
 import api.java.repositories.AccountRepository;
 import api.java.repositories.AppUserRepository;
@@ -64,7 +65,7 @@ public class ShipperApi {
     }
 
     @GetMapping(path = "/order/change-status")
-    public String updateOrderStatus(@RequestParam(defaultValue = "0") int status, 
+    public String updateOrderStatus(@RequestParam(defaultValue = "0") int status,
             @RequestParam(defaultValue = "0") int orderId) {
         return shipperService.updateOrderStatus(status, orderId);
     }
@@ -82,5 +83,10 @@ public class ShipperApi {
     @GetMapping(path = "/shipper")
     public Shipper getShipper(@RequestParam int userId) {
         return shipperRepository.findByUserId(userId);
+    }
+
+    @GetMapping(path = "/request/{shipperId}")
+    public CusOrder getDeliveryRequest(@PathVariable int shipperId) {
+        return cOrderRepository.findByShipperId(shipperId).get(0);
     }
 }
