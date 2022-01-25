@@ -46,3 +46,19 @@ exports.getProductDetailById = async (req, res) => {
     return res.render('404');
   }
 };
+
+
+exports.getProfile = async (req, res) => {
+  try {
+    const user = (await storeApi.getStoreByUsername(req.session.user.username))?.data;
+    const store = (await storeApi.getBasicInfo(user.userId))?.data;
+    const account = (await storeApi.getAccount(req.session.user.username))?.data;
+    return res.render('store/profile', {
+      user: store,
+      account,
+      store: user,
+    })
+  } catch (error) {
+    
+  }
+}

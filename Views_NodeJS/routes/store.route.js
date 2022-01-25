@@ -8,4 +8,6 @@ storeRoute.get(
   storeController.getProductDetailById
 );
 
+storeRoute.get('/profile', storeController.getProfile);
+
 module.exports = storeRoute;

@@ -194,6 +194,21 @@ namespace API_.NET.DAO.Common
                 return null;
             }
         }
+
+        public static DTO_Stores GetBasicStoreInfoByUserId(int userId) 
+        {
+            try 
+            {
+                using(var context = new SmarketContext()) 
+                {
+                    return context.Stores.FromSql(Utils_Queries.GetBasicStoreInformationByUserId(userId)).FirstOrDefault();
+                }
+            }
+            catch 
+            {
+                return null;
+            }
+        }
     }
 
 }
