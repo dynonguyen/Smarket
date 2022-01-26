@@ -1,0 +1,16 @@
+extends ../templates/store.template.pug
+
+block title 
+  title Thêm hàng hóa 
+  link(rel="stylesheet", href="/css/store/import.css")
+block addContent 
+  .p-4.flex-grow-1
+    form(action="/store/product-import", enctype='multipart/form-data', method="POST")
+      .form-group
+        label(for='file') File danh sách hàng hóa
+        input#file.form-control.border(type='file' accept='.csv' name='product')
+      button.btn.btn-success#submit(type="submit") Thêm hàng hóa
+
+block addScript
+
+  script(src="/js/store/import.js") 

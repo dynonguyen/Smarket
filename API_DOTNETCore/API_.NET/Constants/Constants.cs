@@ -55,7 +55,7 @@
 
         public enum SHIPPER_STATUS
         {
-            BUSY = 0,
+            BUSY = 2,
             READY = 1
         }
     }

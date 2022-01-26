@@ -7,6 +7,8 @@ const {
 } = require('../helpers/index.helper');
 const constants = require('../constants/index.constant');
 const cloudinary = require('../configs/cloudinary.config');
+const csv = require('csv-parser');
+const fs = require('fs');
 
 exports.getProductByStore = async (req, res) => {
   const { page = 1 } = req.query;
@@ -127,6 +129,79 @@ exports.addProduct = async (req, res) => {
     return res.render('404');
   }
 };
+
+exports.getImport = async (req, res) => {
+  try {
+    const account = (await storeApi.getAccount(req.session.user.username))?.data;
+    return res.render('store/import',{
+      account,
+    });
+  } catch (error) {
+    return res.render('404');
+  }
+}
+
+exports.importProduct = async (req, res) => {
+  const user = (await storeApi.getStoreByUsername(req.session.user.username))
+      ?.data;
+  const account = (await storeApi.getAccount(req.session.user.username))?.data;
+  const store = (await storeApi.getBasicInfo(user.userId))?.data;
+  try {
+    fs.createReadStream(req.file.path)
+    .pipe(csv())
+    .on('data',async function(data){
+        try {
+            const entity = {
+              ProductName: data.ProductName,
+              StoreId: store.storeId,
+              ProductTypeId: data.ProductTypeId,
+              ProductDes: data.ProductDes,
+              UnitPrice: data.UnitPrice,
+              Unit: data.Unit,
+              QuantitativeUnit: data.QuantitativeUnit,
+              ProductRating: 5,
+              Source: data.Source,
+              Certificate: data.Certificate
+            }
+            const product = (await storeApi.postProduct(entity))?.data;
+            const thumbnail = {
+              ProductId: product.productId,
+              IsThumbnail: 1,
+              Source: data.Thumbnail
+            }
+            const resultThumb = (await storeApi.postProductImage(thumbnail))?.data;
+            for (const item of data.Images.split(';')) {
+              const image = {
+                ProductId: product.productId,
+                IsThumbnail: 0,
+                Source: item
+              }
+              const resultImage= (await storeApi.postProductImage(image))?.data;
+            }
+        }
+        catch(err) {
+          console.log(err);
+          return res.render('store/import', {
+            account,
+            msg: 'Thêm không thành công'
+          })
+        }
+    })
+    .on('end',function(){
+        //some final operation
+    }); 
+    return res.render('store/import',{
+      account,
+      msg: 'Thêm thành công'
+    })
+  } catch (error) {
+    console.log(error);
+    return res.render('store/import', {
+      account,
+      msg: 'Thêm không thành công'
+    })
+  }
+}
 
 exports.getOrders = async (req, res) => {
   try {

@@ -71,5 +71,41 @@ namespace API_.NET.Controllers.Customer
         {
             return DAO_Store.GetStoreByUsername(username);
         }
+
+        [HttpPost("product/import")]
+        public Product PostProduct([FromBody] Product product)
+        {
+            try
+            {
+                using(var context = new SmarketContext())
+                {
+                    context.Product.Add(product);
+                    context.SaveChanges();
+                    return context.Product.Where(s => s.ProductName == product.ProductName).Where(s => s.UnitPrice == product.UnitPrice).FirstOrDefault();
+                }
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        [HttpPost("product/import/images")]
+        public bool PostProductImage([FromBody] ProductImage image)
+        {
+            try
+            {
+                using(var context = new SmarketContext())
+                {
+                    context.ProductImage.Add(image);
+                    context.SaveChanges();
+                    return true;
+                }
+            }
+            catch
+            {
+                return false;              
+            }
+        }
     }
 }

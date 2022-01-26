@@ -111,7 +111,10 @@ exports.getExecuteOrder = async (req, res) => {
         CreateDate: createDate,
       };
       const result = (await userApi.createOrder(entity))?.data;
-      const requestShipper = await userApi.getShipperRequest(result.orderId);
+      const requestShipper = (await userApi.getShipperRequest(result.orderId))?.data;
+      if(!requestShipper) {
+        break;
+      }
       const paymentEntity = {
         OrderId: result.orderId,
         CustomerId: customer.customerId,

@@ -62,6 +62,14 @@ const storeApi = {
   postFeedback: (feedback) => {
     return axiosCSharp.post(`/common/feedback/store`, feedback);
   },
+
+  postProduct: (product) => {
+    return axiosCSharp.post(`/common/store/product/import`, product);
+  },
+
+  postProductImage: (image) => {
+    return axiosCSharp.post(`/common/store/product/import/images`, image);
+  }
 };
 
 module.exports = storeApi;

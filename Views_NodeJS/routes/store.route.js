@@ -1,7 +1,6 @@
 const storeRoute = require('express').Router();
 const storeController = require('../controllers/store.controller');
 const upload = require('../configs/multer.config');
-
 const cpUpload = upload.fields([
   {
     name: 'certificate',
@@ -16,6 +15,9 @@ storeRoute.get(
 );
 storeRoute.get('/product-add', storeController.getAddProductPage);
 storeRoute.post('/product-add', cpUpload, storeController.addProduct);
+
+storeRoute.get('/product-import', storeController.getImport);
+storeRoute.post('/product-import', upload.single('product'), storeController.importProduct);
 
 storeRoute.get('/profile', storeController.getProfile);
 
