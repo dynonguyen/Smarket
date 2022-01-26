@@ -99,7 +99,7 @@ exports.getExecuteOrder = async (req, res) => {
       const orderCode = crypto.randomBytes(10).toString('hex').toUpperCase();
       const entity = {
         CustomerId: customer.customerId,
-        ShipperId: 1,
+        ShipperId: 0,
         StoreId: parseInt(order.storeId),
         OrderCode: orderCode,
         OrderStatus: 0,
