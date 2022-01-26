@@ -7,8 +7,11 @@ const {
 } = require('../helpers/index.helper');
 const constants = require('../constants/index.constant');
 const cloudinary = require('../configs/cloudinary.config');
+
 const csv = require('csv-parser');
 const fs = require('fs');
+const commonApi = require('../apis/common.api');
+
 
 exports.getProductByStore = async (req, res) => {
   const { page = 1 } = req.query;
@@ -67,9 +70,11 @@ exports.getProductDetailById = async (req, res) => {
 exports.getAddProductPage = async (req, res) => {
   try {
     const CATEGORIES = constants.GROUP_TYPES;
+    const ProductTypeList =
+      (await commonApi.getProductTypeList()).data || CATEGORIES;
     const account = await storeApi.getAccount(req.session.user.username);
     return res.render('./store/product-add.pug', {
-      CATEGORIES,
+      ProductTypeList,
       account,
     });
   } catch (error) {
@@ -96,12 +101,19 @@ exports.getProfile = async (req, res) => {
 
 exports.addProduct = async (req, res) => {
   try {
+    let msg;
+    let error;
+    const CATEGORIES = constants.GROUP_TYPES;
+    const ProductTypeList =
+      (await commonApi.getProductTypeList()).data || CATEGORIES;
+    const account = await storeApi.getAccount(req.session.user.username);
     const data = req.body;
     const username = req.session.user.username;
     const resApi = (await storeApi.getCurrentStoreId(username)).data || [];
     const storeId = resApi.storeId;
     const uploader = async (path) =>
       await cloudinary.uploads(path, 'Certificate');
+
     let certificate;
     if (req.files.certificate) {
       certificate = await uploader(req.files.certificate[0].path);
@@ -123,7 +135,57 @@ exports.addProduct = async (req, res) => {
       Certificate: certificate.url,
     };
     const productId = (await storeApi.addProduct(product)).data || [];
-    return res.redirect('/store/product-list');
+    if (productId) {
+      const uploadImage = async (path) =>
+        await cloudinary.uploads(path, 'Images');
+      let cover;
+      if (req.files.cover) {
+        cover = await uploadImage(req.files.cover[0].path);
+      } else {
+        cover = {
+          url: ' ',
+        };
+      }
+
+      const ProductImage = {
+        ProductId: productId,
+        isThumbnail: 1,
+        Source: cover.url,
+      };
+
+      const productImageInserted = await storeApi.addProductImage(ProductImage);
+      if (!productImageInserted) error = 'Đăng thông tin thất bại';
+      let imgProduct;
+      if (req.files.gallery) {
+        for (var x in req.files.gallery) {
+          imgProduct = await uploadImage(req.files.gallery[x].path);
+          let ProductImageGallery = {
+            ProductId: productId,
+            isThumbnail: 0,
+            Source: imgProduct.url,
+          };
+          const insertImage = await storeApi.addProductImage(
+            ProductImageGallery
+          );
+          if (insertImage) {
+            msg = 'Đăng thông tin sản phẩm thành công';
+          } else {
+            error = 'Đăng thông tin sản phẩm thất bại';
+          }
+        }
+      } else {
+        error = 'Đăng thông tin sản phẩm thất bại';
+      }
+    } else {
+      error = 'Đăng thông tin sản phẩm thất bại';
+    }
+
+    return res.render('./store/product-add.pug', {
+      ProductTypeList,
+      account,
+      msg,
+      error,
+    });
   } catch (error) {
     console.log('Function addProduct Error', error);
     return res.render('404');

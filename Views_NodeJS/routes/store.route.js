@@ -5,6 +5,12 @@ const cpUpload = upload.fields([
   {
     name: 'certificate',
   },
+  {
+    name: 'cover',
+  },
+  {
+    name: 'gallery',
+  },
 ]);
 
 storeRoute.get('/', (req, res) => res.redirect('/store/product-list'));

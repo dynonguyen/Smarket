@@ -119,6 +119,25 @@ namespace API_.NET.DAO
             }
 
         }
+        public static List<ProductType> getProductTypeList()
+        {
+            try
+            {
+                using (var context = new SmarketContext())
+                {
+                    var sqlResult = context.ProductType.FromSql(Utils_Queries.GetProductTypeList());
+                    return sqlResult.ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Console.WriteLine(ex.ToString());
+                return new List<ProductType>();
+            }
+
+        }
+
+
         public static List<Store> GetNearestStore(int provinceId, int districtId, int wardId)
         {
             try

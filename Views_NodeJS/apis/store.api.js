@@ -24,6 +24,10 @@ const storeApi = {
   addProduct: (data) => {
     return axiosCSharp.post(`${BASE_URL}/product/add`, data);
   },
+
+  addProductImage: (data) => {
+    return axiosCSharp.post(`${BASE_URL}/product/image-add`, data);
+  },
   getStoreByUsername: (username) => {
     return axiosCSharp.get(
       `${BASE_URL}/self/info-by-username?username=${username}`

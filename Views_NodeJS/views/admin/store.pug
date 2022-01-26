@@ -16,18 +16,18 @@ block addContent
           th(scope="col") Mã cửa hàng
           th(scope="col") Tên cửa hàng
           th(scope="col") Loại cửa hàng
-          th(scope="col") Khu vực
+          th(scope="col") Địa chỉ
           th(scope="col") Trạng thái
           th(scope="col") Xem chi tiết
       tbody
         if storeList && storeList.length > 0
           each store in storeList 
-            - const { accountId, storeId, name, storeType, area, status } = store;
+            - const { accountId, storeId, name, storeType, address, status } = store;
             tr
               td= storeId
               td= name
               td= storeType
-              td= helpers.convertAreas(area)
+              td= address
               td= helpers.convertStoreStatus(status)
               td
                 a.btn.btn-success(href=`/admin/management/account/detail?id=${accountId}`) Chi tiết
