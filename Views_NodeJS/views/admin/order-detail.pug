@@ -92,7 +92,7 @@ block addContent
               | 0 VNĐ
           .item.mb-5
             p.text-title Tổng tiền
-            p #{helpers.formatCurrency(orderTotal - shippingMoney)}
+            p #{helpers.formatCurrency(orderTotal + shippingMoney)}
       hr
       a(href="/admin/management/order").btn.btn-warning#back
         i.fa.fa-chevron-left

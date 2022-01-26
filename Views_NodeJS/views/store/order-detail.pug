@@ -101,7 +101,7 @@ block addContent
             .item 
               div Tổng tiền
               if shippingMoney && shippingMoney > 0
-                div.item-fee #{helpers.formatCurrency(orderTotal-shippingMoney)}
+                div.item-fee #{helpers.formatCurrency(orderTotal + shippingMoney)}
               else
                 div.item-fee #{helpers.formatCurrency(orderTotal)}
           a(href="/store/order")

@@ -15,7 +15,7 @@ block content
     section.content-wrap
       +navbar
       .navbar-break
-      article.card 
+      article.card
         header.card-header
          h3.font-weight-bold Chi tiết đơn hàng
         .card-body 
@@ -106,7 +106,7 @@ block content
             .item 
               div Tổng tiền
               if shippingMoney && shippingMoney > 0
-                div.item-fee #{helpers.formatCurrency(orderTotal-shippingMoney)}
+                div.item-fee #{helpers.formatCurrency(orderTotal + shippingMoney)}
               else
                 div.item-fee #{helpers.formatCurrency(orderTotal)}
           a(href="/user/history")

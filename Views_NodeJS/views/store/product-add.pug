@@ -52,7 +52,8 @@ block addContent
       .form-group.item
         label(for="gallery") * Ảnh sản phẩm
         input#cover.form-control(type="file", name="gallery" multiple)
-      .form-group.submit
+      .form-group.submit.d-flex.justify-content-around
+        a.btn.btn-success(href="/store/product-import") Thêm bằng file
         button(type="submit") Đăng sản phẩm
     
      

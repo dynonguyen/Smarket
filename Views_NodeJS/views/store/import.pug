@@ -9,6 +9,11 @@ block addContent
       .form-group
         label(for='file') File danh sách hàng hóa
         input#file.form-control.border(type='file' accept='.csv' name='product')
+      if msg
+        if status
+          .alert.alert-success= msg
+        else 
+          .alert.alert-danger= msg
       button.btn.btn-success#submit(type="submit") Thêm hàng hóa
 
 block addScript

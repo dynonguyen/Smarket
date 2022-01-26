@@ -325,7 +325,7 @@ exports.getCartPage = (req, res) => {
 
 exports.getProductForCart = async (req, res) => {
   try {
-    const product = (await commonApi.getProductForCart(req.query.id)).data;
+    const product = (await commonApi.getProductForCart(req.query.id))?.data;
     return res.send(product);
   } catch (error) {
     return null;

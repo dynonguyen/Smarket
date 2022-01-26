@@ -29,7 +29,7 @@ storeRoute.get('/profile', storeController.getProfile);
 
 storeRoute.get('/order', storeController.getOrders);
 storeRoute.get('/order/:orderId', storeController.getOrderDetail);
-storeRoute.get('/order/list', storeController.sendOrders);
+storeRoute.get('/order-list', storeController.sendOrders);
 
 storeRoute.get('/feedback', storeController.getFeedback);
 storeRoute.post('/feedback', storeController.postFeedback);

@@ -42,7 +42,18 @@ function showToastMsg(toast, message = 'Message', type = '', timeout = 3000) {
     }
   }
 }
+function cloudinaryOptimize(src = '', option = '') {
+  if (!option) {
+    return src;
+  }
 
+  const isCloudinary = src.includes('res.cloudinary.com');
+  if (!isCloudinary) {
+    return src;
+  }
+  const separator = 'image/upload';
+  return src.replace(separator, separator + '/' + option);
+};
 // auto register when DOM loaded
 $(document).ready(function () {
   // Hide toast message

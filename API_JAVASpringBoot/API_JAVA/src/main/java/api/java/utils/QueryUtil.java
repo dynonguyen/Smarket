@@ -31,7 +31,7 @@ public class QueryUtil {
 	public static String getRevenueAndIncomeQuery(int year) {
 		return "SELECT o.orderId, o.orderCode, o.orderTotal, p.shippingMoney, p.totalMoney,p.paymentTime"
 				+ " FROM CusOrder o,Payment p"
-				+ String.format(" WHERE o.orderId = p.orderId and orderStatus = 6 and YEAR(p.paymentTime) = %d", year);
+				+ String.format(" WHERE o.orderId = p.orderId and orderStatus = 5 and YEAR(p.paymentTime) = %d", year);
 	}
 
 	public static String getProductDemand() {

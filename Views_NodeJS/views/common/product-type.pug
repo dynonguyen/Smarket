@@ -41,7 +41,7 @@ block content
           each product in products
             - const { productId, productName, unitPrice, quantitativeUnit, thumbnail } = product;
             .my-2.mx-2
-              +productCard(productId, productName, helpers.cloudinaryOptimize(thumbnail), helpers.formatCurrency(unitPrice), quantitativeUnit)
+              +productCard(productId, productName, helpers.cloudinaryOptimize(thumbnail, "w_350"), helpers.formatCurrency(unitPrice), quantitativeUnit)
       if products && products.length > 0
         .row.justify-content-md-center.my-3
           #view-more.btn.btn-primary Xem thêm sản phẩm

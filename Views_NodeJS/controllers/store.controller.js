@@ -254,6 +254,7 @@ exports.importProduct = async (req, res) => {
     }); 
     return res.render('store/import',{
       account,
+      status: 1,
       msg: 'Thêm thành công'
     })
   } catch (error) {

@@ -25,7 +25,7 @@ convertArrayOfObjectsToCSV = args => {
 }
 
 downloadCSV = async args => {
-  const Data = await $.get( `/store/order/list`);
+  const Data = await $.get( `${window.origin}/store/order-list`) || [];
   let csv = convertArrayOfObjectsToCSV({
     data: Data
   });
