@@ -12,6 +12,10 @@ block addContent
  .container
     .basic-info 
      h5.font-weight-bold Thông tin cơ bản
+     if msg
+      .alert.alert-success.text-center #{msg}
+     if error
+      .alert.alert-danger.text-center #{error}
      form(action="/store/product-add", enctype="multipart/form-data",method="POST" ).basic-info-form
       .form-group.item
         label(for="name") * Tên sản phẩm
@@ -23,10 +27,10 @@ block addContent
         label(for="category") * Danh mục sản phẩm
         select#category(name="category")
          option(value="",disabled,hidden,selected) Lựa chọn danh mục sản phẩm
-         if CATEGORIES && CATEGORIES.length > 0
-          each category in CATEGORIES
-           - const {label,id} = category
-           option(value=`${id}`,)= label
+         if ProductTypeList && ProductTypeList.length > 0
+          each types in ProductTypeList
+           - const {productTypeId,productTypeName} = types
+           option(value=`${productTypeId}`,)= productTypeName
       .form-group.item
         label(for="unitPrice") * Đơn giá
         input#unitPrice(type="text", name="unitPrice")
@@ -42,6 +46,12 @@ block addContent
       .form-group.item
         label(for="certificate") * Chứng nhận an toàn
         input#certificate.form-control(type="file", name="certificate")
+      .form-group.item
+        label(for="corver") * Ảnh bìa
+        input#cover.form-control(type="file", name="cover")
+      .form-group.item
+        label(for="gallery") * Ảnh sản phẩm
+        input#cover.form-control(type="file", name="gallery" multiple)
       .form-group.submit
         button(type="submit") Đăng sản phẩm
     

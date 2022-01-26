@@ -145,5 +145,11 @@ namespace API_.NET.Controllers.Common
             return DAO.DAO_Common.GetProductsByNearestStore(storeId);
         }
 
+        [HttpGet("type/list")]
+        public List<ProductType> getProductTypeList()
+        {
+            return DAO.DAO_Common.getProductTypeList();
+        }
+
     }
 }
